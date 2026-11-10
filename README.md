@@ -1,18 +1,21 @@
 # Baba Ahmed El Bekay — Portfolio
 
-A bespoke, static portfolio for network security, cloud infrastructure and automation.
+An evidence-led portfolio for network security, cloud infrastructure and automation.
 
-## Design system
-- Deep graphite surfaces with acid-lime signal accents and restrained periwinkle/orange details.
-- Editorial typography using Space Grotesk, Manrope and DM Mono, with system fallbacks.
-- Original SVG illustrations for the network topology, project case studies, monogram favicon and social preview.
+## Included
+- Editorial, responsive portfolio layout with lightweight interaction and image lightbox.
+- NetSec Agent: recorded demo linked from the project's README and embedded in its case study.
+- NetOps Sentinel: original GNS3 topology, connectivity test capture, router configuration screenshots and endpoint capture.
+- Six original evidence files copied into `assets/evidence/` from the public NetOps Sentinel repository.
+- No fabricated application screenshots or invented runtime metrics.
 
-## Structure
-- `index.html` — responsive single-page portfolio.
-- `assets/` — original, lightweight SVG artwork.
+## Verified project scope
+NetOps Sentinel documents three FRRouting routers, five switches, five endpoint LANs, seven IP networks, read-only reachability checks, JSON evidence and seven reported passing unit tests. The documented baseline uses static routing; OSPF and production monitoring are not claimed as implemented.
+
+NetSec Agent currently documents Nmap host discovery, TCP port scanning, service-version detection, a Streamlit interface and AI-assisted explanations. Scan scope is limited to approved private IPv4 subnets of at most 256 addresses.
 
 ## Run locally
-Open `index.html` in a browser or serve the directory with any static file server. No build step or JavaScript framework is required.
+Open `index.html` in a browser or serve this directory with any static file server. No build step is required.
 
 ## Deployment
-Configured for static deployment on Vercel.
+Designed for static deployment on Vercel.
