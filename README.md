@@ -1,21 +1,36 @@
 # Baba Ahmed El Bekay — Portfolio
 
-An evidence-led portfolio for network security, cloud infrastructure and automation.
+A premium, responsive Next.js portfolio for network security, cloud infrastructure and automation.
 
-## Included
-- Editorial, responsive portfolio layout with lightweight interaction and image lightbox.
-- NetSec Agent: recorded demo linked from the project's README and embedded in its case study.
-- NetOps Sentinel: original GNS3 topology, connectivity test capture, router configuration screenshots and endpoint capture.
-- Six original evidence files copied into `assets/evidence/` from the public NetOps Sentinel repository.
-- No fabricated application screenshots or invented runtime metrics.
+## Stack
+- Next.js App Router + React + TypeScript
+- Framer Motion for restrained interface motion
+- Lucide icons
+- Vercel Web Analytics
 
-## Verified project scope
-NetOps Sentinel documents three FRRouting routers, five switches, five endpoint LANs, seven IP networks, read-only reachability checks, JSON evidence and seven reported passing unit tests. The documented baseline uses static routing; OSPF and production monitoring are not claimed as implemented.
+## Local development
+```bash
+npm install
+npm run dev
+```
 
-NetSec Agent currently documents Nmap host discovery, TCP port scanning, service-version detection, a Streamlit interface and AI-assisted explanations. Scan scope is limited to approved private IPv4 subnets of at most 256 addresses.
+Open http://localhost:3000.
 
-## Run locally
-Open `index.html` in a browser or serve this directory with any static file server. No build step is required.
+## Production build
+```bash
+npm run lint
+npm run build
+npm run start
+```
 
 ## Deployment
-Designed for static deployment on Vercel.
+Connected to Vercel project `baba-ahmed-portfolio`. Pushes to the production branch deploy to Vercel; pull requests receive preview deployments when enabled.
+
+Vercel Analytics is mounted in `app/layout.tsx` using `<Analytics />`. Enable Web Analytics in the Vercel project dashboard to view traffic.
+
+## Project scope and evidence
+- **NetSec Agent:** Nmap host discovery, TCP port scanning, service-version detection, Streamlit interface and AI-assisted explanations. Scan scope is limited to approved private IPv4 subnets of at most 256 addresses.
+- **NetOps Sentinel:** GNS3 lab with three FRRouting routers, five switches and five endpoint LANs. Python validates structured inventory, runs read-only reachability checks and records JSON evidence. The documented baseline uses static routing; OSPF and production monitoring are not claimed as implemented.
+- Original screenshots and diagrams are retained under `public/assets`.
+
+No fabricated performance metrics or project outcomes are presented.
