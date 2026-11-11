@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowDownRight, ArrowUpRight, Activity, Github, Linkedin, Mail, Menu, Network,
-  ShieldCheck, Terminal, Globe2, Cpu, Fingerprint, Radio, LockKeyhole, MoveUpRight
+  ShieldCheck, Terminal, X, Globe2, Cpu, Fingerprint, Radio, LockKeyhole, MoveUpRight
 } from "lucide-react";
 
 const projects = [
