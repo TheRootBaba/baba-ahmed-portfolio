@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowDownRight, ArrowUpRight, Activity, Github, Linkedin, Mail, Menu, Network,
-  ShieldCheck, Terminal, X, Globe2, Cpu, Fingerprint, Radio, LockKeyhole, MoveUpRight
+  ShieldCheck, Terminal, Globe2, Cpu, Fingerprint, Radio, LockKeyhole, MoveUpRight
 } from "lucide-react";
 
 const projects = [
@@ -70,7 +70,6 @@ export default function Portfolio() {
   const [scrolled, setScrolled] = useState(false);
   const [cursorActive, setCursorActive] = useState(false);
   const [pointer, setPointer] = useState({ x: -100, y: -100 });
-  const [activeImage, setActiveImage] = useState<string | null>(null);
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const progress = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
@@ -148,7 +147,7 @@ export default function Portfolio() {
           <p>Real systems, deliberate constraints, documented outcomes. A small selection of projects where the process matters as much as the result.</p>
         </motion.div>
         <div className="bento-grid">
-          {projects.map((project, index) => <motion.article key={project.number} className={`project-card ${project.size}`} initial="hidden" whileInView="visible" viewport={{once:true, amount:.12}} variants={rise} whileHover={reduced ? undefined : { y: -5 }} transition={{duration:.3}}>
+          {projects.map((project) => <motion.article key={project.number} className={`project-card ${project.size}`} initial="hidden" whileInView="visible" viewport={{once:true, amount:.12}} variants={rise} whileHover={reduced ? undefined : { y: -5 }} transition={{duration:.3}}>
             <div className="project-visual">
               {project.visual === "agent" ? <><Image src={project.image} alt={project.alt} fill sizes="(max-width: 800px) 100vw, 65vw" className="project-art-image"/><div className="agent-overlay"><div className="scan-frame"><span/><span/><span/><span/></div><div className="scan-readout"><b>DISCOVERY ENGINE</b><span>HOST / SERVICE / SIGNAL</span><span className="readout-line"/><span>SCAN MODE <strong>CONTROLLED</strong></span></div></div></> :
                 <><Image src={project.image} alt={project.alt} fill sizes="(max-width: 800px) 100vw, 45vw" className="project-art-image topology-image"/><div className="topology-stamp"><Network size={15}/> LAB TOPOLOGY / GNS3</div></>}
@@ -207,7 +206,7 @@ export default function Portfolio() {
 
       <footer className="site-footer"><a className="footer-brand" href="#top" {...hoverProps}>BA<span>.</span></a><span>© 2026 BABA AHMED EL BEKAY</span><div className="footer-links"><a href="https://github.com/TheRootBaba" target="_blank" rel="noreferrer" {...hoverProps}>GITHUB <ArrowUpRight size={13}/></a><a href="https://www.linkedin.com/in/babaahmedelbekay/" target="_blank" rel="noreferrer" {...hoverProps}>LINKEDIN <ArrowUpRight size={13}/></a><a href="mailto:babaahmed3409@gmail.com" {...hoverProps}>EMAIL <ArrowUpRight size={13}/></a></div><a className="back-top" href="#top" {...hoverProps}>BACK TO TOP ↑</a></footer>
 
-      <AnimatePresence>{activeImage && <motion.div className="lightbox" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onClick={()=>setActiveImage(null)} role="dialog" aria-modal="true" aria-label="Evidence image preview"><button className="lightbox-close" onClick={()=>setActiveImage(null)} aria-label="Close preview"><X/></button><motion.div className="lightbox-image" initial={{scale:.96}} animate={{scale:1}} exit={{scale:.96}} onClick={e=>e.stopPropagation()}><Image src={activeImage} alt="Expanded project evidence" fill sizes="95vw"/></motion.div></motion.div>}</AnimatePresence>
+
     </main>
   );
 }
