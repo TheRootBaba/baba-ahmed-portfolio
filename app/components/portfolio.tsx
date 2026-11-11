@@ -72,7 +72,7 @@ export default function Portfolio() {
   const [pointer, setPointer] = useState({ x: -100, y: -100 });
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll();
-  const progress = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const progress = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
