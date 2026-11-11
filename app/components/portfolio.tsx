@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
-  ArrowDown, ArrowRight, ArrowUpRight, Activity, Github, Linkedin,
+  ArrowDown, ArrowUpRight, Activity, Github, Linkedin,
   Mail, Menu, Network, ShieldCheck, Terminal, X, Globe2, Cpu,
   Play, Fingerprint, ChevronDown
 } from "lucide-react";
