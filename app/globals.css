@@ -240,6 +240,7 @@
 .education-period span{padding:4px 7px;border-radius:2px;background:#eff6f0;color:#54725d;font-size:7px}
 .education-card h3{font:600 23px var(--display);letter-spacing:-.04em;margin:15px 0 4px}
 .education-school{font-size:12px;font-weight:600;color:#45574a;margin:0}
+.mifitt-logo{display:inline-block;width:34px;height:34px;object-fit:contain;vertical-align:middle;margin-right:10px;border-radius:3px}
 .education-description{font-size:12px;line-height:1.8;color:var(--muted);max-width:650px;margin:13px 0 0}
 .education-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}
 .education-tags span{padding:5px 8px;border:1px solid var(--line);border-radius:3px;color:#59685d;font:8px var(--mono)}
