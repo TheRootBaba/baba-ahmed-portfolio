@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import * as simpleIcons from "simple-icons";
 import ScrollExperience from "@/app/components/scroll-experience";
 import { ArrowDownRight, ArrowRight, ArrowUpRight, BookOpen, Github, Globe2, GraduationCap, Linkedin, Mail, MapPin, Menu, Network, ShieldCheck, Terminal, X } from "lucide-react";
 
@@ -23,24 +24,24 @@ const credentials = [
 ];
 
 function CredentialMark({brands}:{brands:string[]}) {
-  const logos:Record<string,{src:string;fallback:string;alt:string}> = {
-    microsoft:{src:"https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/microsoft.svg",fallback:"https://unpkg.com/simple-icons@16.37.0/icons/microsoft.svg",alt:"Microsoft"},
-    oracle:{src:"https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/oracle.svg",fallback:"https://unpkg.com/simple-icons@16.37.0/icons/oracle.svg",alt:"Oracle"},
-    fortinet:{src:"https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/fortinet.svg",fallback:"https://unpkg.com/simple-icons@16.37.0/icons/fortinet.svg",alt:"Fortinet"},
-    hackerrank:{src:"https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/hackerrank.svg",fallback:"https://unpkg.com/simple-icons@16.37.0/icons/hackerrank.svg",alt:"HackerRank"},
-    cisco:{src:"https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/cisco.svg",fallback:"https://unpkg.com/simple-icons@16.37.0/icons/cisco.svg",alt:"Cisco"},
-    coursera:{src:"https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/coursera.svg",fallback:"https://unpkg.com/simple-icons@16.37.0/icons/coursera.svg",alt:"Coursera"},
-    linuxfoundation:{src:"https://www.linuxfoundation.org/hubfs/lf-stacked-color.svg",fallback:"https://www.linuxfoundation.org/hubfs/lf-stacked-color.svg",alt:"The Linux Foundation"},
-    macquarie:{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Macquarie_University_Masterbrand_%E2%80%93_Vertical_configuration.svg",fallback:"https://commons.wikimedia.org/wiki/Special:FilePath/Macquarie_University_Masterbrand_%E2%80%93_Vertical_configuration.svg",alt:"Macquarie University"}
+  const localMarks:Record<string,{title:string;hex:string;path:string}> = {
+    microsoft:simpleIcons.siMicrosoft,
+    oracle:simpleIcons.siOracle,
+    fortinet:simpleIcons.siFortinet,
+    hackerrank:simpleIcons.siHackerrank,
+    cisco:simpleIcons.siCisco,
+    coursera:simpleIcons.siCoursera
+  };
+  const hostedMarks:Record<string,{src:string;alt:string}> = {
+    linuxfoundation:{src:"https://www.linuxfoundation.org/hubfs/lf-stacked-color.svg",alt:"The Linux Foundation"},
+    macquarie:{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Macquarie_University_Masterbrand_%E2%80%93_Vertical_configuration.svg",alt:"Macquarie University"}
   };
   return <span className="credential-mark">{brands.map(brand=>{
-    const logo=logos[brand];
-    if(!logo) return null;
-    return <img key={brand} src={logo.src} data-fallback={logo.fallback} alt={logo.alt} loading="eager" onError={event=>{
-      const image=event.currentTarget;
-      const fallback=image.dataset.fallback;
-      if(fallback && image.src!==fallback) image.src=fallback;
-    }}/>;
+    const mark=localMarks[brand];
+    if(mark) return <svg key={brand} viewBox="0 0 24 24" role="img" aria-label={mark.title} className={`credential-logo credential-logo-${brand}`}><path d={mark.path} fill={`#${mark.hex}`}/></svg>;
+    const hosted=hostedMarks[brand];
+    if(!hosted) return null;
+    return <img key={brand} className="credential-logo credential-logo-hosted" src={hosted.src} alt={hosted.alt} loading="eager" onError={event=>{event.currentTarget.style.display="none";}}/>;
   })}</span>;
 }
 
@@ -96,7 +97,7 @@ export default function Portfolio() {
     <section className="journey-section section-space" id="journey"><div className="shell">
       <div className="section-heading"><div><p className="section-index">03 / EDUCATION</p><h2>Education</h2></div><p className="section-description">My education in science and network security.</p></div>
       <div className="education-timeline">
-        <article className="education-card current"><div className="education-icon"><GraduationCap size={20}/></div><div className="education-period">2025 — PRESENT <span>CURRENT STUDIES</span></div><h3>BTS in Network Security</h3><p className="education-school"><img className="mifitt-logo" src="https://lh3.googleusercontent.com/sitesv/AICyYdat3PDDJEGBZHX3LoAu5OWNEY11ltv-QP8hjqHNCjkcFmujmE-Tzp8MPbOEf-qJZFj74YBA1CurAuonT4zjjQ4Bp5g6kt18o4IK8vHHWMoNUNB-HlNrupqIg7KuNEJ4Az6vxxsN3CT2hUobdh7Ud2_Uk6nlf1WArRU=w16383" alt="MiFiTT Institute logo" loading="eager"/>MIFITT Institute</p><p className="education-description">Coursework in networking, infrastructure and security fundamentals, alongside practical labs and personal projects.</p><div className="education-tags"><span>Networking</span><span>Network defense</span><span>Infrastructure</span></div></article>
+        <article className="education-card current"><div className="education-icon"><GraduationCap size={20}/></div><div className="education-period">2025 — PRESENT <span>CURRENT STUDIES</span></div><h3>BTS in Network Security</h3><p className="education-school"><img className="mifitt-logo" src="https://lh3.googleusercontent.com/sitesv/AICyYdat3PDDJEGBZHX3LoAu5OWNEY11ltv-QP8hjqHNCjkcFmujmE-Tzp8MPbOEf-qJZFj74YBA1CurAuonT4zjjQ4Bp5g6kt18o4IK8vHHWMoNUNB-HlNrupqIg7KuNEJ4Az6vxxsN3CT2hUobdh7Ud2_Uk6nlf1WArRU=w16383" alt="MiFiTT Institute logo" loading="eager" onError={event=>{event.currentTarget.style.display="none";}}/>MIFITT Institute</p><p className="education-description">Coursework in networking, infrastructure and security fundamentals, alongside practical labs and personal projects.</p><div className="education-tags"><span>Networking</span><span>Network defense</span><span>Infrastructure</span></div></article>
         <div className="timeline-connector"><span/></div>
         <article className="education-card"><div className="education-icon"><BookOpen size={20}/></div><div className="education-period">2023 — 2024 <span>COMPLETED</span></div><h3>Baccalauréat in Science</h3><p className="education-school">Lycée d’Excellence 2</p><p className="education-description">Science studies, including mathematics and core scientific subjects.</p></article>
       </div>
