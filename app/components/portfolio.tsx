@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ScrollExperience from "@/app/components/scroll-experience";
 import { ArrowRight, ArrowUpRight, Github, Linkedin, Mail, Menu, X } from "lucide-react";
 
 const projects = [
@@ -25,6 +26,7 @@ export default function Portfolio() {
   const [menuOpen,setMenuOpen]=useState(false);
   const close=()=>setMenuOpen(false);
   return <main id="top" className="portfolio">
+    <ScrollExperience />
     <header className="site-header">
       <a className="brand" href="#top" onClick={close}><span className="brand-mark">BA<span>.</span></span><span>BABA AHMED EL BEKAY</span></a>
       <button className="menu-toggle" onClick={()=>setMenuOpen(!menuOpen)} aria-label={menuOpen?"Close menu":"Open menu"} aria-expanded={menuOpen}>{menuOpen?<X/>:<Menu/>}</button>
