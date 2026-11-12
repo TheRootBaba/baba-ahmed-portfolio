@@ -30,7 +30,7 @@ function CredentialMark({brand}:{brand:string}) {
     hackerrank:{src:"https://cdn.simpleicons.org/hackerrank",alt:"HackerRank"},
     cisco:{src:"https://cdn.simpleicons.org/cisco",alt:"Cisco"},
     linuxfoundation:{src:"https://www.linuxfoundation.org/hubfs/lf-stacked-color.svg",alt:"The Linux Foundation"},
-    macquarie:{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Macquarie_University_Masterbrand_-_Horizontal_configuration.svg",alt:"Macquarie University"}
+    macquarie:{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Macquarie_University_Masterbrand_%E2%80%93_Horizontal_configuration.svg",alt:"Macquarie University"}
   };
   const logo=logos[brand];
   return <span className="credential-mark"><img src={logo.src} alt={logo.alt} loading="lazy"/></span>;
