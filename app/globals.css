@@ -114,3 +114,25 @@
  .gallery-open{opacity:1}
 }
 @media(prefers-reduced-motion:reduce){.detail-gallery img{transition:none}.reading-progress span{will-change:auto}}
+
+
+/* High-contrast reading progress and polished scroll interactions */
+.reading-progress{height:5px;background:#e5eee8;box-shadow:0 1px 0 rgba(18,49,31,.08)}
+.reading-progress span{background:linear-gradient(90deg,#00a86b 0%,#21c982 55%,#75e5ad 100%);box-shadow:0 0 10px rgba(0,168,107,.42);position:relative}
+.reading-progress span:after{content:"";position:absolute;right:0;top:50%;width:9px;height:9px;border-radius:50%;background:#087c50;border:2px solid #fff;box-shadow:0 0 0 2px rgba(0,168,107,.22);transform:translate(50%,-50%)}
+.reading-progress-landing{z-index:120}
+.back-to-top{position:fixed;right:26px;bottom:26px;z-index:80;width:54px;height:54px;border:1px solid #b8d7c5;border-radius:50%;background:#fff;color:#087c50;box-shadow:0 8px 28px rgba(20,58,37,.14);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .22s,transform .22s,visibility .22s,background .2s,color .2s}
+.back-to-top.is-visible{opacity:1;visibility:visible;transform:translateY(0)}
+.back-to-top:hover{background:#087c50;color:#fff;border-color:#087c50}
+.back-to-top span{font:8px var(--mono);letter-spacing:0}
+.back-to-top svg{width:17px;height:17px}
+.project-card{position:relative;overflow:hidden}
+.project-card:after{content:"";position:absolute;left:0;top:0;width:3px;height:0;background:linear-gradient(180deg,#00a86b,#80dfaa);transition:height .3s}
+.project-card:hover:after{height:100%}
+.project-card-bottom>a svg{transition:transform .2s}
+.project-card-bottom>a:hover svg{transform:translate(3px,-3px)}
+.site-header{transition:box-shadow .2s}
+.hero-actions .button-primary{box-shadow:0 5px 14px rgba(40,122,88,.13);transition:transform .2s,box-shadow .2s,background .2s}
+.hero-actions .button-primary:hover{transform:translateY(-2px);box-shadow:0 9px 22px rgba(40,122,88,.2)}
+@media(max-width:600px){.back-to-top{right:16px;bottom:16px;width:48px;height:48px}}
+@media(prefers-reduced-motion:reduce){.back-to-top,.project-card:after,.project-card-bottom>a svg,.hero-actions .button-primary{transition:none}}
