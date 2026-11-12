@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import ScrollExperience from "@/app/components/scroll-experience";
 import { ArrowRight, ArrowUpRight, Github, Linkedin, Mail, Menu, X } from "lucide-react";
 
 const projects = [
   { number:"01", name:"AegisSOC", category:"SECURITY OPERATIONS PLATFORM", description:"A local-first SOC platform for collecting security telemetry, investigating alerts, enriching indicators and governing response actions.", stack:["Python","FastAPI","PostgreSQL","Docker","Wazuh"], href:"/projects/aegissoc", featured:true },
   { number:"02", name:"NetSec Agent", category:"AI-ASSISTED NETWORK SECURITY", description:"A scoped network assessment assistant that combines Nmap scans with clear, AI-assisted explanations of discovered hosts, ports and services.", stack:["Python","Nmap","Streamlit","LangGraph","MCP"], href:"/projects/netsec-agent" },
-  { number:"03", name:"NetOps Sentinel", category:"NETWORK MONITORING LAB", description:"A repeatable GNS3 lab that validates device inventories and endpoint reachability, then records results as structured JSON evidence.", stack:["Python","GNS3","FRRouting","JSON","pytest"], href:"/projects/netops-sentinel" },
+  { number:"03", name:"NetOps Sentinel", category:"NETWORK MONITORING LAB", description:"A repeatable GNS3 lab that validates device inventories and endpoint reachability, then records results as structured JSON evidence.", stack:["Python","GNS3","FRRouting","JSON","unittest"], href:"/projects/netops-sentinel" },
   { number:"04", name:"Secure Enterprise Network", category:"ENTERPRISE NETWORK DESIGN", description:"A designed and tested enterprise network using segmentation, dynamic routing, redundancy and controlled access between network zones.", stack:["VLANs","VLSM","OSPF","ACLs","HSRP","NAT"], href:"/projects/secure-enterprise-network" }
 ];
 
@@ -25,6 +26,7 @@ export default function Portfolio() {
   const [menuOpen,setMenuOpen]=useState(false);
   const close=()=>setMenuOpen(false);
   return <main id="top" className="portfolio">
+    <ScrollExperience />
     <header className="site-header">
       <a className="brand" href="#top" onClick={close}><span className="brand-mark">BA<span>.</span></span><span>BABA AHMED EL BEKAY</span></a>
       <button className="menu-toggle" onClick={()=>setMenuOpen(!menuOpen)} aria-label={menuOpen?"Close menu":"Open menu"} aria-expanded={menuOpen}>{menuOpen?<X/>:<Menu/>}</button>
