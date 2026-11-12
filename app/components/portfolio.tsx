@@ -47,7 +47,8 @@ export default function Portfolio() {
   const reveal = reduced ? false : "hidden";
 
   return (
-    <main id="top" className="portfolio">\n      <a className="skip-link" href="#main-content">Skip to content</a>
+    <main id="top" className="portfolio">
+      <a className="skip-link" href="#main-content">Skip to content</a>
       <motion.div className="reading-progress" style={{ scaleX: progress }} />
       <header className={scrolled ? "site-header is-scrolled" : "site-header"}>
         <a className="brand" href="#top" onClick={closeMenu} aria-label="Baba Ahmed home">
@@ -65,7 +66,8 @@ export default function Portfolio() {
         </button>
       </header>
 
-      <div id="main-content" tabIndex={-1}>\n      <section className="hero shell">
+      <div id="main-content" tabIndex={-1}>
+      <section className="hero shell">
         <div className="hero-meta">
           <span><i className="availability-dot" /> AVAILABLE FOR REMOTE INTERNSHIPS</span>
           <span>BA / PORTFOLIO — 2026</span>
@@ -74,10 +76,10 @@ export default function Portfolio() {
           <motion.div className="hero-copy" initial={reveal} animate="visible" variants={rise}>
             <p className="eyebrow">NETWORK SECURITY · AUTOMATION · CLOUD</p>
             <h1>Building trust<br />into <em>every</em><br /><span>connection.</span></h1>
-            <p className="hero-intro">I’m Baba Ahmed El Bekay, a network security student. I build practical security tools, test network setups in controlled labs and document what works — and what doesn’t.</p>
+            <p className="hero-intro">I’m Baba Ahmed El Bekay, a BTS Network Security student based in Nouakchott, Mauritania. I build practical security tools, investigate network behavior and work with cloud and Linux infrastructure. I’m seeking a remote internship in cybersecurity, cloud security or IT infrastructure.</p>
             <div className="hero-actions">
               <a className="button button-primary" href="#work">Explore my work <ArrowDownRight size={16} /></a>
-              <a className="text-link" href="#contact">Get in touch <ArrowUpRight size={15} /></a>
+              <a className="text-link" href="https://www.linkedin.com/in/babaahmedelbekay/" target="_blank" rel="noreferrer">Connect on LinkedIn <ArrowUpRight size={15} /></a>
             </div>
           </motion.div>
           <motion.aside className="hero-aside" initial={reveal} animate="visible" variants={{...rise, visible:{...rise.visible, transition:{...rise.visible.transition, delay:.12}}}}>
@@ -109,6 +111,24 @@ export default function Portfolio() {
         </motion.div>
 
         <div className="projects-layout">
+          <motion.article className="project-card aegis-card" initial={reveal} whileInView="visible" viewport={{once:true,amount:.12}} variants={rise}>
+            <div className="project-topline"><span>FLAGSHIP PROJECT / 00</span><span>SECURITY OPERATIONS PLATFORM</span></div>
+            <div className="project-heading-row">
+              <div><h3>AegisSOC<span>.</span></h3><p className="project-lede">A local-first security operations platform for collecting telemetry, investigating alerts and coordinating controlled response. Built around evidence, workspace boundaries and auditable workflows.</p></div>
+              <a className="round-link" href="https://github.com/TheRootBaba/AegisSOC" target="_blank" rel="noreferrer" aria-label="Open AegisSOC on GitHub"><ArrowUpRight size={20}/></a>
+            </div>
+            <div className="aegis-overview">
+              <div><b>01</b><strong>INGEST</strong><span>Normalize events from Wazuh and other sources with replay protection.</span></div>
+              <div><b>02</b><strong>INVESTIGATE</strong><span>Search events, inspect alert evidence and connect incidents to cases.</span></div>
+              <div><b>03</b><strong>DETECT</strong><span>Run deterministic detections and a documented, bounded Sigma subset.</span></div>
+              <div><b>04</b><strong>RESPOND</strong><span>Route approved actions to configured receivers with audit and idempotency controls.</span></div>
+            </div>
+            <div className="aegis-proof">
+              <div><span className="mini-label">ENGINEERING HIGHLIGHTS</span><p>FastAPI · PostgreSQL · Python · Docker Compose · Alembic · PostgreSQL RLS · Wazuh · MISP · OpenCTI</p></div>
+              <div><span className="mini-label">IMPORTANT BOUNDARY</span><p>Active engineering and lab deployment — not a certified production SIEM. Response is receiver-based; scanner imports normalize exports rather than launch scans.</p></div>
+            </div>
+            <div className="project-footer"><div className="tag-list">{["FastAPI","PostgreSQL","Python","Docker","Wazuh","Sigma"].map(tag=><span key={tag}>{tag}</span>)}</div><a href="/projects/aegissoc">Read the engineering case study <ArrowRight size={14}/></a></div>
+          </motion.article>
           <motion.article className="project-card netsec-card" initial={reveal} whileInView="visible" viewport={{once:true,amount:.12}} variants={rise}>
             <div className="project-topline"><span>FEATURED PROJECT / 01</span><span>AI-ASSISTED SECURITY TOOLING</span></div>
             <div className="project-heading-row">
@@ -191,11 +211,12 @@ export default function Portfolio() {
         <div className="shell">
           <div className="contact-top"><span>04 / START A CONVERSATION</span><span>OPEN TO OPPORTUNITIES</span></div>
           <div className="contact-main"><h2>Have a good<br /><em>challenge?</em></h2><div className="contact-copy"><p>Let’s talk about network security, an internship opportunity or a project worth building carefully.</p><a className="button button-primary" href="mailto:babaahmed3409@gmail.com">Email me <ArrowUpRight size={16}/></a></div></div>
-          <div className="contact-bottom"><span>NOUAKCHOTT, MAURITANIA</span><a href="mailto:babaahmed3409@gmail.com">BABAAHMED3409@GMAIL.COM <ArrowUpRight size={13}/></a></div>
+          <div className="contact-bottom"><span>NOUAKCHOTT, MAURITANIA</span><div className="contact-links"><a href="mailto:babaahmed3409@gmail.com">EMAIL <ArrowUpRight size={13}/></a><a href="tel:+22234092106">+222 34 09 21 06 <ArrowUpRight size={13}/></a><a href="https://www.linkedin.com/in/babaahmedelbekay/" target="_blank" rel="noreferrer">LINKEDIN <ArrowUpRight size={13}/></a></div></div>
         </div>
       </section>
 
-      </div>\n      <footer className="site-footer shell">
+      </div>
+      <footer className="site-footer shell">
         <a className="footer-brand" href="#top">BA<span>.</span></a>
         <span>© {new Date().getFullYear()} BABA AHMED EL BEKAY</span>
         <div><a href="https://github.com/TheRootBaba" target="_blank" rel="noreferrer"><Github size={14}/> GITHUB</a><a href="https://www.linkedin.com/in/babaahmedelbekay/" target="_blank" rel="noreferrer"><Linkedin size={14}/> LINKEDIN</a><a href="mailto:babaahmed3409@gmail.com"><Mail size={14}/> EMAIL</a></div>
