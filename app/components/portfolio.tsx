@@ -116,6 +116,9 @@ export default function Portfolio() {
               <div><h3>AegisSOC<span>.</span></h3><p className="project-lede">A local-first security operations platform for collecting telemetry, investigating alerts and coordinating controlled response. Built around evidence, workspace boundaries and auditable workflows.</p></div>
               <a className="round-link" href="https://github.com/TheRootBaba/AegisSOC" target="_blank" rel="noreferrer" aria-label="Open AegisSOC on GitHub"><ArrowUpRight size={20}/></a>
             </div>
+            <details className="project-details">
+              <summary>Explore workflow & product evidence <ArrowDownRight size={15}/></summary>
+              <div className="project-details-content">
             <div className="aegis-overview">
               <div><b>01</b><strong>INGEST</strong><span>Normalize events from Wazuh and other sources with replay protection.</span></div>
               <div><b>02</b><strong>INVESTIGATE</strong><span>Search events, inspect alert evidence and connect incidents to cases.</span></div>
@@ -134,6 +137,8 @@ export default function Portfolio() {
               <div><span className="mini-label">ENGINEERING HIGHLIGHTS</span><p>FastAPI · PostgreSQL · Python · Docker Compose · Alembic · PostgreSQL RLS · Wazuh · MISP · OpenCTI</p></div>
               <div><span className="mini-label">IMPORTANT BOUNDARY</span><p>Active engineering and lab deployment — not a certified production SIEM. Response is receiver-based; scanner imports normalize exports rather than launch scans.</p></div>
             </div>
+              </div>
+            </details>
             <div className="project-footer"><div className="tag-list">{["FastAPI","PostgreSQL","Python","Docker","Wazuh","Sigma"].map(tag=><span key={tag}>{tag}</span>)}</div><a href="/projects/aegissoc">Read the engineering case study <ArrowRight size={14}/></a></div>
           </motion.article>
           <motion.article className="project-card enterprise-card" initial={reveal} whileInView="visible" viewport={{once:true,amount:.12}} variants={rise}>
@@ -149,8 +154,11 @@ export default function Portfolio() {
               <div><h3>NetSec Agent<span>.</span></h3><p className="project-lede">A Python-based assistant for authorized network checks. It discovers hosts, checks ports and services, then helps interpret the results.</p></div>
               <a className="round-link" href="https://github.com/TheRootBaba/NetSEc-agent" target="_blank" rel="noreferrer" aria-label="Open NetSec Agent on GitHub"><ArrowUpRight size={20}/></a>
             </div>
+            <details className="project-details">
+              <summary>Watch project walkthrough <Play size={14}/></summary>
+              <div className="project-details-content">
             <div className="netsec-demo">
-              <div className="demo-bar"><span><i/> LIVE PROJECT WALKTHROUGH</span><span>NETSEC AGENT / DEMO</span></div>
+              <div className="demo-bar"><span><i/> PROJECT WALKTHROUGH</span><span>NETSEC AGENT / DEMO</span></div>
               <video controls playsInline preload="metadata" poster="/assets/netsec-agent.svg">
                 <source src="https://github.com/user-attachments/assets/870edb32-20fc-4f8a-aaf3-4c7679b5109c" type="video/mp4" />
                 Your browser does not support embedded video. <a href="https://github.com/user-attachments/assets/870edb32-20fc-4f8a-aaf3-4c7679b5109c">Watch the NetSec Agent demo</a>.
@@ -161,6 +169,8 @@ export default function Portfolio() {
               <p>Built with Python, Streamlit, Nmap, LangGraph, MCP and Groq. It supports host discovery, TCP port and service detection, basic risk scoring and AI-assisted explanations.</p>
               <div className="project-facts"><span><b>01</b> PRIVATE IPv4 ONLY</span><span><b>02</b> UP TO 256 ADDRESSES</span><span><b>03</b> AUTHORIZED TARGETS ONLY</span></div>
             </div>
+              </div>
+            </details>
             <div className="project-footer"><div className="tag-list">{["Python", "LangGraph", "Nmap", "MCP", "Streamlit", "Groq"].map(tag=><span key={tag}>{tag}</span>)}</div><a href="https://github.com/TheRootBaba/NetSEc-agent" target="_blank" rel="noreferrer">Explore repository <ArrowRight size={14}/></a></div>
           </motion.article>
 
@@ -168,15 +178,20 @@ export default function Portfolio() {
             <div className="project-topline"><span>PROJECT / 02</span><span>NETWORK OPERATIONS LAB</span></div>
             <h3>NetOps Sentinel<span>.</span></h3>
             <p className="project-lede">A small simulated network used to practise inventory checks and connectivity validation. Results are saved as structured JSON for review.</p>
-            <div
-              className="topology-frame netops-evidence-frame"
-              role="img"
-              aria-label="GNS3 VPCS console showing successful ping replies from the headquarters endpoint to all five network destinations"
-              style={{ backgroundImage: "url(https://raw.githubusercontent.com/TheRootBaba/netops-sentinel/main/evidence/connectivity/PAM-HQ-ALL-LAN-CONNECTIVITY.png)" }}
-            >
-              <span>LIVE LAB EVIDENCE / FIVE DESTINATIONS REACHED</span>
-            </div>
-            <div className="netops-summary"><span>5 / 5 DESTINATIONS RESPONDED</span><span>ICMP CONNECTIVITY CHECK</span><span>GNS3 · VPCS CONSOLE</span></div>
+            <details className="project-details">
+              <summary>View connectivity evidence <ArrowDownRight size={15}/></summary>
+              <div className="project-details-content">
+                <div
+                  className="topology-frame netops-evidence-frame"
+                  role="img"
+                  aria-label="GNS3 VPCS console showing successful ping replies from the headquarters endpoint to all five network destinations"
+                  style={{ backgroundImage: "url(https://raw.githubusercontent.com/TheRootBaba/netops-sentinel/main/evidence/connectivity/PAM-HQ-ALL-LAN-CONNECTIVITY.png)" }}
+                >
+                  <span>LAB EVIDENCE / FIVE DESTINATIONS REACHED</span>
+                </div>
+                <div className="netops-summary"><span>5 / 5 DESTINATIONS RESPONDED</span><span>ICMP CONNECTIVITY CHECK</span><span>GNS3 · VPCS CONSOLE</span></div>
+              </div>
+            </details>
             <div className="project-footer"><div className="tag-list">{["Python", "GNS3", "FRRouting", "JSON", "pytest"].map(tag=><span key={tag}>{tag}</span>)}</div><a href="https://github.com/TheRootBaba/netops-sentinel" target="_blank" rel="noreferrer">View lab evidence <ArrowRight size={14}/></a></div>
           </motion.article>
         </div>
