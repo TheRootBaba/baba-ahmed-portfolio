@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, ArrowUpRight, Github, ExternalLink, FileText } from "lucide-react";
 import ProjectScrollUI from "@/app/components/project-scroll-ui";
 
@@ -73,7 +74,7 @@ export default function ProjectDetail(p: ProjectDetailProps) {
           <h2>Project in practice</h2>
           <p className="detail-lede">Original project captures and walkthrough media. Each item is labelled to explain what it demonstrates.</p>
           {p.video ? <div className="detail-video"><video controls playsInline preload="none" aria-label={p.videoLabel || "Project walkthrough"}><source src={p.video} type="video/mp4"/>Your browser does not support embedded video.</video><p>{p.videoLabel || "Project walkthrough"}</p></div> : null}
-          {p.images?.length ? <div className="detail-gallery">{p.images.map((img,index)=><figure key={img.src} className={index===0?"gallery-feature":""}><a href={img.src} target="_blank" rel="noreferrer" aria-label={`Open full-size image: ${img.alt}`}><img src={img.src} alt={img.alt} loading="lazy"/><span className="gallery-open"><ExternalLink size={14}/> Open full size</span></a><figcaption><span>FIGURE {String(index+1).padStart(2,"0")}</span>{img.caption}</figcaption></figure>)}</div> : null}
+          {p.images?.length ? <div className="detail-gallery">{p.images.map((img,index)=><figure key={img.src} className={index===0?"gallery-feature":""}><a href={img.src} target="_blank" rel="noreferrer" aria-label={`Open full-size image: ${img.alt}`}><span className="gallery-image-frame"><Image src={img.src} alt={img.alt} fill sizes="(max-width: 650px) 100vw, 900px" /></span><span className="gallery-open"><ExternalLink size={14}/> Open full size</span></a><figcaption><span>FIGURE {String(index+1).padStart(2,"0")}</span>{img.caption}</figcaption></figure>)}</div> : null}
         </section> : null}
 
         <section className="detail-block detail-boundaries" id="scope">
