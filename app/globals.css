@@ -257,11 +257,9 @@
 .cert-card:hover{transform:translateY(-2px);border-color:#bfd2c3;box-shadow:0 10px 24px rgba(31,68,45,.045)}
 .cert-card-top{display:flex;align-items:center;justify-content:space-between}
 .credential-mark{min-width:52px;height:44px;display:flex;align-items:center;justify-content:flex-start;gap:9px;flex:none;background:transparent;border:0;padding:0}
-.credential-mark img{display:block;width:auto;height:auto;max-width:58px;max-height:38px;object-fit:contain;flex:none}
-.credential-mark img[alt="Microsoft"],.credential-mark img[alt="Coursera"],.credential-mark img[alt="Fortinet"],.credential-mark img[alt="HackerRank"],.credential-mark img[alt="Cisco"]{width:30px;height:30px}
-.credential-mark img[alt="Oracle"]{width:58px;height:30px}
-.credential-mark img[alt="The Linux Foundation"]{width:42px;height:38px}
-.credential-mark img[alt="Macquarie University"]{width:36px;height:38px}
+.credential-logo{display:block;width:30px;height:30px;flex:none;object-fit:contain}
+.credential-logo-oracle{width:58px;height:30px}
+.credential-logo-hosted{width:auto;max-width:58px;height:38px}
 .cert-card-top{display:flex;align-items:center;min-height:48px}
 .cert-type{font:8px var(--mono);letter-spacing:.09em;color:var(--green);margin-top:17px}
 .cert-card h3{font:600 15px/1.35 var(--display);letter-spacing:-.025em;margin:7px 0 5px;max-width:420px}
