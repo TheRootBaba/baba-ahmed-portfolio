@@ -55,6 +55,9 @@ export default function AegisSOCPage() {
           <p className="case-kicker">03 / PRODUCT EVIDENCE</p>
           <h2>Real screens from the working lab.</h2>
           <p>These captures come from the AegisSOC dashboard gallery. They illustrate the analyst workflow and lab data; they are not a claim of production deployment or release-candidate acceptance.</p>
+          <details className="project-details case-project-details">
+            <summary>Open the product screenshot gallery <ArrowUpRight size={14}/></summary>
+            <div className="project-details-content">
           <div className="case-evidence-grid">
             <figure className="case-evidence-main">
               <img src="https://raw.githubusercontent.com/TheRootBaba/AegisSOC/main/evidence/dashboard/alert-queue.png" alt="AegisSOC alert queue showing a synthetic SSH password-spray detection, alert evidence and ATT&CK context" loading="lazy" />
@@ -69,6 +72,8 @@ export default function AegisSOCPage() {
               <figcaption><strong>Incident workflow</strong><span>Case ownership, status and linked evidence workflow</span></figcaption>
             </figure>
           </div>
+            </div>
+          </details>
         </section>
 
         <section className="case-section">
