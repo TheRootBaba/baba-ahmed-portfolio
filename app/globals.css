@@ -172,3 +172,7 @@
 .detail-gallery img{display:block;max-width:100%;height:auto;object-fit:contain}
 .detail-gallery figure>a{overflow:hidden}
 @media(max-width:420px){.detail-overview-strip b{font-size:10px}.detail-title-row h1{overflow-wrap:anywhere}.detail-actions{flex-wrap:wrap;gap:14px}.detail-header>span{font-size:6px}.detail-toc a{font-size:9px;padding-inline:8px}.back-to-top{right:12px;bottom:12px}}
+
+.gallery-image-frame{position:relative;display:block;width:100%;aspect-ratio:16/9;background:#f2f5f2;overflow:hidden}
+.gallery-image-frame img{object-fit:contain}
+.detail-gallery figure.gallery-feature .gallery-image-frame{aspect-ratio:16/9}
