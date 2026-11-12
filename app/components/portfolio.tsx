@@ -13,7 +13,7 @@ const projects = [
 
 const credentials = [
   {name:"Microsoft Cybersecurity Analyst Professional Certificate",issuer:"Microsoft · Coursera",kind:"Professional certificate",mark:"MS",brand:"microsoft",url:"https://coursera.org/share/8c749e56597ec054950dd2eea3b81a11"},
-  {name:"Oracle Cloud Infrastructure Architect Associate",issuer:"Oracle",kind:"Cloud architecture",mark:"O",brand:"oracle",url:"https://tinyurl.com/ys52za9x"},
+  {name:"Oracle Cloud Infrastructure Architect Associate",issuer:"Oracle",kind:"Cloud architecture",mark:"ORACLE",brand:"oracle",url:"https://tinyurl.com/ys52za9x"},
   {name:"Agentic AI Foundations Associate",issuer:"Oracle",kind:"AI foundations",mark:"O",brand:"oracle",url:"https://tinyurl.com/kaunkfhr"},
   {name:"NSE 3: FortiGate Operator",issuer:"Fortinet",kind:"Network security",mark:"F",brand:"fortinet",url:"https://www.credly.com/badges/0cabc6c2-af82-4bed-bbb7-6bf75c502465"},
   {name:"SQL (Intermediate)",issuer:"HackerRank",kind:"Technical skill",mark:"HR",brand:"hackerrank",url:"https://www.hackerrank.com/certificates/fda18b2ff3f9"},
@@ -32,7 +32,7 @@ export default function Portfolio() {
   const [menuOpen,setMenuOpen]=useState(false);
   const close=()=>setMenuOpen(false);
   return <main id="top" className="portfolio">
-    <ScrollExperience />
+    <ScrollExperience />\n    <a className="skip-link" href="#work">Skip to selected projects</a>
     <header className="site-header">
       <a className="brand" href="#top" onClick={close}><span className="brand-mark">BA<span>.</span></span><span>BABA AHMED EL BEKAY</span></a>
       <button className="menu-toggle" onClick={()=>setMenuOpen(!menuOpen)} aria-label={menuOpen?"Close menu":"Open menu"} aria-expanded={menuOpen}>{menuOpen?<X/>:<Menu/>}</button>
