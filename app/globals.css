@@ -429,3 +429,46 @@ body{background:#fff;color:#17231e}
   .main-nav>a{border-color:#e5ece7;color:#43564a}
   .main-nav .nav-cta{color:#17231e}
 }
+
+
+/* Project cards: concise at first glance, evidence only on deliberate expansion. */
+.projects-layout{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:stretch}
+.project-card,.aegis-card{grid-column:auto;min-width:0;min-height:100%;padding:28px;background:#fff;border:1px solid #dce5df;border-radius:8px;box-shadow:0 8px 28px rgba(25,55,38,.035)}
+.project-card{display:flex;flex-direction:column}
+.aegis-card{background:#f8fbf8}
+.project-heading-row{margin:24px 0 15px}
+.project-card h3{font-size:clamp(29px,3vw,39px);line-height:1.05}
+.project-lede{font-size:13px;line-height:1.8;color:#526258}
+.project-topline{font-size:8px;letter-spacing:.09em;color:#748279}
+.project-topline span:first-child{color:#287a58}
+.project-footer{margin-top:auto;padding-top:20px}
+.project-footer .tag-list{max-width:100%}
+.project-footer>a{font-weight:600}
+.project-details{margin:18px 0 22px;border-top:1px solid #dce5df;border-bottom:1px solid #dce5df}
+.project-details>summary{min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;list-style:none;color:#287a58;font:600 11px var(--sans);letter-spacing:.01em}
+.project-details>summary::-webkit-details-marker{display:none}
+.project-details>summary::after{content:"+";font:18px var(--sans);color:#287a58}
+.project-details[open]>summary::after{content:"−"}
+.project-details>summary:focus-visible{outline:2px solid #287a58;outline-offset:3px}
+.project-details-content{padding:8px 0 18px}
+.project-details-content .aegis-overview{margin-top:10px}
+.project-details-content .netsec-demo{margin-top:10px}
+.project-details-content .topology-frame{margin-top:10px}
+.project-details-content video{preload:none}
+.project-bottom{margin-top:16px}
+.project-facts{font-size:8px}
+.aegis-proof{margin-top:10px}
+.enterprise-stack{margin:20px 0 26px}
+.netops-summary{font-size:8px;flex-wrap:wrap;line-height:1.6}
+.case-project-details{margin-top:26px}
+.case-project-details .project-details-content{padding-top:15px}
+@media(max-width:760px){
+  .projects-layout{grid-template-columns:1fr;gap:16px}
+  .project-card,.aegis-card{padding:22px}
+  .project-card h3{font-size:34px}
+}
+@media(max-width:480px){
+  .project-card,.aegis-card{padding:18px}
+  .project-topline{font-size:7px}
+  .project-details>summary{font-size:10px}
+}
