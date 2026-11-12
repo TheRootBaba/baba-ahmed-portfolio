@@ -208,3 +208,7 @@ button{font:inherit}
 .case-cta a:first-child{background:var(--acid);color:#11150d;border-color:var(--acid);font-weight:700}
 @media(max-width:760px){.aegis-overview{grid-template-columns:repeat(2,1fr)}.aegis-proof{grid-template-columns:1fr;gap:18px}.contact-links{gap:12px}.contact-links a{font-size:7px}.case-hero{padding:70px 0 50px}.case-grid{grid-template-columns:1fr}.case-section{padding:44px 0}}
 @media(max-width:480px){.aegis-overview>div{min-height:135px;padding:14px}.aegis-overview span{font-size:10px}.contact-links{flex-direction:column;align-items:flex-start}}
+
+.enterprise-stack{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin:26px 0 12px}
+.enterprise-stack span{padding:13px 14px;background:#111512;border:1px solid var(--line);font:8px var(--mono);letter-spacing:.07em;color:#b1bbb0}
+@media(max-width:480px){.enterprise-stack{grid-template-columns:1fr}}
