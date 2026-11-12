@@ -51,8 +51,28 @@ export default function AegisSOCPage() {
           </div>
         </section>
 
+        <section className="case-section case-evidence-section">
+          <p className="case-kicker">03 / PRODUCT EVIDENCE</p>
+          <h2>Real screens from the working lab.</h2>
+          <p>These captures come from the AegisSOC dashboard gallery. They illustrate the analyst workflow and lab data; they are not a claim of production deployment or release-candidate acceptance.</p>
+          <div className="case-evidence-grid">
+            <figure className="case-evidence-main">
+              <img src="https://raw.githubusercontent.com/TheRootBaba/AegisSOC/main/evidence/dashboard/alert-queue.png" alt="AegisSOC alert queue showing a synthetic SSH password-spray detection, alert evidence and ATT&CK context" loading="lazy" />
+              <figcaption><strong>Alert triage</strong><span>Detection, severity, source context and evidence in one view</span></figcaption>
+            </figure>
+            <figure>
+              <img src="https://raw.githubusercontent.com/TheRootBaba/AegisSOC/main/evidence/dashboard/overview.png" alt="AegisSOC workspace overview with ingestion and data source health" loading="lazy" />
+              <figcaption><strong>Workspace overview</strong><span>Telemetry ingestion and source health</span></figcaption>
+            </figure>
+            <figure>
+              <img src="https://raw.githubusercontent.com/TheRootBaba/AegisSOC/main/evidence/dashboard/incident-cases.png" alt="AegisSOC incident case register with case status and response controls" loading="lazy" />
+              <figcaption><strong>Incident workflow</strong><span>Case ownership, status and linked evidence workflow</span></figcaption>
+            </figure>
+          </div>
+        </section>
+
         <section className="case-section">
-          <p className="case-kicker">03 / ARCHITECTURE</p>
+          <p className="case-kicker">04 / ARCHITECTURE</p>
           <h2>Separate responsibilities. Keep boundaries explicit.</h2>
           <p>The FastAPI service handles authenticated requests and the dashboard. PostgreSQL stores the platform state. Dedicated scheduler, retention, integration and response workers run independently so background polling and response delivery do not execute inside analyst-facing request handlers.</p>
           <div className="case-grid">
@@ -64,14 +84,14 @@ export default function AegisSOCPage() {
         </section>
 
         <section className="case-section">
-          <p className="case-kicker">04 / SECURITY & HONEST LIMITS</p>
+          <p className="case-kicker">05 / SECURITY & HONEST LIMITS</p>
           <h2>Controls matter as much as features.</h2>
           <p>The platform includes workspace membership checks, PostgreSQL RLS, a non-owner runtime database role, bounded provider requests, secret references, audit history and approval separated from response execution.</p>
           <div className="case-boundary"><strong>Current project status:</strong> AegisSOC is an actively developed engineering project and lab deployment, not a certified production SIEM. Scanner integrations normalize exports rather than launch scans. Sigma support is a documented subset. Response requests go to a configured receiver; AegisSOC does not directly isolate endpoints or execute arbitrary commands. Provider compatibility and deployment security still require environment-specific validation.</div>
         </section>
 
         <section className="case-section">
-          <p className="case-kicker">05 / HOW TO REVIEW IT</p>
+          <p className="case-kicker">06 / HOW TO REVIEW IT</p>
           <h2>Follow the evidence.</h2>
           <p>The repository includes architecture documentation, integration contracts, security notes, a synthetic-event walkthrough, demo-capture guidance and development checks. The intended reviewer walkthrough follows a synthetic authentication event from ingestion to detection, alert evidence, incident case and audit history. Response delivery should only be demonstrated against a local test receiver.</p>
         </section>
