@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -20,8 +21,8 @@ export default function AegisSOCPage() {
     <main className="case-page">
       <div className="case-shell">
         <nav className="case-nav" aria-label="Case study navigation">
-          <a href="/">BA / BABA AHMED</a>
-          <a href="/#work"><ArrowLeft size={13} style={{display:"inline",verticalAlign:"middle",marginRight:7}}/> BACK TO WORK</a>
+          <Link href="/">BA / BABA AHMED</Link>
+          <Link href="/#work"><ArrowLeft size={13} style={{display:"inline",verticalAlign:"middle",marginRight:7}}/> BACK TO WORK</Link>
         </nav>
         <header className="case-hero">
           <p className="case-kicker">FLAGSHIP ENGINEERING PROJECT / SECURITY OPERATIONS</p>
