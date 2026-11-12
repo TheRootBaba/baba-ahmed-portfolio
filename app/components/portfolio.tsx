@@ -129,6 +129,13 @@ export default function Portfolio() {
             </div>
             <div className="project-footer"><div className="tag-list">{["FastAPI","PostgreSQL","Python","Docker","Wazuh","Sigma"].map(tag=><span key={tag}>{tag}</span>)}</div><a href="/projects/aegissoc">Read the engineering case study <ArrowRight size={14}/></a></div>
           </motion.article>
+          <motion.article className="project-card enterprise-card" initial={reveal} whileInView="visible" viewport={{once:true,amount:.12}} variants={rise}>
+            <div className="project-topline"><span>PROJECT / 03</span><span>ENTERPRISE NETWORK DESIGN</span></div>
+            <h3>Secure Enterprise Network<span>.</span></h3>
+            <p className="project-lede">Designed and tested a segmented enterprise network using VLANs, VLSM, OSPF, ACLs, HSRP, DHCP, DNS and NAT. The work focuses on routing, segmentation, redundancy and controlled connectivity.</p>
+            <div className="enterprise-stack"><span>SEGMENTATION / VLAN + VLSM</span><span>ROUTING / OSPF + HSRP</span><span>POLICY / ACL</span><span>SERVICES / DHCP + DNS + NAT</span></div>
+            <div className="project-footer"><div className="tag-list">{["IPv4","VLAN","OSPF","ACL","HSRP","GNS3"].map(tag=><span key={tag}>{tag}</span>)}</div><a href="https://github.com/TheRootBaba" target="_blank" rel="noreferrer">Explore related lab work <ArrowRight size={14}/></a></div>
+          </motion.article>
           <motion.article className="project-card netsec-card" initial={reveal} whileInView="visible" viewport={{once:true,amount:.12}} variants={rise}>
             <div className="project-topline"><span>FEATURED PROJECT / 01</span><span>AI-ASSISTED SECURITY TOOLING</span></div>
             <div className="project-heading-row">
