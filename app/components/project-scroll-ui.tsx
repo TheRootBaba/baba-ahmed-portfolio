@@ -10,7 +10,8 @@ const sections = [
   { id: "scope", label: "Scope" },
 ];
 
-export default function ProjectScrollUI() {
+export default function ProjectScrollUI({ hasEvidence }: { hasEvidence: boolean }) {
+  const visibleSections = sections.filter((section) => hasEvidence || section.id !== "evidence");
   const [progress, setProgress] = useState(0);
   const [active, setActive] = useState("overview");
 
@@ -36,7 +37,7 @@ export default function ProjectScrollUI() {
   }, []);
 
   useEffect(() => {
-    const targets = sections
+    const targets = visibleSections
       .map(({ id }) => document.getElementById(id))
       .filter((node): node is HTMLElement => node instanceof HTMLElement);
     if (!("IntersectionObserver" in window) || targets.length === 0) return;
@@ -53,7 +54,7 @@ export default function ProjectScrollUI() {
 
     targets.forEach((target) => observer.observe(target));
     return () => observer.disconnect();
-  }, []);
+  }, [hasEvidence]);
 
   return (
     <>
@@ -63,7 +64,7 @@ export default function ProjectScrollUI() {
       <nav className="detail-toc" aria-label="Project page sections">
         <span className="detail-toc-label">ON THIS PAGE</span>
         <div>
-          {sections.map((section) => (
+          {visibleSections.map((section) => (
             <a key={section.id} href={`#${section.id}`} className={active === section.id ? "active" : ""} aria-current={active === section.id ? "location" : undefined}>
               {section.label}
             </a>
