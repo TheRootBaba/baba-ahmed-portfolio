@@ -212,3 +212,7 @@ button{font:inherit}
 .enterprise-stack{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin:26px 0 12px}
 .enterprise-stack span{padding:13px 14px;background:#111512;border:1px solid var(--line);font:8px var(--mono);letter-spacing:.07em;color:#b1bbb0}
 @media(max-width:480px){.enterprise-stack{grid-template-columns:1fr}}
+
+
+/* Prioritize real monitoring evidence over a decorative topology image. */
+.netops-evidence-frame{background-size:cover;background-position:center 42%;}
