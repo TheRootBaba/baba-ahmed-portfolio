@@ -296,3 +296,5 @@ button{font:inherit}
   .aegis-overview>div{min-height:126px;padding:14px}
   .case-evidence-grid figcaption{padding:12px}
 }
+
+.projects-layout{gap:20px}
