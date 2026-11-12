@@ -21,7 +21,7 @@ type ProjectDetailProps = {
 export default function ProjectDetail(p: ProjectDetailProps) {
   return (
     <main className="detail-page">
-      <ProjectScrollUI />
+      <ProjectScrollUI hasEvidence={Boolean(p.images?.length || p.video)} />
       <header className="detail-header">
         <Link href="/" className="detail-back"><ArrowLeft size={16} /> Back to portfolio</Link>
         <span>PROJECT CASE STUDY / {p.number}</span>
