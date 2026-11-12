@@ -220,7 +220,7 @@ export default function Portfolio() {
           </div>
           <div className="cert-panel">
             <span className="panel-label">SELECTED CERTIFICATIONS</span>
-            {credentials.map(([name,issuer,url],i)=><div className="cert-row" key={name}><span className="cert-number">{String(i+1).padStart(2,"0")}</span><div><h3>{name}</h3><p>{issuer} · 2026</p></div>{url?<a href={url} target="_blank" rel="noreferrer">Verify <ArrowUpRight size={13}/></a>:<span className="completed-label">COMPLETED</span>}</div>)}
+            {credentials.map(([name,issuer,url],i)=><div className="cert-row" key={name}><span className="cert-number">{String(i+1).padStart(2,"0")}</span><div><h3>{name}</h3><p>{issuer}</p></div>{url?<a href={url} target="_blank" rel="noreferrer">Verify <ArrowUpRight size={13}/></a>:<span className="completed-label">COMPLETED</span>}</div>)}
           </div>
         </div>
       </section>
