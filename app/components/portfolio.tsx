@@ -14,7 +14,7 @@ const projects = [
 const credentials = [
   {name:"Microsoft Cybersecurity Analyst Professional Certificate",issuer:"Microsoft · Coursera",kind:"Professional certificate",brands:["microsoft","coursera"],url:"https://coursera.org/share/8c749e56597ec054950dd2eea3b81a11"},
   {name:"Oracle Cloud Infrastructure Architect Associate",issuer:"Oracle",kind:"Cloud architecture",brands:["oracle"],url:"https://tinyurl.com/ys52za9x"},
-  {name:"Agentic AI Foundations Associate",issuer:"Oracle",kind:"AI foundations",brand:"oracle",url:"https://tinyurl.com/kaunkfhr"},
+  {name:"Agentic AI Foundations Associate",issuer:"Oracle",kind:"AI foundations",brands:["oracle"],url:"https://tinyurl.com/kaunkfhr"},
   {name:"NSE 3: FortiGate Operator",issuer:"Fortinet",kind:"Network security",brands:["fortinet"],url:"https://www.credly.com/badges/0cabc6c2-af82-4bed-bbb7-6bf75c502465"},
   {name:"SQL (Intermediate)",issuer:"HackerRank",kind:"Technical skill",brands:["hackerrank"],url:"https://www.hackerrank.com/certificates/fda18b2ff3f9"},
   {name:"Python Essentials 1",issuer:"Cisco Networking Academy",kind:"Programming",brands:["cisco"],url:""},
@@ -48,7 +48,7 @@ export default function Portfolio() {
   const [menuOpen,setMenuOpen]=useState(false);
   const close=()=>setMenuOpen(false);
   return <main id="top" className="portfolio">
-    <ScrollExperience />\n    <a className="skip-link" href="#work">Skip to selected projects</a>
+    <ScrollExperience />    <a className="skip-link" href="#work">Skip to selected projects</a>
     <header className="site-header">
       <a className="brand" href="#top" onClick={close}><span className="brand-mark">BA<span>.</span></span><span>BABA AHMED EL BEKAY</span></a>
       <button className="menu-toggle" onClick={()=>setMenuOpen(!menuOpen)} aria-label={menuOpen?"Close menu":"Open menu"} aria-expanded={menuOpen}>{menuOpen?<X/>:<Menu/>}</button>
@@ -96,7 +96,7 @@ export default function Portfolio() {
     <section className="journey-section section-space" id="journey"><div className="shell">
       <div className="section-heading"><div><p className="section-index">03 / EDUCATION</p><h2>Education</h2></div><p className="section-description">My education in science and network security.</p></div>
       <div className="education-timeline">
-        <article className="education-card current"><div className="education-icon"><GraduationCap size={20}/></div><div className="education-period">2025 — PRESENT <span>CURRENT STUDIES</span></div><h3>BTS in Network Security</h3><p className="education-school">MIFITT Institute</p><p className="education-description">Coursework in networking, infrastructure and security fundamentals, alongside practical labs and personal projects.</p><div className="education-tags"><span>Networking</span><span>Network defense</span><span>Infrastructure</span></div></article>
+        <article className="education-card current"><div className="education-icon"><GraduationCap size={20}/></div><div className="education-period">2025 — PRESENT <span>CURRENT STUDIES</span></div><h3>BTS in Network Security</h3><p className="education-school"><img className="mifitt-logo" src="https://lh3.googleusercontent.com/sitesv/AICyYdat3PDDJEGBZHX3LoAu5OWNEY11ltv-QP8hjqHNCjkcFmujmE-Tzp8MPbOEf-qJZFj74YBA1CurAuonT4zjjQ4Bp5g6kt18o4IK8vHHWMoNUNB-HlNrupqIg7KuNEJ4Az6vxxsN3CT2hUobdh7Ud2_Uk6nlf1WArRU=w16383" alt="MiFiTT Institute logo" loading="eager"/>MIFITT Institute</p><p className="education-description">Coursework in networking, infrastructure and security fundamentals, alongside practical labs and personal projects.</p><div className="education-tags"><span>Networking</span><span>Network defense</span><span>Infrastructure</span></div></article>
         <div className="timeline-connector"><span/></div>
         <article className="education-card"><div className="education-icon"><BookOpen size={20}/></div><div className="education-period">2023 — 2024 <span>COMPLETED</span></div><h3>Baccalauréat in Science</h3><p className="education-school">Lycée d’Excellence 2</p><p className="education-description">Science studies, including mathematics and core scientific subjects.</p></article>
       </div>
