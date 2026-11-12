@@ -122,6 +122,14 @@ export default function Portfolio() {
               <div><b>03</b><strong>DETECT</strong><span>Run deterministic detections and a documented, bounded Sigma subset.</span></div>
               <div><b>04</b><strong>RESPOND</strong><span>Route approved actions to configured receivers with audit and idempotency controls.</span></div>
             </div>
+            <div className="aegis-feature-shot">
+              <img src="https://raw.githubusercontent.com/TheRootBaba/AegisSOC/main/evidence/dashboard/alert-queue.png" alt="AegisSOC alert queue showing an SSH password-spray detection with evidence details and MITRE ATT&CK mapping" loading="lazy" />
+              <span>PRODUCT EVIDENCE / ALERT TRIAGE & INVESTIGATION</span>
+            </div>
+            <div className="aegis-shot-pair">
+              <figure><img src="https://raw.githubusercontent.com/TheRootBaba/AegisSOC/main/evidence/dashboard/overview.png" alt="AegisSOC analyst workspace overview and data source health" loading="lazy" /><figcaption>WORKSPACE OVERVIEW</figcaption></figure>
+              <figure><img src="https://raw.githubusercontent.com/TheRootBaba/AegisSOC/main/evidence/dashboard/incident-cases.png" alt="AegisSOC incident case register and response workflow" loading="lazy" /><figcaption>INCIDENT CASE WORKFLOW</figcaption></figure>
+            </div>
             <div className="aegis-proof">
               <div><span className="mini-label">ENGINEERING HIGHLIGHTS</span><p>FastAPI · PostgreSQL · Python · Docker Compose · Alembic · PostgreSQL RLS · Wazuh · MISP · OpenCTI</p></div>
               <div><span className="mini-label">IMPORTANT BOUNDARY</span><p>Active engineering and lab deployment — not a certified production SIEM. Response is receiver-based; scanner imports normalize exports rather than launch scans.</p></div>
