@@ -47,7 +47,7 @@ export default function Portfolio() {
   const reveal = reduced ? false : "hidden";
 
   return (
-    <main id="top" className="portfolio">
+    <main id="top" className="portfolio">\n      <a className="skip-link" href="#main-content">Skip to content</a>
       <motion.div className="reading-progress" style={{ scaleX: progress }} />
       <header className={scrolled ? "site-header is-scrolled" : "site-header"}>
         <a className="brand" href="#top" onClick={closeMenu} aria-label="Baba Ahmed home">
@@ -65,7 +65,7 @@ export default function Portfolio() {
         </button>
       </header>
 
-      <section className="hero shell">
+      <div id="main-content" tabIndex={-1}>\n      <section className="hero shell">
         <div className="hero-meta">
           <span><i className="availability-dot" /> AVAILABLE FOR REMOTE INTERNSHIPS</span>
           <span>BA / PORTFOLIO — 2026</span>
@@ -74,14 +74,14 @@ export default function Portfolio() {
           <motion.div className="hero-copy" initial={reveal} animate="visible" variants={rise}>
             <p className="eyebrow">NETWORK SECURITY · AUTOMATION · CLOUD</p>
             <h1>Building trust<br />into <em>every</em><br /><span>connection.</span></h1>
-            <p className="hero-intro">I’m Baba Ahmed El Bekay — a network security student building practical tools, controlled labs and clearer ways to understand complex systems.</p>
+            <p className="hero-intro">I’m Baba Ahmed El Bekay, a network security student. I build practical security tools, test network setups in controlled labs and document what works — and what doesn’t.</p>
             <div className="hero-actions">
               <a className="button button-primary" href="#work">Explore my work <ArrowDownRight size={16} /></a>
               <a className="text-link" href="#contact">Get in touch <ArrowUpRight size={15} /></a>
             </div>
           </motion.div>
           <motion.aside className="hero-aside" initial={reveal} animate="visible" variants={{...rise, visible:{...rise.visible, transition:{...rise.visible.transition, delay:.12}}}}>
-            <div className="aside-top"><span>PROFILE / 001</span><span>MAURITANIA</span></div>
+            <div className="aside-top"><span>AT A GLANCE</span><span>MAURITANIA</span></div>
             <div className="aside-statement">Curious by nature.<br /><strong>Methodical by design.</strong></div>
             <div className="aside-rule" />
             <dl className="profile-facts">
@@ -112,7 +112,7 @@ export default function Portfolio() {
           <motion.article className="project-card netsec-card" initial={reveal} whileInView="visible" viewport={{once:true,amount:.12}} variants={rise}>
             <div className="project-topline"><span>FEATURED PROJECT / 01</span><span>AI-ASSISTED SECURITY TOOLING</span></div>
             <div className="project-heading-row">
-              <div><h3>NetSec Agent<span>.</span></h3><p className="project-lede">A controlled network assessment workflow, with an AI assistant that helps explain what the scan found.</p></div>
+              <div><h3>NetSec Agent<span>.</span></h3><p className="project-lede">A Python-based assistant for authorized network checks. It discovers hosts, checks ports and services, then helps interpret the results.</p></div>
               <a className="round-link" href="https://github.com/TheRootBaba/NetSEc-agent" target="_blank" rel="noreferrer" aria-label="Open NetSec Agent on GitHub"><ArrowUpRight size={20}/></a>
             </div>
             <div className="netsec-demo">
@@ -125,7 +125,7 @@ export default function Portfolio() {
             </div>
             <div className="project-bottom">
               <p>Built with Python, Streamlit, Nmap, LangGraph, MCP and Groq. It supports host discovery, TCP port and service detection, basic risk scoring and AI-assisted explanations.</p>
-              <div className="project-facts"><span><b>01</b> PRIVATE IPv4 SCOPE</span><span><b>02</b> MAX 256 ADDRESSES</span><span><b>03</b> HUMAN-DEFINED TARGETS</span></div>
+              <div className="project-facts"><span><b>01</b> PRIVATE IPv4 ONLY</span><span><b>02</b> UP TO 256 ADDRESSES</span><span><b>03</b> AUTHORIZED TARGETS ONLY</span></div>
             </div>
             <div className="project-footer"><div className="tag-list">{["Python", "LangGraph", "Nmap", "MCP", "Streamlit", "Groq"].map(tag=><span key={tag}>{tag}</span>)}</div><a href="https://github.com/TheRootBaba/NetSEc-agent" target="_blank" rel="noreferrer">Explore repository <ArrowRight size={14}/></a></div>
           </motion.article>
@@ -133,7 +133,7 @@ export default function Portfolio() {
           <motion.article className="project-card netops-card" initial={reveal} whileInView="visible" viewport={{once:true,amount:.12}} variants={rise}>
             <div className="project-topline"><span>PROJECT / 02</span><span>NETWORK OPERATIONS LAB</span></div>
             <h3>NetOps Sentinel<span>.</span></h3>
-            <p className="project-lede">A repeatable GNS3 lab for validating network inventory and reachability, with evidence recorded as structured JSON.</p>
+            <p className="project-lede">A small simulated network used to practise inventory checks and connectivity validation. Results are saved as structured JSON for review.</p>
             <div className="topology-frame">
               <Image src="/assets/evidence/topology.png" alt="NetOps Sentinel GNS3 network topology" fill sizes="(max-width: 760px) 100vw, 42vw" />
               <span>THE LAB / GNS3 TOPOLOGY</span>
@@ -153,8 +153,8 @@ export default function Portfolio() {
           <div className="about-grid">
             <div className="about-quote"><span>WORKING PRINCIPLE</span><p>“Understand the system before you try to secure it.”</p><div className="quote-mark">BA / 001</div></div>
             <div className="about-copy">
-              <p>I’m a BTS Network Security student at MIFITT Institute. My learning combines formal networking studies with hands-on labs and independent builds across Linux, cloud identity, Python automation and security tooling.</p>
-              <p>I value clear scope, repeatable checks and honest reporting. I would rather show a limitation than overstate a result. I’m currently looking for a remote internship where I can contribute, learn from experienced engineers and keep building.</p>
+              <p>I study Network Security at MIFITT Institute. Alongside my coursework, I build hands-on labs and small tools using Linux, Python, cloud identity and network security technologies.</p>
+              <p>My approach is practical: define the scope, test carefully, keep evidence and explain limitations. I’m looking for a remote internship where I can contribute to real work and learn from experienced engineers.</p>
               <div className="language-line"><span>LANGUAGES</span><b>Arabic</b> Native <i/> <b>English</b> C1 <i/> <b>French</b> Advanced</div>
             </div>
           </div>
@@ -195,9 +195,9 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <footer className="site-footer shell">
+      </div>\n      <footer className="site-footer shell">
         <a className="footer-brand" href="#top">BA<span>.</span></a>
-        <span>© 2026 BABA AHMED EL BEKAY</span>
+        <span>© {new Date().getFullYear()} BABA AHMED EL BEKAY</span>
         <div><a href="https://github.com/TheRootBaba" target="_blank" rel="noreferrer"><Github size={14}/> GITHUB</a><a href="https://www.linkedin.com/in/babaahmedelbekay/" target="_blank" rel="noreferrer"><Linkedin size={14}/> LINKEDIN</a><a href="mailto:babaahmed3409@gmail.com"><Mail size={14}/> EMAIL</a></div>
         <a className="back-top" href="#top">BACK TO TOP ↑</a>
       </footer>
