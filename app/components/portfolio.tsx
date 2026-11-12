@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import {
-  ArrowDownRight, ArrowUpRight, Activity, Github, Linkedin, Mail, Menu, Network,
+  ArrowDownRight, ArrowUpRight, Activity, Menu, Network,
   ShieldCheck, Terminal, X, Globe2, Cpu, Fingerprint, Radio, LockKeyhole, MoveUpRight
 } from "lucide-react";
 
@@ -50,7 +50,7 @@ const capabilities = [
 
 const rise = {
   hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: .65, ease: [0.22, 1, 0.36, 1] } }
+  visible: { opacity: 1, y: 0, transition: { duration: .65, ease: [0.22, 1, 0.36, 1] as const } }
 };
 
 function MagneticLink({ href, children, primary = false }: { href: string; children: React.ReactNode; primary?: boolean }) {
