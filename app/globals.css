@@ -147,3 +147,27 @@ button{font:inherit}
 @media(max-width:760px){.shell{width:calc(100% - 40px)}.site-header{height:72px;padding-inline:20px}.site-header.is-scrolled{height:66px}.brand-name{font-size:7px}.menu-toggle{display:block}.main-nav{display:none;position:absolute;top:65px;left:0;right:0;padding:14px 20px 22px;background:#0c0f0d;border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:0}.main-nav.nav-open{display:flex}.main-nav>a{padding:15px 0;border-bottom:1px solid var(--line)}.main-nav .nav-cta{border:0;padding:16px 0}.hero{min-height:auto;padding-top:18px}.hero-meta{font-size:7px}.hero-main{grid-template-columns:1fr;gap:45px;padding:70px 0 55px}.hero h1{font-size:clamp(64px,13vw,96px)}.hero-intro{font-size:14px}.hero-aside{min-height:310px}.aside-statement{margin:42px 0 24px}.hero-bottom{font-size:6px}.intro-strip-inner{min-height:115px;display:block;padding-block:22px}.intro-strip-inner p{margin-top:12px}.section-space{padding-block:88px}.section-heading{display:block;margin-bottom:38px}.section-heading h2{font-size:clamp(52px,11vw,76px)}.section-description{margin-top:20px}.project-card{padding:18px}.project-heading-row{margin-top:26px}.project-bottom{grid-template-columns:1fr}.project-facts{flex-direction:row;flex-wrap:wrap;white-space:normal}.netops-card{display:flex}.netops-summary{flex-direction:row}.netops-card .project-footer{margin-top:20px}.about-grid{grid-template-columns:1fr;gap:28px;padding-bottom:42px}.capabilities{grid-template-columns:1fr 1fr}.credentials-grid{grid-template-columns:1fr;gap:45px}.contact-main{display:block;padding:65px 0 70px}.contact-main h2{font-size:clamp(65px,14vw,100px)}.contact-copy{margin-top:34px}.site-footer{flex-wrap:wrap;padding-block:23px}.site-footer>div{order:4;width:100%;justify-content:flex-start}.back-top{margin-left:auto}}
 @media(max-width:480px){.shell{width:calc(100% - 32px)}.site-header{padding-inline:16px}.hero-meta{font-size:6px}.hero h1{font-size:clamp(55px,12.5vw,67px)}.hero-actions{gap:17px}.button{padding-inline:13px;gap:12px}.hero-bottom{font-size:5px}.project-topline{font-size:6px}.project-card h3{font-size:31px}.netsec-demo video{aspect-ratio:4/3}.demo-bar{font-size:6px}.project-footer{align-items:flex-start}.netops-summary{font-size:6px;flex-wrap:wrap}.topology-frame{height:205px}.capabilities{gap:7px}.capabilities article{padding:14px;min-height:215px}.capabilities h3{font-size:15px}.capabilities p{font-size:9px}.skill-line{grid-template-columns:1fr;gap:12px}.education-item{grid-template-columns:105px 1fr;gap:8px}.education-item h3{font-size:15px}.cert-row{grid-template-columns:22px 1fr auto;gap:7px}.cert-row h3{font-size:9px}.cert-row p{font-size:8px}.contact-main h2{font-size:62px}.contact-top,.contact-bottom{font-size:6px}.site-footer{font-size:6px}.site-footer>div{gap:14px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
+
+
+/* Usability and reading-comfort refinements */
+:focus-visible{outline:2px solid var(--acid);outline-offset:4px}
+.skip-link{position:fixed;z-index:120;top:10px;left:12px;padding:11px 15px;background:var(--acid);color:#10130b;font-size:12px;font-weight:700;transform:translateY(-160%);transition:transform .2s}
+.skip-link:focus{transform:translateY(0)}
+.hero-intro,.section-description,.project-lede,.project-bottom>p,.about-copy p,.capabilities p,.education-note p{line-height:1.9}
+.hero-intro{font-size:clamp(14px,1.2vw,16px);max-width:470px}
+.section-description{font-size:14px;max-width:390px}
+.project-card{border-radius:3px}
+.project-explainer{max-width:520px}
+.project-explainer p{font-size:11px;line-height:1.8;color:#b2bbb2;margin:8px 0 17px}
+.mini-label{display:block;color:var(--acid);font:8px var(--mono);letter-spacing:.13em}
+.project-facts{border-left:1px solid #344034;padding-left:17px}
+.demo-fallback:hover,.project-footer>a:hover,.cert-row>a:hover{color:#e1ffad}
+.netsec-demo video{max-height:470px}
+.site-footer a:focus-visible,.main-nav a:focus-visible,.button:focus-visible{outline-offset:5px}
+@media(max-width:760px){
+  .hero-intro{max-width:100%}
+  .section-description{font-size:13px}
+  .project-bottom{gap:10px}
+  .project-facts{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:12px}
+  .project-explainer p{font-size:12px}
+}
