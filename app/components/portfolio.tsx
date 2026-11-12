@@ -159,7 +159,7 @@ export default function Portfolio() {
               <div className="project-details-content">
             <div className="netsec-demo">
               <div className="demo-bar"><span><i/> PROJECT WALKTHROUGH</span><span>NETSEC AGENT / DEMO</span></div>
-              <video controls playsInline preload="metadata" poster="/assets/netsec-agent.svg">
+              <video controls playsInline preload="none" poster="/assets/netsec-agent.svg">
                 <source src="https://github.com/user-attachments/assets/870edb32-20fc-4f8a-aaf3-4c7679b5109c" type="video/mp4" />
                 Your browser does not support embedded video. <a href="https://github.com/user-attachments/assets/870edb32-20fc-4f8a-aaf3-4c7679b5109c">Watch the NetSec Agent demo</a>.
               </video>
