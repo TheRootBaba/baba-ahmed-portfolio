@@ -316,3 +316,6 @@
  .contact-methods>a{padding:14px 0}
 }
 @media(prefers-reduced-motion:reduce){.ring-two{animation:none}.project-card:before{transition:none}.cert-card{transition:none}}
+
+.mark-oracle{font:700 7px var(--mono);letter-spacing:-.08em}
+.evidence-notice{margin:16px 0 0;padding:13px 15px;border-left:2px solid var(--green);background:#f7faf7;color:#536358;font-size:11px;line-height:1.75}
