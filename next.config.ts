@@ -2,7 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
-  reactStrictMode: true
+  reactStrictMode: true,
+  images: {
+    remotePatterns: [{ protocol: "https", hostname: "raw.githubusercontent.com" }]
+  }
 };
 
 export default nextConfig;
