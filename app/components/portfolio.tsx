@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as simpleIcons from "simple-icons";
 import ScrollExperience from "@/app/components/scroll-experience";
-import { ArrowDownRight, ArrowRight, ArrowUpRight, BookOpen, Github, Globe2, GraduationCap, Linkedin, Mail, MapPin, Menu, Network, ShieldCheck, Terminal, X } from "lucide-react";
+import { ArrowDownRight, ArrowRight, ArrowUpRight, BookOpen, Github, Globe2, GraduationCap, Linkedin, Mail, MapPin, Menu, Network, Search, ShieldCheck, Terminal, X } from "lucide-react";
 
 const projects = [
   { number:"01", name:"AegisSOC", category:"SECURITY OPERATIONS PLATFORM", description:"A local-first SOC platform for collecting security telemetry, investigating alerts, enriching indicators and governing response actions.", stack:["Python","FastAPI","PostgreSQL","Docker","Wazuh"], href:"/projects/aegissoc", featured:true },
@@ -45,19 +45,50 @@ function CredentialMark({brands}:{brands:string[]}) {
   })}</span>;
 }
 
+const quickLinks = [
+  { label:"Selected projects", detail:"Browse the work", href:"#work" },
+  { label:"About", detail:"Profile, skills and languages", href:"#about" },
+  { label:"Education", detail:"Academic background", href:"#journey" },
+  { label:"Certificates", detail:"Training and credentials", href:"#credentials" },
+  { label:"Contact", detail:"Email and professional links", href:"#contact" },
+  { label:"GitHub", detail:"Source code and repositories", href:"https://github.com/TheRootBaba" }
+];
+
 export default function Portfolio() {
   const [menuOpen,setMenuOpen]=useState(false);
+  const [commandOpen,setCommandOpen]=useState(false);
+  const [commandQuery,setCommandQuery]=useState("");
   const close=()=>setMenuOpen(false);
+  useEffect(()=>{
+    const onKeyDown=(event:KeyboardEvent)=>{
+      if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==="k"){
+        event.preventDefault();
+        setCommandOpen(open=>!open);
+      }
+      if(event.key==="Escape") setCommandOpen(false);
+    };
+    window.addEventListener("keydown",onKeyDown);
+    return ()=>window.removeEventListener("keydown",onKeyDown);
+  },[]);
+  const matchingLinks=quickLinks.filter(link=>(link.label+" "+link.detail).toLowerCase().includes(commandQuery.toLowerCase()));
   return <main id="top" className="portfolio">
     <ScrollExperience />    <a className="skip-link" href="#work">Skip to selected projects</a>
     <header className="site-header">
       <a className="brand" href="#top" onClick={close}><span className="brand-mark">BA<span>.</span></span><span>BABA AHMED EL BEKAY</span></a>
+      <button className="command-trigger" type="button" onClick={()=>{setCommandQuery("");setCommandOpen(true);}} aria-label="Open quick navigation"><Search size={14}/><span>Quick jump</span><kbd>⌘ K</kbd></button>
       <button className="menu-toggle" onClick={()=>setMenuOpen(!menuOpen)} aria-label={menuOpen?"Close menu":"Open menu"} aria-expanded={menuOpen}>{menuOpen?<X/>:<Menu/>}</button>
       <nav className={menuOpen?"main-nav nav-open":"main-nav"} aria-label="Main navigation">
         <a href="#work" onClick={close}>Work</a><a href="#about" onClick={close}>About</a><a href="#journey" onClick={close}>Journey</a><a href="#credentials" onClick={close}>Credentials</a><a className="nav-cta" href="#contact" onClick={close}>Let’s talk <ArrowUpRight size={15}/></a>
       </nav>
     </header>
-
+    {commandOpen&&<div className="command-backdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)setCommandOpen(false);}}>
+      <section className="command-dialog" role="dialog" aria-modal="true" aria-labelledby="command-title">
+        <div className="command-search"><Search size={17}/><label id="command-title" className="sr-only">Quick navigation</label><input autoFocus value={commandQuery} onChange={event=>setCommandQuery(event.target.value)} placeholder="Where would you like to go?" aria-label="Search this portfolio"/><kbd>ESC</kbd></div>
+        <div className="command-results">{matchingLinks.length?matchingLinks.map(link=><a key={link.href} href={link.href} onClick={()=>setCommandOpen(false)}><span><strong>{link.label}</strong><small>{link.detail}</small></span><ArrowUpRight size={15}/></a>):<p className="command-empty">No matching sections. Try “projects” or “contact”.</p>}</div>
+        <div className="command-foot"><span>QUICK NAVIGATION</span><span>ESC TO CLOSE</span></div>
+      </section>
+    </div>}
+    
     <section className="hero shell">
       <div className="hero-topline"><p className="eyebrow"><span className="availability-dot"/> OPEN TO REMOTE ROLES & INTERNSHIPS</p><span className="hero-location"><MapPin size={13}/> NOUAKCHOTT, MAURITANIA</span></div>
       <div className="hero-grid">
