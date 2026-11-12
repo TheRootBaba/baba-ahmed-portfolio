@@ -216,3 +216,83 @@ button{font:inherit}
 
 /* Prioritize real monitoring evidence over a decorative topology image. */
 .netops-evidence-frame{background-size:cover;background-position:center 42%;}
+
+
+/* Visual refinement: calmer contrast, more consistent rhythm, less neon. */
+:root{
+  --bg:#090e0f;
+  --panel:#101819;
+  --panel2:#141e1e;
+  --line:#293738;
+  --line-soft:#1d2929;
+  --text:#f1f5f2;
+  --muted:#aab8b2;
+  --dim:#7e9089;
+  --acid:#9fd3c2;
+}
+::selection{background:#9fd3c2;color:#0b1412}
+.shell{width:min(1192px,calc(100% - 88px))}
+.section-space{padding-block:116px}
+.section-heading{margin-bottom:58px}
+.section-heading h2{line-height:.98}
+.project-grid{gap:18px}
+.project-card{padding:30px;background:linear-gradient(155deg,#111a1a 0%,#0d1415 100%);border-color:#263535}
+.project-card h3{letter-spacing:-.055em}
+.project-lede{max-width:760px;color:#b7c4be;line-height:1.85}
+.project-topline,.section-index,.mini-label{color:#9ab4a9}
+.aegis-card{background:linear-gradient(145deg,#13201f 0%,#0d1515 74%);border-color:#38514a;padding:34px}
+.aegis-overview{background:#2b3d38;border-color:#2b3d38;gap:1px;margin:30px 0 24px}
+.aegis-overview>div{background:#111b1b;padding:21px;min-height:142px}
+.aegis-overview b,.aegis-overview strong{color:#a8d8c7}
+.aegis-overview span{color:#b0beb8;line-height:1.8}
+.aegis-proof{gap:34px;padding:23px 0}
+.aegis-proof p{color:#b7c4be;line-height:1.9}
+.aegis-feature-shot{position:relative;margin:8px 0 14px;border:1px solid #354946;background:#0b1112;overflow:hidden}
+.aegis-feature-shot img{display:block;width:100%;height:auto;max-height:620px;object-fit:cover;object-position:top}
+.aegis-feature-shot>span{display:block;padding:12px 15px;background:#101b1b;color:#a8d8c7;font:8px var(--mono);letter-spacing:.13em}
+.aegis-shot-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0 24px}
+.aegis-shot-pair figure{margin:0;min-width:0;border:1px solid #2b3b39;background:#101818}
+.aegis-shot-pair img{display:block;width:100%;height:auto;aspect-ratio:1.5;object-fit:cover;object-position:top}
+.aegis-shot-pair figcaption{padding:11px 13px;color:#a8d8c7;font:8px var(--mono);letter-spacing:.1em}
+.project-footer{border-color:#2a3b38}
+.project-footer>a{color:#a8d8c7}
+.tag-list span{background:#152120;border-color:#2b3d39;color:#b7c9c1}
+.button-primary{background:#a5d8c6;color:#0b1512}
+.button-primary:hover{background:#bde7d8}
+.hero h1 em,.section-heading h2 em,.contact-main h2 em{color:#a5d8c6}
+.availability-dot,.demo-bar i{background:#a5d8c6;box-shadow:0 0 10px #a5d8c633}
+.reading-progress{background:#a5d8c6}
+.case-page{background:#090e0f}
+.case-hero,.case-section{border-color:#293738}
+.case-kicker,.case-tile span{color:#a5d8c6}
+.case-tile{background:#111a1a;border-color:#293938}
+.case-tile p,.case-section>p{color:#b1beb8}
+.case-boundary{border-color:#a5d8c6;background:#121d1b;color:#c2cec8}
+.case-cta a{border-color:#40564e}
+.case-cta a:first-child{background:#a5d8c6;border-color:#a5d8c6;color:#0b1512}
+.case-evidence-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px;align-items:start}
+.case-evidence-grid figure{margin:0;min-width:0;overflow:hidden;border:1px solid #2c3c39;background:#101919}
+.case-evidence-grid .case-evidence-main{grid-column:1/-1}
+.case-evidence-grid img{display:block;width:100%;height:auto;object-fit:cover;object-position:top}
+.case-evidence-grid figure:not(.case-evidence-main) img{aspect-ratio:1.5}
+.case-evidence-grid figcaption{display:flex;flex-direction:column;gap:5px;padding:14px 16px;border-top:1px solid #293938}
+.case-evidence-grid figcaption strong{font:600 13px var(--display);color:#e6eee9}
+.case-evidence-grid figcaption span{font-size:11px;line-height:1.65;color:#aab8b2}
+.case-evidence-section{padding-top:68px}
+@media(max-width:760px){
+  .shell{width:calc(100% - 40px)}
+  .section-space{padding-block:82px}
+  .section-heading{margin-bottom:36px}
+  .project-card,.aegis-card{padding:21px}
+  .aegis-overview{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .aegis-shot-pair{grid-template-columns:1fr}
+  .case-evidence-grid{grid-template-columns:1fr}
+  .case-evidence-grid .case-evidence-main{grid-column:auto}
+}
+@media(max-width:480px){
+  .shell{width:calc(100% - 32px)}
+  .section-space{padding-block:68px}
+  .aegis-card{padding:17px}
+  .aegis-overview>div{min-height:126px;padding:14px}
+  .case-evidence-grid figcaption{padding:12px}
+}
