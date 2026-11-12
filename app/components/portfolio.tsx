@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowDownRight, ArrowUpRight, ArrowRight, Github, Linkedin, Mail,
@@ -161,11 +160,15 @@ export default function Portfolio() {
             <div className="project-topline"><span>PROJECT / 02</span><span>NETWORK OPERATIONS LAB</span></div>
             <h3>NetOps Sentinel<span>.</span></h3>
             <p className="project-lede">A small simulated network used to practise inventory checks and connectivity validation. Results are saved as structured JSON for review.</p>
-            <div className="topology-frame">
-              <Image src="/assets/evidence/topology.png" alt="NetOps Sentinel GNS3 network topology" fill sizes="(max-width: 760px) 100vw, 42vw" />
-              <span>THE LAB / GNS3 TOPOLOGY</span>
+            <div
+              className="topology-frame netops-evidence-frame"
+              role="img"
+              aria-label="GNS3 VPCS console showing successful ping replies from the headquarters endpoint to all five network destinations"
+              style={{ backgroundImage: "url(https://raw.githubusercontent.com/TheRootBaba/netops-sentinel/main/evidence/connectivity/PAM-HQ-ALL-LAN-CONNECTIVITY.png)" }}
+            >
+              <span>LIVE LAB EVIDENCE / FIVE DESTINATIONS REACHED</span>
             </div>
-            <div className="netops-summary"><span>3 ROUTERS</span><span>5 SWITCHES</span><span>5 ENDPOINT LANs</span></div>
+            <div className="netops-summary"><span>5 / 5 DESTINATIONS RESPONDED</span><span>ICMP CONNECTIVITY CHECK</span><span>GNS3 · VPCS CONSOLE</span></div>
             <div className="project-footer"><div className="tag-list">{["Python", "GNS3", "FRRouting", "JSON", "pytest"].map(tag=><span key={tag}>{tag}</span>)}</div><a href="https://github.com/TheRootBaba/netops-sentinel" target="_blank" rel="noreferrer">View lab evidence <ArrowRight size={14}/></a></div>
           </motion.article>
         </div>
