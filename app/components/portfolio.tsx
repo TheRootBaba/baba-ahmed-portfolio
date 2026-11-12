@@ -12,28 +12,36 @@ const projects = [
 ];
 
 const credentials = [
-  {name:"Microsoft Cybersecurity Analyst Professional Certificate",issuer:"Microsoft · Coursera",kind:"Professional certificate",brand:"microsoft",url:"https://coursera.org/share/8c749e56597ec054950dd2eea3b81a11"},
-  {name:"Oracle Cloud Infrastructure Architect Associate",issuer:"Oracle",kind:"Cloud architecture",brand:"oracle",url:"https://tinyurl.com/ys52za9x"},
+  {name:"Microsoft Cybersecurity Analyst Professional Certificate",issuer:"Microsoft · Coursera",kind:"Professional certificate",brands:["microsoft","coursera"],url:"https://coursera.org/share/8c749e56597ec054950dd2eea3b81a11"},
+  {name:"Oracle Cloud Infrastructure Architect Associate",issuer:"Oracle",kind:"Cloud architecture",brands:["oracle"],url:"https://tinyurl.com/ys52za9x"},
   {name:"Agentic AI Foundations Associate",issuer:"Oracle",kind:"AI foundations",brand:"oracle",url:"https://tinyurl.com/kaunkfhr"},
-  {name:"NSE 3: FortiGate Operator",issuer:"Fortinet",kind:"Network security",brand:"fortinet",url:"https://www.credly.com/badges/0cabc6c2-af82-4bed-bbb7-6bf75c502465"},
-  {name:"SQL (Intermediate)",issuer:"HackerRank",kind:"Technical skill",brand:"hackerrank",url:"https://www.hackerrank.com/certificates/fda18b2ff3f9"},
-  {name:"Python Essentials 1",issuer:"Cisco Networking Academy",kind:"Programming",brand:"cisco",url:""},
-  {name:"LFS101: Introduction to Linux",issuer:"The Linux Foundation",kind:"Systems",brand:"linuxfoundation",url:""},
-  {name:"Cyber Security: Governance, Risk & Compliance",issuer:"Macquarie University · Coursera",kind:"Governance & risk",brand:"macquarie",url:""}
+  {name:"NSE 3: FortiGate Operator",issuer:"Fortinet",kind:"Network security",brands:["fortinet"],url:"https://www.credly.com/badges/0cabc6c2-af82-4bed-bbb7-6bf75c502465"},
+  {name:"SQL (Intermediate)",issuer:"HackerRank",kind:"Technical skill",brands:["hackerrank"],url:"https://www.hackerrank.com/certificates/fda18b2ff3f9"},
+  {name:"Python Essentials 1",issuer:"Cisco Networking Academy",kind:"Programming",brands:["cisco"],url:""},
+  {name:"LFS101: Introduction to Linux",issuer:"The Linux Foundation",kind:"Systems",brands:["linuxfoundation"],url:""},
+  {name:"Cyber Security: Governance, Risk & Compliance",issuer:"Macquarie University · Coursera",kind:"Governance & risk",brands:["macquarie","coursera"],url:""}
 ];
 
-function CredentialMark({brand}:{brand:string}) {
-  const logos:Record<string,{src:string;alt:string}> = {
-    microsoft:{src:"https://cdn.simpleicons.org/microsoft",alt:"Microsoft"},
-    oracle:{src:"https://cdn.simpleicons.org/oracle",alt:"Oracle"},
-    fortinet:{src:"https://cdn.simpleicons.org/fortinet",alt:"Fortinet"},
-    hackerrank:{src:"https://cdn.simpleicons.org/hackerrank",alt:"HackerRank"},
-    cisco:{src:"https://cdn.simpleicons.org/cisco",alt:"Cisco"},
-    linuxfoundation:{src:"https://www.linuxfoundation.org/hubfs/lf-stacked-color.svg",alt:"The Linux Foundation"},
-    macquarie:{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Macquarie_University_Masterbrand_%E2%80%93_Horizontal_configuration.svg",alt:"Macquarie University"}
+function CredentialMark({brands}:{brands:string[]}) {
+  const logos:Record<string,{src:string;fallback:string;alt:string}> = {
+    microsoft:{src:"https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/microsoft.svg",fallback:"https://unpkg.com/simple-icons@16.37.0/icons/microsoft.svg",alt:"Microsoft"},
+    oracle:{src:"https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/oracle.svg",fallback:"https://unpkg.com/simple-icons@16.37.0/icons/oracle.svg",alt:"Oracle"},
+    fortinet:{src:"https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/fortinet.svg",fallback:"https://unpkg.com/simple-icons@16.37.0/icons/fortinet.svg",alt:"Fortinet"},
+    hackerrank:{src:"https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/hackerrank.svg",fallback:"https://unpkg.com/simple-icons@16.37.0/icons/hackerrank.svg",alt:"HackerRank"},
+    cisco:{src:"https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/cisco.svg",fallback:"https://unpkg.com/simple-icons@16.37.0/icons/cisco.svg",alt:"Cisco"},
+    coursera:{src:"https://cdn.jsdelivr.net/npm/simple-icons@16.37.0/icons/coursera.svg",fallback:"https://unpkg.com/simple-icons@16.37.0/icons/coursera.svg",alt:"Coursera"},
+    linuxfoundation:{src:"https://www.linuxfoundation.org/hubfs/lf-stacked-color.svg",fallback:"https://www.linuxfoundation.org/hubfs/lf-stacked-color.svg",alt:"The Linux Foundation"},
+    macquarie:{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Macquarie_University_Masterbrand_%E2%80%93_Vertical_configuration.svg",fallback:"https://commons.wikimedia.org/wiki/Special:FilePath/Macquarie_University_Masterbrand_%E2%80%93_Vertical_configuration.svg",alt:"Macquarie University"}
   };
-  const logo=logos[brand];
-  return <span className="credential-mark"><img src={logo.src} alt={logo.alt} loading="lazy"/></span>;
+  return <span className="credential-mark">{brands.map(brand=>{
+    const logo=logos[brand];
+    if(!logo) return null;
+    return <img key={brand} src={logo.src} data-fallback={logo.fallback} alt={logo.alt} loading="eager" onError={event=>{
+      const image=event.currentTarget;
+      const fallback=image.dataset.fallback;
+      if(fallback && image.src!==fallback) image.src=fallback;
+    }}/>;
+  })}</span>;
 }
 
 export default function Portfolio() {
@@ -97,7 +105,7 @@ export default function Portfolio() {
     <section className="credentials-section section-space" id="credentials"><div className="shell">
       <div className="section-heading"><div><p className="section-index">04 / CERTIFICATIONS</p><h2>Certificates</h2></div><p className="section-description">Certificates and training in cybersecurity, cloud infrastructure, programming and Linux.</p></div>
       
-      <div className="cert-grid">{credentials.map((cert,index)=><article className="cert-card" key={cert.name}><div className="cert-card-top"><CredentialMark brand={cert.brand}/></div><div className="cert-type">{cert.kind}</div><h3>{cert.name}</h3><p className="cert-issuer">{cert.issuer}</p>{cert.url&&<div className="cert-card-bottom"><a href={cert.url} target="_blank" rel="noreferrer">View credential <ArrowUpRight size={14}/></a></div>}</article>)}</div>
+      <div className="cert-grid">{credentials.map((cert,index)=><article className="cert-card" key={cert.name}><div className="cert-card-top"><CredentialMark brands={cert.brands}/></div><div className="cert-type">{cert.kind}</div><h3>{cert.name}</h3><p className="cert-issuer">{cert.issuer}</p>{cert.url&&<div className="cert-card-bottom"><a href={cert.url} target="_blank" rel="noreferrer">View credential <ArrowUpRight size={14}/></a></div>}</article>)}</div>
     </div></section>
 
     <section className="contact-section" id="contact"><div className="shell"><p className="section-index">05 / CONTACT</p><div className="contact-grid"><div><span className="contact-overline">OPEN TO ROLES & INTERNSHIPS</span><h2>Have a role<br/><em>in mind?</em></h2></div><div><p>I’m open to remote internships and entry-level roles in cybersecurity, cloud security or IT infrastructure. You can reach me by email or LinkedIn.</p><a className="button button-dark" href="mailto:babaahmed3409@gmail.com">Email me <ArrowUpRight size={16}/></a></div></div><div className="contact-methods"><a href="mailto:babaahmed3409@gmail.com"><Mail size={16}/><span><small>EMAIL</small>babaahmed3409@gmail.com</span><ArrowUpRight size={14}/></a><a href="tel:+22234092106"><Terminal size={16}/><span><small>PHONE</small>+222 34 09 21 06</span><ArrowUpRight size={14}/></a><a href="https://www.linkedin.com/in/babaahmedelbekay/" target="_blank" rel="noreferrer"><Linkedin size={16}/><span><small>LINKEDIN</small>Connect professionally</span><ArrowUpRight size={14}/></a></div><div className="contact-foot"><span>NOUAKCHOTT, MAURITANIA</span><span>REMOTE ROLES & INTERNSHIPS · CYBERSECURITY · CLOUD</span></div></div></section>
