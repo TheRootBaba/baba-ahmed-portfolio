@@ -9,7 +9,7 @@ type ProjectDetailProps = {
   architecture?: { name: string; detail: string }[];
   validation?: { label: string; result: string; detail: string }[];
   images?: { src: string; alt: string; caption: string }[];
-  video?: string; videoLabel?: string;
+  video?: string; videoLabel?: string; evidenceNotice?: string;
   documentation?: { label: string; href: string }[];
 };
 
@@ -72,7 +72,7 @@ export default function ProjectDetail(p: ProjectDetailProps) {
         {hasEvidence ? <section className="detail-evidence" id="evidence">
           <div className="detail-section-heading"><p className="section-index">06 / EVIDENCE</p><span>THE BUILD</span></div>
           <h2>Project in practice</h2>
-          <p className="detail-lede">Original project captures and walkthrough media. Each item is labelled to explain what it demonstrates.</p>
+          <p className="detail-lede">Original project captures and walkthrough media. Each item is labelled to explain what it demonstrates.</p>{p.evidenceNotice ? <p className="evidence-notice">{p.evidenceNotice}</p> : null}
           {p.video ? <div className="detail-video"><video controls playsInline preload="none" aria-label={p.videoLabel || "Project walkthrough"}><source src={p.video} type="video/mp4"/>Your browser does not support embedded video.</video><p>{p.videoLabel || "Project walkthrough"}</p></div> : null}
           {p.images?.length ? <div className="detail-gallery">{p.images.map((img,index)=><figure key={img.src} className={index===0?"gallery-feature":""}><a href={img.src} target="_blank" rel="noreferrer" aria-label={`Open full-size image: ${img.alt}`}><span className="gallery-image-frame"><Image src={img.src} alt={img.alt} fill sizes="(max-width: 650px) 100vw, 900px" /></span><span className="gallery-open"><ExternalLink size={14}/> Open full size</span></a><figcaption><span>FIGURE {String(index+1).padStart(2,"0")}</span>{img.caption}</figcaption></figure>)}</div> : null}
         </section> : null}
