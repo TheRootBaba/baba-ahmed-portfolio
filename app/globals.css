@@ -347,7 +347,7 @@
 
 
 /* Reliable, server-rendered name reveal: the full name is present in HTML before animation. */
-.hero-name-text{display:inline-block;min-width:0;width:0;max-width:19ch;overflow:hidden;white-space:nowrap;animation:name-typewriter 3.4s steps(19,end) .35s forwards}
+.hero-name-text{display:inline-block;min-width:0;width:0;max-width:19ch;overflow:hidden;white-space:nowrap;letter-spacing:0;animation:name-typewriter 3.4s steps(19,end) .35s forwards}
 @keyframes name-typewriter{to{width:19ch}}
 .type-cursor{animation:type-cursor-blink 850ms steps(2,start) .35s infinite}
 @media(prefers-reduced-motion:reduce){.hero-name-text{width:auto;max-width:none;animation:none}.type-cursor{animation:none;visibility:hidden}}
