@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import ScrollExperience from "@/app/components/scroll-experience";
 import CommandTerminal from "@/app/components/command-terminal";
 import { ArrowDownRight, ArrowRight, ArrowUpRight, BookOpen, Github, Globe2, GraduationCap, Linkedin, Mail, MapPin, Menu, Network, ShieldCheck, Terminal, X } from "lucide-react";
@@ -39,7 +40,7 @@ function CredentialMark({brands}:{brands:string[]}) {
   return <span className="credential-mark">{brands.map(brand=>{
     const mark=localMarks[brand]??hostedMarks[brand];
     if(!mark) return null;
-    return <img key={brand} className={`credential-logo credential-logo-${brand}`} src={mark.src} alt={mark.alt} loading="eager" onError={event=>{event.currentTarget.style.display="none";}}/>;
+    return <Image key={brand} className={`credential-logo credential-logo-${brand}`} src={mark.src} alt={mark.alt} width={120} height={48} unoptimized loading="lazy" onError={event=>{event.currentTarget.style.display="none";}}/>;
   })}</span>;
 }
 
@@ -112,7 +113,7 @@ export default function Portfolio() {
     <section className="journey-section section-space" id="journey"><div className="shell">
       <div className="section-heading"><div><p className="section-index">03 / EDUCATION</p><h2>Education</h2></div><p className="section-description">My education in science and network security.</p></div>
       <div className="education-timeline">
-        <article className="education-card current"><div className="education-icon"><GraduationCap size={20}/></div><div className="education-period">2025 — PRESENT <span>CURRENT STUDIES</span></div><h3>BTS in Network Security</h3><p className="education-school"><img className="mifitt-logo" src="https://lh3.googleusercontent.com/sitesv/AICyYdat3PDDJEGBZHX3LoAu5OWNEY11ltv-QP8hjqHNCjkcFmujmE-Tzp8MPbOEf-qJZFj74YBA1CurAuonT4zjjQ4Bp5g6kt18o4IK8vHHWMoNUNB-HlNrupqIg7KuNEJ4Az6vxxsN3CT2hUobdh7Ud2_Uk6nlf1WArRU=w16383" alt="MiFiTT Institute logo" loading="eager" onError={event=>{event.currentTarget.style.display="none";}}/>MIFITT Institute</p><p className="education-description">Coursework in networking, infrastructure and security fundamentals, alongside practical labs and personal projects.</p><div className="education-tags"><span>Networking</span><span>Network defense</span><span>Infrastructure</span></div></article>
+        <article className="education-card current"><div className="education-icon"><GraduationCap size={20}/></div><div className="education-period">2025 — PRESENT <span>CURRENT STUDIES</span></div><h3>BTS in Network Security</h3><p className="education-school"><Image className="mifitt-logo" src="https://lh3.googleusercontent.com/sitesv/AICyYdat3PDDJEGBZHX3LoAu5OWNEY11ltv-QP8hjqHNCjkcFmujmE-Tzp8MPbOEf-qJZFj74YBA1CurAuonT4zjjQ4Bp5g6kt18o4IK8vHHWMoNUNB-HlNrupqIg7KuNEJ4Az6vxxsN3CT2hUobdh7Ud2_Uk6nlf1WArRU=w16383" alt="MiFiTT Institute logo" width={34} height={34} unoptimized loading="lazy" onError={event=>{event.currentTarget.style.display="none";}}/>MIFITT Institute</p><p className="education-description">Coursework in networking, infrastructure and security fundamentals, alongside practical labs and personal projects.</p><div className="education-tags"><span>Networking</span><span>Network defense</span><span>Infrastructure</span></div></article>
         <div className="timeline-connector"><span/></div>
         <article className="education-card"><div className="education-icon"><BookOpen size={20}/></div><div className="education-period">2023 — 2024 <span>COMPLETED</span></div><h3>Baccalauréat in Science</h3><p className="education-school">Lycée d’Excellence 2</p><p className="education-description">Science studies, including mathematics and core scientific subjects.</p></article>
       </div>
