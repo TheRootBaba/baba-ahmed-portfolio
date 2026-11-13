@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Baba Ahmed El Bekay", url: "https://baba-ahmed-portfolio.vercel.app" }],
   creator: "Baba Ahmed El Bekay",
   publisher: "Baba Ahmed El Bekay",
-  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large", "max-video-preview": -1 } },
+  robots: { index: process.env.VERCEL_ENV === "production", follow: true, googleBot: { index: process.env.VERCEL_ENV === "production", follow: true, "max-snippet": -1, "max-image-preview": "large", "max-video-preview": -1 } },
   applicationName: "Baba Ahmed Portfolio",
   openGraph: { type: "website", url: "https://baba-ahmed-portfolio.vercel.app", title: "Baba Ahmed El Bekay — Cybersecurity & Cloud Infrastructure", description: "Practical security engineering, network infrastructure and cloud projects.", images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Baba Ahmed portfolio" }] },
   twitter: { card: "summary_large_image", title: "Baba Ahmed El Bekay — Cybersecurity & Cloud", description: "Practical security engineering, network infrastructure and cloud projects.", images: ["/opengraph-image"] },
