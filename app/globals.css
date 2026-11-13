@@ -444,3 +444,5 @@
 .next-experiment>p:not(.section-index){max-width:760px;font-size:13px;line-height:1.85;color:var(--muted);margin:0}
 @media(max-width:800px){.hero-aside{min-height:0}.workbench-lead{padding:24px 0 20px}}
 @media(max-width:600px){.workbench-list a{grid-template-columns:22px minmax(0,1fr) 14px}.workbench-list a>small{display:none}.decision-list article{grid-template-columns:30px minmax(0,1fr);gap:10px}.next-experiment{padding-inline:15px!important}}
+
+@media(max-width:800px){.hero-aside{display:flex;flex-direction:column;min-height:0}}
