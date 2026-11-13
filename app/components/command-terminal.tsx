@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import type { FormEvent } from "react";
 import { ArrowUpRight, Terminal, X } from "lucide-react";
 
@@ -13,7 +13,7 @@ const projectLinks: TerminalLink[] = [
   { label: "NetOps Sentinel", href: "/projects/netops-sentinel" },
   { label: "Secure Enterprise Network", href: "/projects/secure-enterprise-network" }
 ];
-const shortcuts = ["help", "whoami", "projects", "skills", "contact"];
+const shortcuts = ["help", "whoami", "projects", "status", "evidence", "contact"];
 
 function resolveCommand(raw: string): Omit<CommandEntry, "command"> {
   const value = raw.trim().toLowerCase();
@@ -34,7 +34,13 @@ function resolveCommand(raw: string): Omit<CommandEntry, "command"> {
   };
   if (value === "whoami") return { output: "Baba Ahmed El Bekay\nNetwork Security student and hands-on builder focused on cybersecurity, cloud infrastructure, Linux and Python. Based in Nouakchott, Mauritania; open to remote roles and internships." };
   if (value === "projects" || value === "ls projects") return { output: "Four documented case studies. Open one to inspect its architecture, implementation notes and available evidence:", links: projectLinks };
-  if (value === "skills") return { output: "NETWORKING  TCP/IP · IPv4 · VLSM · VLANs · OSPF · ACLs\nSECURITY    Nmap · FortiGate · VPN · access controls\nSYSTEMS     OCI · IAM · Linux · Bash\nBUILD       Python · SQL · Git · GNS3 · Streamlit" };
+  if (value === "status") return { output: "PROJECT STATUS — DOCUMENTED SNAPSHOT\\nAegisSOC        Active engineering project; current screenshots need refresh.\\nNetSec Agent    Scoped network assessment tool; recorded walkthrough available.\\nNetOps Sentinel Recorded GNS3 baseline; not live device health.\\nEnterprise Lab  Academic design; implementation evidence still needed.", links: projectLinks };
+  if (value === "evidence") return { output: "Open the source material and project evidence. Each repository contains setup notes and its current evidence boundary:", links: [
+    { label: "AegisSOC documentation", href: "https://github.com/TheRootBaba/AegisSOC/tree/main/docs" },
+    { label: "NetSec Agent README", href: "https://github.com/TheRootBaba/NetSEc-agent#readme" },
+    { label: "NetOps Sentinel evidence", href: "https://github.com/TheRootBaba/netops-sentinel/tree/main/evidence" }
+  ] };
+  if (value === "stack" || value === "skills") return { output: "NETWORKING  TCP/IP · IPv4 · VLSM · VLANs · OSPF · ACLs\nSECURITY    Nmap · FortiGate · VPN · access controls\nSYSTEMS     OCI · IAM · Linux · Bash\nBUILD       Python · SQL · Git · GNS3 · Streamlit" };
   if (value === "contact") return { output: "For opportunities, collaboration or technical conversations:", links: [
     { label: "Email Baba", href: "mailto:babaahmed3409@gmail.com" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/babaahmedelbekay/" }
@@ -54,6 +60,8 @@ function resolveCommand(raw: string): Omit<CommandEntry, "command"> {
 export default function CommandTerminal({ onClose }: { onClose: () => void }) {
   const [command, setCommand] = useState("");
   const [history, setHistory] = useState<CommandEntry[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -61,10 +69,12 @@ export default function CommandTerminal({ onClose }: { onClose: () => void }) {
     if (!value) return;
     if (value.toLowerCase() === "clear") {
       setHistory([]);
+      setHistoryIndex(-1);
       setCommand("");
       return;
     }
     setHistory((current) => [...current, { command: value, ...resolveCommand(value) }]);
+    setHistoryIndex(-1);
     setCommand("");
   }
 
@@ -76,7 +86,7 @@ export default function CommandTerminal({ onClose }: { onClose: () => void }) {
           <button type="button" className="terminal-close" onClick={onClose} aria-label="Close command line"><X size={17}/></button>
         </header>
         <div className="terminal-screen" aria-live="polite">
-          <p className="terminal-welcome">Welcome. Explore the portfolio through a few simple commands.<br/>Type <code>help</code> to see what is available.</p>
+          <p className="terminal-welcome">Welcome to the portfolio interface.<br/>Use <code>help</code>, <code>status</code>, or <code>evidence</code>. Use ↑ / ↓ to revisit commands.</p>
           {history.map((entry, index) => (
             <div className="terminal-entry" key={index}>
               <p className="terminal-command"><span>baba@portfolio:~$</span> {entry.command}</p>
@@ -87,10 +97,10 @@ export default function CommandTerminal({ onClose }: { onClose: () => void }) {
         </div>
         <form className="terminal-form" onSubmit={submit}>
           <label htmlFor="portfolio-command"><span>baba@portfolio:~$</span></label>
-          <input id="portfolio-command" autoFocus value={command} onChange={(event) => setCommand(event.target.value)} placeholder="Type a command…" autoComplete="off" spellCheck={false}/>
+          <input ref={inputRef} id="portfolio-command" autoFocus value={command} onChange={(event) => setCommand(event.target.value)} onKeyDown={(event) => { if (event.key === "ArrowUp" && history.length) { event.preventDefault(); const next = historyIndex < 0 ? history.length - 1 : Math.max(0, historyIndex - 1); setHistoryIndex(next); setCommand(history[next].command); } else if (event.key === "ArrowDown" && historyIndex >= 0) { event.preventDefault(); const next = historyIndex + 1; if (next >= history.length) { setHistoryIndex(-1); setCommand(""); } else { setHistoryIndex(next); setCommand(history[next].command); } } }} placeholder="Try help, status, evidence…" autoComplete="off" spellCheck={false}/>
           <button type="submit" aria-label="Run command"><ArrowUpRight size={16}/></button>
         </form>
-        <footer className="terminal-footer"><span>TRY A COMMAND</span><div>{shortcuts.map((item) => <button type="button" key={item} onClick={() => setCommand(item)}>{item}</button>)}</div><span>ESC TO CLOSE · clear TO RESET</span></footer>
+        <footer className="terminal-footer"><span>TRY A COMMAND</span><div>{shortcuts.map((item) => <button type="button" key={item} onClick={() => setCommand(item)}>{item}</button>)}</div><span>↑ / ↓ HISTORY · ESC TO CLOSE · clear TO RESET</span></footer>
       </section>
     </div>
   );
