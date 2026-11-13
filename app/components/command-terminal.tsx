@@ -34,7 +34,7 @@ function resolveCommand(raw: string): Omit<CommandEntry, "command"> {
   };
   if (value === "whoami") return { output: "Baba Ahmed El Bekay\nNetwork Security student and hands-on builder focused on cybersecurity, cloud infrastructure, Linux and Python. Based in Nouakchott, Mauritania; open to remote roles and internships." };
   if (value === "projects" || value === "ls projects") return { output: "Four documented case studies. Open one to inspect its architecture, implementation notes and available evidence:", links: projectLinks };
-  if (value === "status") return { output: "PROJECT STATUS — DOCUMENTED SNAPSHOT\\nAegisSOC        Active engineering project; current screenshots need refresh.\\nNetSec Agent    Scoped network assessment tool; recorded walkthrough available.\\nNetOps Sentinel Recorded GNS3 baseline; not live device health.\\nEnterprise Lab  Academic design; implementation evidence still needed.", links: projectLinks };
+  if (value === "status") return { output: "PROJECT STATUS — DOCUMENTED SNAPSHOT\nAegisSOC        Active engineering project; current screenshots need refresh.\nNetSec Agent    Scoped network assessment tool; recorded walkthrough available.\nNetOps Sentinel Recorded GNS3 baseline; not live device health.\nEnterprise Lab  Academic design; implementation evidence still needed.", links: projectLinks };
   if (value === "evidence") return { output: "Open the source material and project evidence. Each repository contains setup notes and its current evidence boundary:", links: [
     { label: "AegisSOC documentation", href: "https://github.com/TheRootBaba/AegisSOC/tree/main/docs" },
     { label: "NetSec Agent README", href: "https://github.com/TheRootBaba/NetSEc-agent#readme" },
