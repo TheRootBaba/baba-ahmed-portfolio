@@ -9,7 +9,7 @@ export function projectMetadata({ slug, title, description }: { slug: string; ti
     title,
     description,
     alternates: { canonical: url },
-    robots: { index: true, follow: true },
+    robots: { index: process.env.VERCEL_ENV === "production", follow: true },
     openGraph: {
       type: "article",
       url,
