@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import type { FormEvent } from "react";
 import { ArrowUpRight, Terminal, X } from "lucide-react";
 
@@ -29,7 +29,9 @@ function resolveCommand(raw: string): Omit<CommandEntry, "command"> {
       { label: "skills — technical toolkit", href: "#about" },
       { label: "contact — get in touch", href: "#contact" },
       { label: "github — source repositories", href: "https://github.com/TheRootBaba" },
-      { label: "linkedin — professional profile", href: "https://www.linkedin.com/in/babaahmedelbekay/" }
+      { label: "linkedin — professional profile", href: "https://www.linkedin.com/in/babaahmedelbekay/" },
+      { label: "status — project status snapshot", href: "#work" },
+      { label: "evidence — project documentation", href: "#work" }
     ]
   };
   if (value === "whoami") return { output: "Baba Ahmed El Bekay\nNetwork Security student and hands-on builder focused on cybersecurity, cloud infrastructure, Linux and Python. Based in Nouakchott, Mauritania; open to remote roles and internships." };
@@ -62,6 +64,14 @@ export default function CommandTerminal({ onClose }: { onClose: () => void }) {
   const [history, setHistory] = useState<CommandEntry[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const previous = document.activeElement as HTMLElement | null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    inputRef.current?.focus();
+    return () => { document.body.style.overflow = previousOverflow; previous?.focus(); };
+  }, []);
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
