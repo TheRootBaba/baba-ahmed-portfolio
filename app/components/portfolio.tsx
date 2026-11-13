@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import * as simpleIcons from "simple-icons";
 import ScrollExperience from "@/app/components/scroll-experience";
 import { ArrowDownRight, ArrowRight, ArrowUpRight, BookOpen, Github, Globe2, GraduationCap, Linkedin, Mail, MapPin, Menu, Network, Search, ShieldCheck, Terminal, X } from "lucide-react";
 
@@ -24,24 +23,22 @@ const credentials = [
 ];
 
 function CredentialMark({brands}:{brands:string[]}) {
-  const localMarks:Record<string,{title:string;hex:string;path:string}> = {
-    microsoft:simpleIcons.siMicrosoft,
-    oracle:simpleIcons.siOracle,
-    fortinet:simpleIcons.siFortinet,
-    hackerrank:simpleIcons.siHackerrank,
-    cisco:simpleIcons.siCisco,
-    coursera:simpleIcons.siCoursera
+  const localMarks:Record<string,{src:string;alt:string}> = {
+    microsoft:{src:"/issuer-logos/microsoft.svg",alt:"Microsoft"},
+    oracle:{src:"/issuer-logos/oracle.svg",alt:"Oracle"},
+    fortinet:{src:"/issuer-logos/fortinet.svg",alt:"Fortinet"},
+    hackerrank:{src:"/issuer-logos/hackerrank.svg",alt:"HackerRank"},
+    cisco:{src:"/issuer-logos/cisco.svg",alt:"Cisco"},
+    coursera:{src:"/issuer-logos/coursera.svg",alt:"Coursera"}
   };
   const hostedMarks:Record<string,{src:string;alt:string}> = {
     linuxfoundation:{src:"https://www.linuxfoundation.org/hubfs/lf-stacked-color.svg",alt:"The Linux Foundation"},
     macquarie:{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Macquarie_University_Masterbrand_%E2%80%93_Vertical_configuration.svg",alt:"Macquarie University"}
   };
   return <span className="credential-mark">{brands.map(brand=>{
-    const mark=localMarks[brand];
-    if(mark) return <svg key={brand} viewBox="0 0 24 24" role="img" aria-label={mark.title} className={`credential-logo credential-logo-${brand}`}><path d={mark.path} fill={`#${mark.hex}`}/></svg>;
-    const hosted=hostedMarks[brand];
-    if(!hosted) return null;
-    return <img key={brand} className="credential-logo credential-logo-hosted" src={hosted.src} alt={hosted.alt} loading="eager" onError={event=>{event.currentTarget.style.display="none";}}/>;
+    const mark=localMarks[brand]??hostedMarks[brand];
+    if(!mark) return null;
+    return <img key={brand} className={`credential-logo credential-logo-${brand}`} src={mark.src} alt={mark.alt} loading="eager" onError={event=>{event.currentTarget.style.display="none";}}/>;
   })}</span>;
 }
 
@@ -54,11 +51,33 @@ const quickLinks = [
   { label:"GitHub", detail:"Source code and repositories", href:"https://github.com/TheRootBaba" }
 ];
 
+const displayName = "Baba Ahmed El Bekay";
+
 export default function Portfolio() {
+  const [typedName,setTypedName]=useState("");
   const [menuOpen,setMenuOpen]=useState(false);
   const [commandOpen,setCommandOpen]=useState(false);
   const [commandQuery,setCommandQuery]=useState("");
   const close=()=>setMenuOpen(false);
+  useEffect(()=>{
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+      setTypedName(displayName);
+      return;
+    }
+    let index=0;
+    let typingTimer:number|undefined;
+    const startTimer=window.setTimeout(()=>{
+      typingTimer=window.setInterval(()=>{
+        index+=1;
+        setTypedName(displayName.slice(0,index));
+        if(index>=displayName.length&&typingTimer!==undefined) window.clearInterval(typingTimer);
+      },82);
+    },320);
+    return ()=>{
+      window.clearTimeout(startTimer);
+      if(typingTimer!==undefined) window.clearInterval(typingTimer);
+    };
+  },[]);
   useEffect(()=>{
     const onKeyDown=(event:KeyboardEvent)=>{
       if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==="k"){
@@ -93,6 +112,7 @@ export default function Portfolio() {
       <div className="hero-topline"><p className="eyebrow"><span className="availability-dot"/> OPEN TO REMOTE ROLES & INTERNSHIPS</p><span className="hero-location"><MapPin size={13}/> NOUAKCHOTT, MAURITANIA</span></div>
       <div className="hero-grid">
         <div className="hero-copy">
+          <p className="hero-name-type" aria-label={displayName}><span aria-hidden="true">{typedName}</span><span className="type-cursor" aria-hidden="true"/></p>
           <p className="hero-overline">NETWORK SECURITY / CLOUD / AUTOMATION</p>
           <h1>Network security<br/><em>student & builder.</em></h1>
           <p className="hero-intro">I’m <strong>Baba Ahmed El Bekay</strong>. I study Network Security at MIFITT Institute and build projects with Python, Linux, GNS3 and Oracle Cloud Infrastructure.</p>
