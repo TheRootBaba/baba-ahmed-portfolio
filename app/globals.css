@@ -348,8 +348,8 @@
 
 
 /* Reliable, server-rendered name reveal: the full name is present in HTML before animation. */
-.hero-name-text{display:inline-block;white-space:nowrap;clip-path:inset(0 100% 0 0);animation:name-typewriter 3.2s steps(19,end) .45s both}
-@keyframes name-typewriter{to{clip-path:inset(0 0 0 0)}}
+.hero-name-text{display:inline-block;max-width:0;overflow:hidden;white-space:nowrap;animation:name-typewriter 3.2s steps(19,end) .45s both}
+@keyframes name-typewriter{to{max-width:19ch}}
 .type-cursor{animation:type-cursor-blink 850ms steps(2,start) .35s infinite}
 @media(prefers-reduced-motion:reduce){.hero-name-text{clip-path:none;animation:none}.type-cursor{animation:none;visibility:hidden}}
 
@@ -413,7 +413,7 @@
 .milestone-index{border-radius:3px}
 .milestone-timeline:before{background:#d4e1d7}
 @media(max-width:700px){.detail-hero{padding-top:42px}.detail-block,.detail-evidence{padding-block:34px}}
-@media(prefers-reduced-motion:reduce){.hero-name-text{clip-path:none;animation:none;will-change:auto}}
+@media(prefers-reduced-motion:reduce){.hero-name-text{max-width:none;animation:none;will-change:auto}}
 
 /* Portfolio workbench panel */
 .hero-aside{min-height:450px;padding:25px 26px}
