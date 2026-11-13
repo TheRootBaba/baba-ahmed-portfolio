@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ScrollExperience from "@/app/components/scroll-experience";
+import CommandTerminal from "@/app/components/command-terminal";
 import { ArrowDownRight, ArrowRight, ArrowUpRight, BookOpen, Github, Globe2, GraduationCap, Linkedin, Mail, MapPin, Menu, Network, Search, ShieldCheck, Terminal, X } from "lucide-react";
 
 const projects = [
@@ -42,45 +43,12 @@ function CredentialMark({brands}:{brands:string[]}) {
   })}</span>;
 }
 
-const quickLinks = [
-  { label:"Selected projects", detail:"Browse the work", href:"#work" },
-  { label:"About", detail:"Profile, skills and languages", href:"#about" },
-  { label:"Education", detail:"Academic background", href:"#journey" },
-  { label:"Certificates", detail:"Training and credentials", href:"#credentials" },
-  { label:"Contact", detail:"Email and professional links", href:"#contact" },
-  { label:"GitHub", detail:"Source code and repositories", href:"https://github.com/TheRootBaba" }
-];
-
 const displayName = "Baba Ahmed El Bekay";
 
 export default function Portfolio() {
-  const [typedName,setTypedName]=useState("");
   const [menuOpen,setMenuOpen]=useState(false);
   const [commandOpen,setCommandOpen]=useState(false);
-  const [commandQuery,setCommandQuery]=useState("");
   const close=()=>setMenuOpen(false);
-  useEffect(()=>{
-    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){
-      setTypedName(displayName);
-      return;
-    }
-    let index=0;
-    let typingTimer:number|undefined;
-    const typeNextCharacter=()=>{
-      index+=1;
-      setTypedName(displayName.slice(0,index));
-      if(index<displayName.length){
-        const nextCharacter=displayName[index];
-        const delay=nextCharacter===" "?360:145;
-        typingTimer=window.setTimeout(typeNextCharacter,delay);
-      }
-    };
-    const startTimer=window.setTimeout(typeNextCharacter,520);
-    return ()=>{
-      window.clearTimeout(startTimer);
-      if(typingTimer!==undefined) window.clearTimeout(typingTimer);
-    };
-  },[]);
   useEffect(()=>{
     const onKeyDown=(event:KeyboardEvent)=>{
       if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==="k"){
@@ -92,30 +60,23 @@ export default function Portfolio() {
     window.addEventListener("keydown",onKeyDown);
     return ()=>window.removeEventListener("keydown",onKeyDown);
   },[]);
-  const matchingLinks=quickLinks.filter(link=>(link.label+" "+link.detail).toLowerCase().includes(commandQuery.toLowerCase()));
   return <main id="top" className="portfolio">
     <ScrollExperience />    <a className="skip-link" href="#work">Skip to selected projects</a>
     <header className="site-header">
       <a className="brand" href="#top" onClick={close}><span className="brand-mark">BA<span>.</span></span><span>BABA AHMED EL BEKAY</span></a>
-      <button className="command-trigger" type="button" onClick={()=>{setCommandQuery("");setCommandOpen(true);}} aria-label="Open quick navigation"><Search size={14}/><span>Quick jump</span><kbd>⌘ K</kbd></button>
+      <button className="command-trigger" type="button" onClick={()=>setCommandOpen(true)} aria-label="Open personal command line"><Terminal size={14}/><span>Command line</span><kbd>⌘ K</kbd></button>
       <button className="menu-toggle" onClick={()=>setMenuOpen(!menuOpen)} aria-label={menuOpen?"Close menu":"Open menu"} aria-expanded={menuOpen}>{menuOpen?<X/>:<Menu/>}</button>
       <nav className={menuOpen?"main-nav nav-open":"main-nav"} aria-label="Main navigation">
         <a href="#work" onClick={close}>Work</a><a href="#about" onClick={close}>About</a><a href="#journey" onClick={close}>Journey</a><a href="#credentials" onClick={close}>Credentials</a><a className="nav-cta" href="#contact" onClick={close}>Let’s talk <ArrowUpRight size={15}/></a>
       </nav>
     </header>
-    {commandOpen&&<div className="command-backdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)setCommandOpen(false);}}>
-      <section className="command-dialog" role="dialog" aria-modal="true" aria-labelledby="command-title">
-        <div className="command-search"><Search size={17}/><label id="command-title" className="sr-only">Quick navigation</label><input autoFocus value={commandQuery} onChange={event=>setCommandQuery(event.target.value)} placeholder="Where would you like to go?" aria-label="Search this portfolio"/><kbd>ESC</kbd></div>
-        <div className="command-results">{matchingLinks.length?matchingLinks.map(link=><a key={link.href} href={link.href} onClick={()=>setCommandOpen(false)}><span><strong>{link.label}</strong><small>{link.detail}</small></span><ArrowUpRight size={15}/></a>):<p className="command-empty">No matching sections. Try “projects” or “contact”.</p>}</div>
-        <div className="command-foot"><span>QUICK NAVIGATION</span><span>ESC TO CLOSE</span></div>
-      </section>
-    </div>}
+    {commandOpen&&<CommandTerminal onClose={()=>setCommandOpen(false)}/>}
     
     <section className="hero shell">
       <div className="hero-topline"><p className="eyebrow"><span className="availability-dot"/> OPEN TO REMOTE ROLES & INTERNSHIPS</p><span className="hero-location"><MapPin size={13}/> NOUAKCHOTT, MAURITANIA</span></div>
       <div className="hero-grid">
         <div className="hero-copy">
-          <p className="hero-name-type" aria-label={displayName}><span aria-hidden="true">{typedName}</span><span className="type-cursor" aria-hidden="true"/></p>
+          <p className="hero-name-type" aria-label={displayName}><span className="hero-name-text">{displayName}</span><span className="type-cursor" aria-hidden="true"/></p>
           <p className="hero-overline">NETWORK SECURITY / CLOUD / AUTOMATION</p>
           <h1>Network security<br/><em>student & builder.</em></h1>
           <p className="hero-intro">I’m <strong>Baba Ahmed El Bekay</strong>. I study Network Security at MIFITT Institute and build projects with Python, Linux, GNS3 and Oracle Cloud Infrastructure.</p>
