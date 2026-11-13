@@ -337,3 +337,11 @@
 @media(max-width:700px){.command-trigger{margin-right:10px;padding:8px}.command-trigger span{display:none}.command-trigger kbd{font-size:8px}.command-backdrop{padding-top:11vh}}
 @media(max-width:420px){.command-trigger{margin-right:7px}.command-trigger kbd{display:none}}
 @media(prefers-reduced-motion:reduce){.command-backdrop,.command-dialog{animation:none}.command-trigger,.command-results>a{transition:none}}
+
+
+/* Personal typewriter introduction */
+.hero-name-type{display:flex;align-items:center;min-height:24px;margin:0 0 17px;color:var(--green);font:500 13px var(--mono);letter-spacing:.045em}
+.type-cursor{display:inline-block;width:1.5px;height:16px;margin-left:4px;background:#279765;animation:type-cursor-blink 850ms steps(2,start) infinite}
+@keyframes type-cursor-blink{to{visibility:hidden}}
+@media(max-width:600px){.hero-name-type{font-size:11px;min-height:20px;margin-bottom:15px}.type-cursor{height:14px}}
+@media(prefers-reduced-motion:reduce){.type-cursor{animation:none;visibility:hidden}}
