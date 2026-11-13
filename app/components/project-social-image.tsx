@@ -13,7 +13,7 @@ export function projectSocialImage(title: string, category: string, summary: str
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
           <div style={{ fontSize: 18, color: "#287a58", letterSpacing: 3 }}>{category.toUpperCase()}</div>
-          <div style={{ fontSize: 66, lineHeight: 1.02, fontWeight: 700, letterSpacing: -3 }}>{title}<span style={{ color: "#287a58" }}>.</span></div>
+          <div style={{ display: "flex", alignItems: "baseline", fontSize: 66, lineHeight: 1.02, fontWeight: 700, letterSpacing: -3 }}>{title}<span style={{ color: "#287a58" }}>.</span></div>
           <div style={{ maxWidth: 920, fontSize: 23, lineHeight: 1.45, color: "#58665d" }}>{summary}</div>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid #dfe6df", paddingTop: 20, color: "#58665d", fontSize: 15 }}>
