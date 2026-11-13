@@ -78,7 +78,7 @@ export default function ProjectDetail(p: ProjectDetailProps) {
           <p className="detail-lede">The engineering choices that shape the system—and the reason each boundary exists.</p>
           <div className="decision-list">{p.decisions.map((item,index)=><article key={item.choice}><span>{String(index+1).padStart(2,"0")}</span><div><h3>{item.choice}</h3><p>{item.rationale}</p></div></article>)}</div>
         </section> : null}
-        {p.nextExperiment ? <section className="detail-block next-experiment">
+        {p.nextExperiment ? <section className="detail-block next-experiment" id="next-experiment">
           <div className="detail-section-heading"><p className="section-index">NEXT / INVESTIGATION</p><span>THE NEXT USEFUL TEST</span></div>
           <h2>What I would test next</h2><p>{p.nextExperiment}</p>
         </section> : null}
