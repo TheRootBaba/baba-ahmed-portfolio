@@ -6,7 +6,7 @@ import ProjectScrollUI from "@/app/components/project-scroll-ui";
 type ProjectDetailProps = {
   slug: string; number: string; category: string; title: string; summary: string; repository?: string;
   stack: string[]; problem: string; approach: string[]; outcomes: string[]; boundaries: string[];
-  milestones?: { phase: string; title: string; detail: string; status: string }[];
+  milestones?: { phase: string; title: string; detail: string; status: string }[];\n  decisions?: { choice: string; rationale: string }[];\n  nextExperiment?: string;
   architecture?: { name: string; detail: string }[];
   validation?: { label: string; result: string; detail: string }[];
   images?: { src: string; alt: string; caption: string }[];
@@ -68,6 +68,17 @@ export default function ProjectDetail(p: ProjectDetailProps) {
             <span className="milestone-index">{String(index+1).padStart(2,"0")}</span>
             <div className="milestone-copy"><div className="milestone-meta"><span>{item.phase}</span><span className={"milestone-status status-" + item.status.toLowerCase().replace(/[^a-z]+/g,"-")}>{item.status}</span></div><h3>{item.title}</h3><p>{item.detail}</p></div>
           </li>)}</ol>
+        </section> : null}
+
+        {p.decisions?.length ? <section className="detail-block" id="decisions">
+          <div className="detail-section-heading"><p className="section-index">04 / DESIGN JUDGMENT</p><span>TRADE-OFFS &amp; REASONS</span></div>
+          <h2>Decisions behind the design</h2>
+          <p className="detail-lede">The engineering choices that shape the system—and the reason each boundary exists.</p>
+          <div className="decision-list">{p.decisions.map((item,index)=><article key={item.choice}><span>{String(index+1).padStart(2,"0")}</span><div><h3>{item.choice}</h3><p>{item.rationale}</p></div></article>)}</div>
+        </section> : null}
+        {p.nextExperiment ? <section className="detail-block next-experiment">
+          <div className="detail-section-heading"><p className="section-index">NEXT / INVESTIGATION</p><span>THE NEXT USEFUL TEST</span></div>
+          <h2>What I would test next</h2><p>{p.nextExperiment}</p>
         </section> : null}
 
         <section className="detail-block" id="approach">
