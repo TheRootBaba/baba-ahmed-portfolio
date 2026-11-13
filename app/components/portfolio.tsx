@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import * as simpleIcons from "simple-icons";
 import ScrollExperience from "@/app/components/scroll-experience";
 import { ArrowDownRight, ArrowRight, ArrowUpRight, BookOpen, Github, Globe2, GraduationCap, Linkedin, Mail, MapPin, Menu, Network, Search, ShieldCheck, Terminal, X } from "lucide-react";
 
@@ -24,24 +23,22 @@ const credentials = [
 ];
 
 function CredentialMark({brands}:{brands:string[]}) {
-  const localMarks:Record<string,{title:string;hex:string;path:string}> = {
-    microsoft:simpleIcons.siMicrosoft,
-    oracle:simpleIcons.siOracle,
-    fortinet:simpleIcons.siFortinet,
-    hackerrank:simpleIcons.siHackerrank,
-    cisco:simpleIcons.siCisco,
-    coursera:simpleIcons.siCoursera
+  const localMarks:Record<string,{src:string;alt:string}> = {
+    microsoft:{src:"/issuer-logos/microsoft.svg",alt:"Microsoft"},
+    oracle:{src:"/issuer-logos/oracle.svg",alt:"Oracle"},
+    fortinet:{src:"/issuer-logos/fortinet.svg",alt:"Fortinet"},
+    hackerrank:{src:"/issuer-logos/hackerrank.svg",alt:"HackerRank"},
+    cisco:{src:"/issuer-logos/cisco.svg",alt:"Cisco"},
+    coursera:{src:"/issuer-logos/coursera.svg",alt:"Coursera"}
   };
   const hostedMarks:Record<string,{src:string;alt:string}> = {
     linuxfoundation:{src:"https://www.linuxfoundation.org/hubfs/lf-stacked-color.svg",alt:"The Linux Foundation"},
     macquarie:{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Macquarie_University_Masterbrand_%E2%80%93_Vertical_configuration.svg",alt:"Macquarie University"}
   };
   return <span className="credential-mark">{brands.map(brand=>{
-    const mark=localMarks[brand];
-    if(mark) return <svg key={brand} viewBox="0 0 24 24" role="img" aria-label={mark.title} className={`credential-logo credential-logo-${brand}`}><path d={mark.path} fill={`#${mark.hex}`}/></svg>;
-    const hosted=hostedMarks[brand];
-    if(!hosted) return null;
-    return <img key={brand} className="credential-logo credential-logo-hosted" src={hosted.src} alt={hosted.alt} loading="eager" onError={event=>{event.currentTarget.style.display="none";}}/>;
+    const mark=localMarks[brand]??hostedMarks[brand];
+    if(!mark) return null;
+    return <img key={brand} className={`credential-logo credential-logo-${brand}`} src={mark.src} alt={mark.alt} loading="eager" onError={event=>{event.currentTarget.style.display="none";}}/>;
   })}</span>;
 }
 
