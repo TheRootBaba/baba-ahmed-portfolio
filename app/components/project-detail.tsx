@@ -4,8 +4,9 @@ import { ArrowLeft, ArrowUpRight, Github, ExternalLink, FileText } from "lucide-
 import ProjectScrollUI from "@/app/components/project-scroll-ui";
 
 type ProjectDetailProps = {
-  number: string; category: string; title: string; summary: string; repository?: string;
+  slug: string; number: string; category: string; title: string; summary: string; repository?: string;
   stack: string[]; problem: string; approach: string[]; outcomes: string[]; boundaries: string[];
+  milestones?: { phase: string; title: string; detail: string; status: string }[];
   architecture?: { name: string; detail: string }[];
   validation?: { label: string; result: string; detail: string }[];
   images?: { src: string; alt: string; caption: string }[];
@@ -17,6 +18,16 @@ export default function ProjectDetail(p: ProjectDetailProps) {
   const hasEvidence = Boolean(p.images?.length || p.video);
   return (
     <main className="detail-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        name: p.title,
+        description: p.summary,
+        url: "https://baba-ahmed-portfolio.vercel.app/projects/" + p.slug,
+        author: { "@type": "Person", name: "Baba Ahmed El Bekay", url: "https://baba-ahmed-portfolio.vercel.app" },
+        keywords: p.stack,
+        ...(p.repository ? { codeRepository: p.repository } : {})
+      }).replace(/</g, "\\u003c") }} />
       <ProjectScrollUI hasEvidence={hasEvidence} hasArchitecture={Boolean(p.architecture?.length)} hasValidation={Boolean(p.validation?.length)} />
       <header className="detail-header">
         <Link href="/" className="detail-back"><ArrowLeft size={16} /> Back to portfolio</Link>
@@ -47,6 +58,16 @@ export default function ProjectDetail(p: ProjectDetailProps) {
           <h2>How the pieces fit together</h2>
           <p className="detail-lede">A high-level view of the documented workflow and component boundaries.</p>
           <div className="architecture-flow">{p.architecture.map((node,index)=><div className="architecture-node" key={node.name}><span className="architecture-index">{String(index+1).padStart(2,"0")}</span><div><h3>{node.name}</h3><p>{node.detail}</p></div>{index < p.architecture!.length-1 ? <span className="architecture-connector" aria-hidden="true">→</span> : null}</div>)}</div>
+        </section> : null}
+
+        {p.milestones?.length ? <section className="detail-block engineering-log" id="engineering-log">
+          <div className="detail-section-heading"><p className="section-index">03 / ENGINEERING LOG</p><span>THE BUILD SEQUENCE</span></div>
+          <h2>How the work took shape</h2>
+          <p className="detail-lede">A transparent sequence of engineering milestones. Status labels describe documented work—not a live completion percentage.</p>
+          <ol className="milestone-timeline">{p.milestones.map((item,index)=><li key={item.phase}>
+            <span className="milestone-index">{String(index+1).padStart(2,"0")}</span>
+            <div className="milestone-copy"><div className="milestone-meta"><span>{item.phase}</span><span className={"milestone-status status-" + item.status.toLowerCase().replace(/[^a-z]+/g,"-")}>{item.status}</span></div><h3>{item.title}</h3><p>{item.detail}</p></div>
+          </li>)}</ol>
         </section> : null}
 
         <section className="detail-block" id="approach">
