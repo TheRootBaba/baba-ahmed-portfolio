@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
 const siteUrl = "https://baba-ahmed-portfolio.vercel.app";
-const socialImage = "/opengraph-image";
 
 export function projectMetadata({ slug, title, description }: { slug: string; title: string; description: string }): Metadata {
   const url = siteUrl + "/projects/" + slug;
+  const socialImage = "/projects/" + slug + "/opengraph-image";
   return {
     title,
     description,
