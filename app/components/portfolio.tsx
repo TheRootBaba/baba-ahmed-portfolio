@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import ScrollExperience from "@/app/components/scroll-experience";
-import { ArrowDownRight, ArrowRight, ArrowUpRight, BookOpen, Github, Globe2, GraduationCap, Linkedin, Mail, MapPin, Menu, Network, Search, ShieldCheck, Terminal, X } from "lucide-react";
+import CommandTerminal from "@/app/components/command-terminal";
+import { ArrowDownRight, ArrowRight, ArrowUpRight, BookOpen, Github, Globe2, GraduationCap, Linkedin, Mail, MapPin, Menu, Network, ShieldCheck, Terminal, X } from "lucide-react";
 
 const projects = [
   { number:"01", name:"AegisSOC", category:"SECURITY OPERATIONS PLATFORM", description:"A local-first SOC platform for collecting security telemetry, investigating alerts, enriching indicators and governing response actions.", stack:["Python","FastAPI","PostgreSQL","Docker","Wazuh"], href:"/projects/aegissoc", featured:true },
@@ -38,49 +40,16 @@ function CredentialMark({brands}:{brands:string[]}) {
   return <span className="credential-mark">{brands.map(brand=>{
     const mark=localMarks[brand]??hostedMarks[brand];
     if(!mark) return null;
-    return <img key={brand} className={`credential-logo credential-logo-${brand}`} src={mark.src} alt={mark.alt} loading="eager" onError={event=>{event.currentTarget.style.display="none";}}/>;
+    return <Image key={brand} className={`credential-logo credential-logo-${brand}`} src={mark.src} alt={mark.alt} width={120} height={48} unoptimized loading="lazy" onError={event=>{event.currentTarget.style.display="none";}}/>;
   })}</span>;
 }
-
-const quickLinks = [
-  { label:"Selected projects", detail:"Browse the work", href:"#work" },
-  { label:"About", detail:"Profile, skills and languages", href:"#about" },
-  { label:"Education", detail:"Academic background", href:"#journey" },
-  { label:"Certificates", detail:"Training and credentials", href:"#credentials" },
-  { label:"Contact", detail:"Email and professional links", href:"#contact" },
-  { label:"GitHub", detail:"Source code and repositories", href:"https://github.com/TheRootBaba" }
-];
 
 const displayName = "Baba Ahmed El Bekay";
 
 export default function Portfolio() {
-  const [typedName,setTypedName]=useState("");
   const [menuOpen,setMenuOpen]=useState(false);
   const [commandOpen,setCommandOpen]=useState(false);
-  const [commandQuery,setCommandQuery]=useState("");
   const close=()=>setMenuOpen(false);
-  useEffect(()=>{
-    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){
-      setTypedName(displayName);
-      return;
-    }
-    let index=0;
-    let typingTimer:number|undefined;
-    const typeNextCharacter=()=>{
-      index+=1;
-      setTypedName(displayName.slice(0,index));
-      if(index<displayName.length){
-        const nextCharacter=displayName[index];
-        const delay=nextCharacter===" "?360:145;
-        typingTimer=window.setTimeout(typeNextCharacter,delay);
-      }
-    };
-    const startTimer=window.setTimeout(typeNextCharacter,520);
-    return ()=>{
-      window.clearTimeout(startTimer);
-      if(typingTimer!==undefined) window.clearTimeout(typingTimer);
-    };
-  },[]);
   useEffect(()=>{
     const onKeyDown=(event:KeyboardEvent)=>{
       if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==="k"){
@@ -92,30 +61,23 @@ export default function Portfolio() {
     window.addEventListener("keydown",onKeyDown);
     return ()=>window.removeEventListener("keydown",onKeyDown);
   },[]);
-  const matchingLinks=quickLinks.filter(link=>(link.label+" "+link.detail).toLowerCase().includes(commandQuery.toLowerCase()));
   return <main id="top" className="portfolio">
     <ScrollExperience />    <a className="skip-link" href="#work">Skip to selected projects</a>
     <header className="site-header">
       <a className="brand" href="#top" onClick={close}><span className="brand-mark">BA<span>.</span></span><span>BABA AHMED EL BEKAY</span></a>
-      <button className="command-trigger" type="button" onClick={()=>{setCommandQuery("");setCommandOpen(true);}} aria-label="Open quick navigation"><Search size={14}/><span>Quick jump</span><kbd>⌘ K</kbd></button>
+      <button className="command-trigger" type="button" onClick={()=>setCommandOpen(true)} aria-label="Open personal command line"><Terminal size={14}/><span>Command line</span><kbd>⌘ K</kbd></button>
       <button className="menu-toggle" onClick={()=>setMenuOpen(!menuOpen)} aria-label={menuOpen?"Close menu":"Open menu"} aria-expanded={menuOpen}>{menuOpen?<X/>:<Menu/>}</button>
       <nav className={menuOpen?"main-nav nav-open":"main-nav"} aria-label="Main navigation">
         <a href="#work" onClick={close}>Work</a><a href="#about" onClick={close}>About</a><a href="#journey" onClick={close}>Journey</a><a href="#credentials" onClick={close}>Credentials</a><a className="nav-cta" href="#contact" onClick={close}>Let’s talk <ArrowUpRight size={15}/></a>
       </nav>
     </header>
-    {commandOpen&&<div className="command-backdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)setCommandOpen(false);}}>
-      <section className="command-dialog" role="dialog" aria-modal="true" aria-labelledby="command-title">
-        <div className="command-search"><Search size={17}/><label id="command-title" className="sr-only">Quick navigation</label><input autoFocus value={commandQuery} onChange={event=>setCommandQuery(event.target.value)} placeholder="Where would you like to go?" aria-label="Search this portfolio"/><kbd>ESC</kbd></div>
-        <div className="command-results">{matchingLinks.length?matchingLinks.map(link=><a key={link.href} href={link.href} onClick={()=>setCommandOpen(false)}><span><strong>{link.label}</strong><small>{link.detail}</small></span><ArrowUpRight size={15}/></a>):<p className="command-empty">No matching sections. Try “projects” or “contact”.</p>}</div>
-        <div className="command-foot"><span>QUICK NAVIGATION</span><span>ESC TO CLOSE</span></div>
-      </section>
-    </div>}
+    {commandOpen&&<CommandTerminal onClose={()=>setCommandOpen(false)}/>}
     
     <section className="hero shell">
       <div className="hero-topline"><p className="eyebrow"><span className="availability-dot"/> OPEN TO REMOTE ROLES & INTERNSHIPS</p><span className="hero-location"><MapPin size={13}/> NOUAKCHOTT, MAURITANIA</span></div>
       <div className="hero-grid">
         <div className="hero-copy">
-          <p className="hero-name-type" aria-label={displayName}><span aria-hidden="true">{typedName}</span><span className="type-cursor" aria-hidden="true"/></p>
+          <p className="hero-name-type" aria-label={displayName}><span className="hero-name-text">{displayName}</span><span className="type-cursor" aria-hidden="true"/></p>
           <p className="hero-overline">NETWORK SECURITY / CLOUD / AUTOMATION</p>
           <h1>Network security<br/><em>student & builder.</em></h1>
           <p className="hero-intro">I’m <strong>Baba Ahmed El Bekay</strong>. I study Network Security at MIFITT Institute and build projects with Python, Linux, GNS3 and Oracle Cloud Infrastructure.</p>
@@ -151,7 +113,7 @@ export default function Portfolio() {
     <section className="journey-section section-space" id="journey"><div className="shell">
       <div className="section-heading"><div><p className="section-index">03 / EDUCATION</p><h2>Education</h2></div><p className="section-description">My education in science and network security.</p></div>
       <div className="education-timeline">
-        <article className="education-card current"><div className="education-icon"><GraduationCap size={20}/></div><div className="education-period">2025 — PRESENT <span>CURRENT STUDIES</span></div><h3>BTS in Network Security</h3><p className="education-school"><img className="mifitt-logo" src="https://lh3.googleusercontent.com/sitesv/AICyYdat3PDDJEGBZHX3LoAu5OWNEY11ltv-QP8hjqHNCjkcFmujmE-Tzp8MPbOEf-qJZFj74YBA1CurAuonT4zjjQ4Bp5g6kt18o4IK8vHHWMoNUNB-HlNrupqIg7KuNEJ4Az6vxxsN3CT2hUobdh7Ud2_Uk6nlf1WArRU=w16383" alt="MiFiTT Institute logo" loading="eager" onError={event=>{event.currentTarget.style.display="none";}}/>MIFITT Institute</p><p className="education-description">Coursework in networking, infrastructure and security fundamentals, alongside practical labs and personal projects.</p><div className="education-tags"><span>Networking</span><span>Network defense</span><span>Infrastructure</span></div></article>
+        <article className="education-card current"><div className="education-icon"><GraduationCap size={20}/></div><div className="education-period">2025 — PRESENT <span>CURRENT STUDIES</span></div><h3>BTS in Network Security</h3><p className="education-school"><Image className="mifitt-logo" src="https://lh3.googleusercontent.com/sitesv/AICyYdat3PDDJEGBZHX3LoAu5OWNEY11ltv-QP8hjqHNCjkcFmujmE-Tzp8MPbOEf-qJZFj74YBA1CurAuonT4zjjQ4Bp5g6kt18o4IK8vHHWMoNUNB-HlNrupqIg7KuNEJ4Az6vxxsN3CT2hUobdh7Ud2_Uk6nlf1WArRU=w16383" alt="MiFiTT Institute logo" width={34} height={34} unoptimized loading="lazy" onError={event=>{event.currentTarget.style.display="none";}}/>MIFITT Institute</p><p className="education-description">Coursework in networking, infrastructure and security fundamentals, alongside practical labs and personal projects.</p><div className="education-tags"><span>Networking</span><span>Network defense</span><span>Infrastructure</span></div></article>
         <div className="timeline-connector"><span/></div>
         <article className="education-card"><div className="education-icon"><BookOpen size={20}/></div><div className="education-period">2023 — 2024 <span>COMPLETED</span></div><h3>Baccalauréat in Science</h3><p className="education-school">Lycée d’Excellence 2</p><p className="education-description">Science studies, including mathematics and core scientific subjects.</p></article>
       </div>
