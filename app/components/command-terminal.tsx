@@ -66,11 +66,11 @@ export default function CommandTerminal({ onClose }: { onClose: () => void }) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const previous = document.activeElement as HTMLElement | null;
+    const trigger = document.querySelector<HTMLButtonElement>(".command-trigger");
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     inputRef.current?.focus();
-    return () => { document.body.style.overflow = previousOverflow; previous?.focus(); };
+    return () => { document.body.style.overflow = previousOverflow; trigger?.focus(); };
   }, []);
 
   function submit(event: FormEvent<HTMLFormElement>) {
@@ -90,7 +90,7 @@ export default function CommandTerminal({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="command-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
-      <section className="command-terminal" role="dialog" aria-modal="true" aria-labelledby="terminal-title">
+      <section className="command-terminal" role="dialog" aria-modal="true" aria-labelledby="terminal-title" onKeyDown={(event) => { if (event.key !== "Tab") return; const items = Array.from(event.currentTarget.querySelectorAll<HTMLElement>('button, input, a[href]')); const first = items[0]; const last = items[items.length - 1]; if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); } else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); } }}>
         <header className="terminal-header">
           <div className="terminal-brand"><span className="terminal-mark"><Terminal size={15}/></span><span><strong id="terminal-title">BABA / COMMAND LINE</strong><small>PERSONAL INTERFACE · READ-ONLY</small></span></div>
           <button type="button" className="terminal-close" onClick={onClose} aria-label="Close command line"><X size={17}/></button>
