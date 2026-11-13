@@ -9,7 +9,7 @@ export function projectMetadata({ slug, title, description }: { slug: string; ti
     title,
     description,
     alternates: { canonical: url },
-    robots: { index: process.env.VERCEL_ENV === "production", follow: true },
+    robots: { index: process.env.VERCEL_ENV === "production", follow: true, googleBot: { index: process.env.VERCEL_ENV === "production", follow: true, "max-snippet": -1, "max-image-preview": "large", "max-video-preview": -1 } },
     openGraph: {
       type: "article",
       url,
