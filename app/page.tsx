@@ -10,7 +10,7 @@ const personSchema = {
   "@type": "Person",
   name: "Baba Ahmed El Bekay",
   url: "https://baba-ahmed-portfolio.vercel.app",
-  image: "https://baba-ahmed-portfolio.vercel.app/assets/og-cover.svg",
+  image: "https://baba-ahmed-portfolio.vercel.app/opengraph-image",
   jobTitle: "Network Security Student and Cybersecurity Builder",
   description: "Network Security student building practical cybersecurity tools, network labs and cloud infrastructure projects. Open to remote internships and entry-level opportunities.",
   email: "mailto:babaahmed3409@gmail.com",
