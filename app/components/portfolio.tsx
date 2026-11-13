@@ -66,16 +66,19 @@ export default function Portfolio() {
     }
     let index=0;
     let typingTimer:number|undefined;
-    const startTimer=window.setTimeout(()=>{
-      typingTimer=window.setInterval(()=>{
-        index+=1;
-        setTypedName(displayName.slice(0,index));
-        if(index>=displayName.length&&typingTimer!==undefined) window.clearInterval(typingTimer);
-      },82);
-    },320);
+    const typeNextCharacter=()=>{
+      index+=1;
+      setTypedName(displayName.slice(0,index));
+      if(index<displayName.length){
+        const nextCharacter=displayName[index];
+        const delay=nextCharacter===" "?360:145;
+        typingTimer=window.setTimeout(typeNextCharacter,delay);
+      }
+    };
+    const startTimer=window.setTimeout(typeNextCharacter,520);
     return ()=>{
       window.clearTimeout(startTimer);
-      if(typingTimer!==undefined) window.clearInterval(typingTimer);
+      if(typingTimer!==undefined) window.clearTimeout(typingTimer);
     };
   },[]);
   useEffect(()=>{
