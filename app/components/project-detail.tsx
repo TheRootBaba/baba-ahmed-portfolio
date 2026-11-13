@@ -6,7 +6,9 @@ import ProjectScrollUI from "@/app/components/project-scroll-ui";
 type ProjectDetailProps = {
   slug: string; number: string; category: string; title: string; summary: string; repository?: string;
   stack: string[]; problem: string; approach: string[]; outcomes: string[]; boundaries: string[];
-  milestones?: { phase: string; title: string; detail: string; status: string }[];\n  decisions?: { choice: string; rationale: string }[];\n  nextExperiment?: string;
+  milestones?: { phase: string; title: string; detail: string; status: string }[];
+  decisions?: { choice: string; rationale: string }[];
+  nextExperiment?: string;
   architecture?: { name: string; detail: string }[];
   validation?: { label: string; result: string; detail: string }[];
   images?: { src: string; alt: string; caption: string }[];
