@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import ScrollExperience from "@/app/components/scroll-experience";
 import CommandTerminal from "@/app/components/command-terminal";
-import { ArrowDownRight, ArrowRight, ArrowUpRight, BookOpen, Github, Globe2, GraduationCap, Linkedin, Mail, MapPin, Menu, Network, ShieldCheck, Terminal, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BookOpen, Github, Globe2, GraduationCap, Linkedin, Mail, MapPin, Menu, Network, ShieldCheck, Terminal, X } from "lucide-react";
 
 const projects = [
   { number:"01", name:"AegisSOC", category:"SECURITY OPERATIONS PLATFORM", description:"A local-first SOC platform for collecting security telemetry, investigating alerts, enriching indicators and governing response actions.", stack:["Python","FastAPI","PostgreSQL","Docker","Wazuh"], href:"/projects/aegissoc", featured:true },
@@ -85,8 +85,10 @@ export default function Portfolio() {
           <div className="hero-credentials"><span><ShieldCheck size={14}/> Microsoft Cybersecurity</span><span><Globe2 size={14}/> Oracle Cloud Infrastructure</span><span><Network size={14}/> Network Security</span></div>
         </div>
         <aside className="hero-aside">
-          <div className="hero-orbit" aria-hidden="true"><div className="orbit-ring ring-one"/><div className="orbit-ring ring-two"/><div className="orbit-core"><span>BA</span><i/></div><span className="orbit-node node-a"><ShieldCheck size={17}/></span><span className="orbit-node node-b"><Network size={17}/></span><span className="orbit-node node-c"><Terminal size={17}/></span></div>
-          <div className="hero-aside-bottom"><span className="card-kicker">CURRENT DIRECTION / 001</span><h2>Current <em>focus.</em></h2><p>Network security, cloud infrastructure, Linux and Python.</p><a href="#about">About me <ArrowDownRight size={15}/></a></div>
+          <div className="workbench-head"><span className="card-kicker">WORKBENCH / 2026</span><span className="workbench-live"><i/> IN DEVELOPMENT</span></div>
+          <div className="workbench-lead"><span>01 — PRIMARY FOCUS</span><h2>Security systems<br/><em>that can be inspected.</em></h2><p>Build, test, document. Keep the evidence close to the implementation.</p></div>
+          <div className="workbench-list"><a href="/projects/aegissoc"><span>01</span><b>AegisSOC</b><small>Security operations</small><ArrowUpRight size={14}/></a><a href="/projects/netsec-agent"><span>02</span><b>NetSec Agent</b><small>Network assessment</small><ArrowUpRight size={14}/></a><a href="/projects/netops-sentinel"><span>03</span><b>NetOps Sentinel</b><small>Network validation</small><ArrowUpRight size={14}/></a></div>
+          <div className="workbench-foot"><span>APPROACH</span><b>Practical · Documented · Verifiable</b></div>
         </aside>
       </div>
       <div className="hero-foot"><span>NETWORK SECURITY · CLOUD · PYTHON</span><span>PORTFOLIO / 2026</span></div>

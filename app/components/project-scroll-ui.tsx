@@ -4,8 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 
 const sections = [
   { id: "overview", label: "Overview" }, { id: "architecture", label: "System design" },
-  { id: "approach", label: "Approach" }, { id: "validation", label: "Validation" },
-  { id: "outcomes", label: "Outcomes" }, { id: "evidence", label: "Evidence" }, { id: "scope", label: "Scope" },
+  { id: "engineering-log", label: "Build log" }, { id: "decisions", label: "Decisions" }, { id: "next-experiment", label: "Next test" },
+  { id: "approach", label: "Implementation" }, { id: "validation", label: "Validation" },
+  { id: "outcomes", label: "Results" }, { id: "evidence", label: "Evidence" }, { id: "scope", label: "Scope" },
 ];
 
 export default function ProjectScrollUI({ hasEvidence, hasArchitecture, hasValidation }: { hasEvidence: boolean; hasArchitecture: boolean; hasValidation: boolean }) {
