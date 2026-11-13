@@ -16,7 +16,7 @@ export default function OpenGraphImage() {
           <div style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: "#287a58" }}><span style={{ width: 9, height: 9, borderRadius: 20, background: "#287a58" }} /> OPEN TO OPPORTUNITIES</div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-          <div style={{ fontSize: 62, lineHeight: 1.04, fontWeight: 700, letterSpacing: -3 }}>Baba Ahmed <span style={{ color: "#287a58" }}>El Bekay.</span></div>
+          <div style={{ display: "flex", alignItems: "baseline", fontSize: 62, lineHeight: 1.04, fontWeight: 700, letterSpacing: -3 }}>Baba Ahmed <span style={{ color: "#287a58" }}>El Bekay.</span></div>
           <div style={{ fontSize: 25, color: "#58665d" }}>Network Security · Cybersecurity · Cloud Infrastructure</div>
           <div style={{ width: 90, height: 4, background: "#287a58", marginTop: 12 }} />
         </div>
