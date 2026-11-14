@@ -31,6 +31,7 @@ Vercel Analytics is mounted in `app/layout.tsx` using `<Analytics />`. Enable We
 ## Project scope and evidence
 - **NetSec Agent:** Nmap host discovery, TCP port scanning, service-version detection, Streamlit interface and AI-assisted explanations. Scan scope is limited to approved private IPv4 subnets of at most 256 addresses.
 - **NetOps Sentinel:** GNS3 lab with three FRRouting routers, five switches and five endpoint LANs. Python validates structured inventory, runs read-only reachability checks and records JSON evidence. The documented baseline uses static routing; OSPF and production monitoring are not claimed as implemented.
+- **NexusCloud:** Local-first infrastructure lab with isolated Docker application networks, Prometheus/Grafana observability, controlled alert-failure and recovery tests, and a separate WireGuard routing simulation. OCI provisioning and the broader hybrid-cloud design remain future goals, not deployed features.
 - Original screenshots and diagrams are retained under `public/assets`.
 
 No fabricated performance metrics or project outcomes are presented.
