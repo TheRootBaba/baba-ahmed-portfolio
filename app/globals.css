@@ -615,3 +615,19 @@ a,button{-webkit-tap-highlight-color:rgba(40,122,88,.12)}
     transition:none!important;
   }
 }
+
+
+/* Responsive navigation: keep the menu control visible and the panel anchored to the header. */
+@media(max-width:800px){
+  .site-header{position:sticky;}
+  .menu-toggle{display:grid;flex:0 0 40px;margin-left:auto;}
+  .command-trigger{display:none;}
+  .main-nav{display:none;position:absolute;top:100%;left:0;right:0;padding:10px 20px 18px;background:rgba(255,255,255,.985);border-bottom:1px solid var(--line);box-shadow:0 14px 24px rgba(24,47,30,.08);flex-direction:column;align-items:stretch;gap:0;}
+  .main-nav.nav-open{display:flex;}
+  .main-nav>a{padding:14px 2px;border-bottom:1px solid var(--line);}
+  .main-nav .nav-cta{margin-top:8px;padding:12px 14px;border:1px solid #d6e2d8;}
+}
+.button-resume{background:#fff;color:#244d36;border-color:#cbdccf;box-shadow:0 2px 8px rgba(31,68,45,.045);}
+.button-resume:hover{background:#f2f8f3;border-color:#a9c5b1;transform:translateY(-2px);box-shadow:0 8px 18px rgba(31,68,45,.09);}
+.button-resume svg{flex:0 0 auto;}
+@media(max-width:600px){.hero-actions .button-resume{width:100%;justify-content:center;}}
