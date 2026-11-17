@@ -29,6 +29,7 @@ export default function ProjectVisual({ slug, title }: Props) {
         <text x="42" y="173" className="visual-node-sub">INPUT</text>
         <text x="948" y="173" textAnchor="end" className="visual-node-sub">OUTPUT / REVIEW</text>
       </svg>
+      <ol className="project-visual-mobile">{diagram.nodes.map((node, index) => <li key={node.title}><span>0{index + 1}</span><b>{node.title}</b><small>{node.detail}</small></li>)}</ol>
       <figcaption><span>{diagram.caption}</span><strong>DOCUMENTED FLOW · NOT LIVE TELEMETRY</strong></figcaption>
     </figure>
   );
