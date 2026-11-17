@@ -2,21 +2,33 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
+const siteUrl = "https://www.babaahmed.me";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://baba-ahmed-portfolio.vercel.app"),
+  metadataBase: new URL(siteUrl),
   title: { default: "Baba Ahmed El Bekay — Cybersecurity & Cloud Infrastructure", template: "%s — Baba Ahmed" },
-  description: "Baba Ahmed El Bekay is a Network Security student and cybersecurity builder focused on network defense, cloud infrastructure, Linux and Python. Explore hands-on security projects, engineering case studies and technical labs. Open to remote internships and entry-level opportunities.",
+  description: "Baba Ahmed El Bekay is a Network Security student in Mauritania focused on cybersecurity, network defense, cloud infrastructure, Linux and Python. Explore practical security projects, documented engineering case studies and technical labs. Open to remote roles and internships.",
   keywords: ["Baba Ahmed El Bekay", "cybersecurity portfolio", "network security", "cybersecurity student", "cloud infrastructure", "cloud security", "SOC engineering", "Python security tools", "Linux", "Oracle Cloud Infrastructure", "network automation", "Mauritania"],
-  authors: [{ name: "Baba Ahmed El Bekay", url: "https://baba-ahmed-portfolio.vercel.app" }],
+  authors: [{ name: "Baba Ahmed El Bekay", url: siteUrl }],
   creator: "Baba Ahmed El Bekay",
   publisher: "Baba Ahmed El Bekay",
   robots: { index: process.env.VERCEL_ENV === "production", follow: true, googleBot: { index: process.env.VERCEL_ENV === "production", follow: true, "max-snippet": -1, "max-image-preview": "large", "max-video-preview": -1 } },
   applicationName: "Baba Ahmed Portfolio",
-  openGraph: { type: "website", url: "https://baba-ahmed-portfolio.vercel.app", title: "Baba Ahmed El Bekay — Cybersecurity & Cloud Infrastructure", description: "Practical security engineering, network infrastructure and cloud projects.", images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Baba Ahmed portfolio" }] },
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: siteUrl,
+    siteName: "Baba Ahmed El Bekay",
+    title: "Baba Ahmed El Bekay — Cybersecurity & Cloud Infrastructure",
+    description: "Practical security engineering, network infrastructure and cloud projects by Baba Ahmed El Bekay.",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Baba Ahmed El Bekay — cybersecurity and cloud infrastructure portfolio" }]
+  },
   twitter: { card: "summary_large_image", title: "Baba Ahmed El Bekay — Cybersecurity & Cloud", description: "Practical security engineering, network infrastructure and cloud projects.", images: ["/opengraph-image"] },
   icons: { icon: "/assets/favicon.svg" }
 };
+
 export const viewport: Viewport = { themeColor: "#ffffff", colorScheme: "light" };
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return <html lang="en"><body>{children}<Analytics /></body></html>;
 }
