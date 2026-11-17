@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowUpRight, Github, ExternalLink, FileText } from "lucide-react";
 import ProjectScrollUI from "@/app/components/project-scroll-ui";
+import ProjectVisual from "@/app/components/project-visual";
 
 type ProjectDetailProps = {
   slug: string; number: string; category: string; title: string; summary: string; repository?: string;
@@ -47,6 +48,7 @@ export default function ProjectDetail(p: ProjectDetailProps) {
         <div className="detail-overview-strip"><div><span>PROJECT</span><b>{p.title}</b></div><div><span>TYPE</span><b>{p.category.split(" · ")[0]}</b></div><div><span>TECHNOLOGIES</span><b>{p.stack.length} core tools</b></div></div>
         <div className="detail-stack" aria-label="Technology stack">{p.stack.map(item => <span key={item}>{item}</span>)}</div>
         {p.documentation?.length ? <div className="detail-doc-links">{p.documentation.map(doc => <a key={doc.href} href={doc.href} target="_blank" rel="noreferrer"><FileText size={14}/>{doc.label}<ArrowUpRight size={13}/></a>)}</div> : null}
+        <ProjectVisual slug={p.slug} title={p.title} />
       </section>
 
       <div className="detail-content">

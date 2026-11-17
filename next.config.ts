@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const securityHeaders = [
-  { key: "Content-Security-Policy", value: "default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; frame-ancestors 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://raw.githubusercontent.com https://lh3.googleusercontent.com https://www.linuxfoundation.org https://commons.wikimedia.org https://*.githubusercontent.com; font-src 'self' data:; media-src 'self' blob: https://github.com https://*.githubusercontent.com; connect-src 'self' https://vitals.vercel-insights.com; manifest-src 'self'; upgrade-insecure-requests" },
+  { key: "Content-Security-Policy", value: "default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; frame-ancestors 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https://raw.githubusercontent.com https://lh3.googleusercontent.com https://www.linuxfoundation.org https://commons.wikimedia.org https://*.githubusercontent.com; font-src 'self' data: https://fonts.gstatic.com; media-src 'self' blob: https://github.com https://*.githubusercontent.com https://raw.githubusercontent.com; connect-src 'self' https://vitals.vercel-insights.com; manifest-src 'self'; upgrade-insecure-requests" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "DENY" },

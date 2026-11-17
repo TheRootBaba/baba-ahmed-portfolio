@@ -4,7 +4,22 @@ import Portfolio from "@/app/components/portfolio";
 const siteUrl = "https://www.babaahmed.me";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/" }
+  title: "Baba Ahmed El Bekay | Network Security & Cybersecurity Portfolio",
+  description: "Explore the cybersecurity and network engineering work of Baba Ahmed El Bekay: AegisSOC, Python security automation, network operations labs, cloud infrastructure and documented technical case studies. Based in Mauritania and open to remote opportunities.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: siteUrl,
+    title: "Baba Ahmed El Bekay | Network Security & Cybersecurity Portfolio",
+    description: "Cybersecurity engineering, network infrastructure and cloud projects—documented with architecture, trade-offs and evidence.",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Baba Ahmed El Bekay cybersecurity and network engineering portfolio" }]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Baba Ahmed El Bekay | Network Security Portfolio",
+    description: "Cybersecurity engineering, network infrastructure and cloud projects.",
+    images: ["/opengraph-image"]
+  }
 };
 
 const structuredData = {

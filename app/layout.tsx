@@ -30,5 +30,11 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { themeColor: "#ffffff", colorScheme: "light" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}<Analytics /></body></html>;
+  return <html lang="en">
+    <head>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+    </head>
+    <body>{children}<Analytics /></body>
+  </html>;
 }
