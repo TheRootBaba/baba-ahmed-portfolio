@@ -1,0 +1,48 @@
+BABA AHMED EL BEKAY
+Cybersecurity Analyst | Network Security | Cloud Security
+
+babaahmed3409@gmail.com | +222 34092106
+Nouakchott, Mauritania
+linkedin.com/in/babaahmedelbekay | github.com/TheRootBaba | www.babaahmed.me
+
+PROFESSIONAL SUMMARY
+Network Security student (Microsoft and Oracle certified) with hands-on experience building security automation tools, managing Linux environments, and monitoring network infrastructure. Seeking a remote Junior SOC Analyst, Cloud Security, or Network Security internship.
+
+TECHNICAL SKILLS
+Networking: TCP/IP, IPv4, VLSM, VLANs, OSPF, ACLs, DNS, DHCP, NAT
+Security: Nmap, FortiGate, VPN, access controls, threat detection, incident response, SIEM, log analysis
+Cloud & Systems: Oracle Cloud Infrastructure (OCI), IAM, Linux, Bash, Docker, Prometheus, WireGuard
+Programming & Tools: Python, SQL, Git, GNS3, Streamlit
+
+PROJECT EXPERIENCE
+AegisSOC | Python, Docker, SIEM, Prometheus | 2026
+Designed and deployed a self-hosted Security Operations Center (SOC) platform for local lab use. Implemented event collection, alert investigation, and orchestrated response actions using Docker isolation.
+
+NetSec Agent | Python, Nmap, Streamlit, AI APIs | 2026
+Built an automated network reconnaissance tool integrating Nmap scanning with AI-assisted explanations. Created a Streamlit interface to help junior analysts review and understand vulnerability scan results.
+
+NetOps Sentinel | Python, GNS3, JSON, Linux | 2026
+Developed a network monitoring lab to automate device inventory, endpoint reachability checks, and structured JSON evidence logging.
+
+NexusCloud | Docker, Prometheus, WireGuard, OCI | 2026
+Engineered a local hybrid-infrastructure lab combining Docker, WireGuard and Prometheus, focused on network segmentation, monitoring and secure routing.
+
+EDUCATION
+MIFITT Institute | Nouakchott, Mauritania
+BTS in Network Security | 2025–Present
+
+Lycée d'Excellence 2 | Nouakchott, Mauritania
+Baccalauréat in Science | 2023–2024
+
+CERTIFICATIONS
+Microsoft Cybersecurity Analyst Professional Certificate — Microsoft / Coursera (2026)
+Oracle Cloud Infrastructure Architect Associate — Oracle (2026)
+Cyber Security: Governance, Risk & Compliance — Macquarie University (2026)
+NSE 3: FortiGate Operator — Fortinet (2026)
+Agentic AI Foundations Associate — Oracle (2026)
+LFS101: Introduction to Linux — The Linux Foundation (2026)
+SQL (Intermediate) — HackerRank (2026)
+Python Essentials 1 — Cisco Networking Academy
+
+LANGUAGES
+Arabic (Native) | French (Advanced) | English (Advanced — C1)
