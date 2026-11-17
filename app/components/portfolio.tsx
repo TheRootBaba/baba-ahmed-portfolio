@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import ScrollExperience from "@/app/components/scroll-experience";
 import CommandTerminal from "@/app/components/command-terminal";
-import { ArrowRight, ArrowUpRight, BookOpen, Github, Globe2, GraduationCap, Linkedin, Mail, MapPin, Menu, Network, ShieldCheck, Terminal, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BookOpen, FileDown, Github, Globe2, GraduationCap, Linkedin, Mail, MapPin, Menu, Network, ShieldCheck, Terminal, X } from "lucide-react";
 
 const projects = [
   { number:"01", name:"AegisSOC", category:"SECURITY OPERATIONS PLATFORM", description:"A local-first SOC platform for collecting security telemetry, investigating alerts, enriching indicators and governing response actions.", stack:["Python","FastAPI","PostgreSQL","Docker","Wazuh"], href:"/projects/aegissoc", featured:true },
@@ -82,7 +82,7 @@ export default function Portfolio() {
           <p className="hero-overline">NETWORK SECURITY / CLOUD / AUTOMATION</p>
           <h1>Network security<br/><em>student & builder.</em></h1>
           <p className="hero-intro">I’m <strong>Baba Ahmed El Bekay</strong>. I study Network Security at MIFITT Institute and build projects with Python, Linux, GNS3 and Oracle Cloud Infrastructure.</p>
-          <div className="hero-actions"><a className="button button-primary" href="#work">View projects <ArrowRight size={16}/></a><a className="text-link" href="mailto:babaahmed3409@gmail.com">Contact me <ArrowUpRight size={15}/></a></div>
+          <div className="hero-actions"><a className="button button-primary" href="#work">View projects <ArrowRight size={16}/></a><a className="text-link" href="mailto:babaahmed3409@gmail.com">Contact me <ArrowUpRight size={15}/></a><a className="button button-resume" href="/resume.txt" download="Baba-Ahmed-El-Bekay-Resume.txt"><FileDown size={15}/> Download résumé</a></div>
           <div className="hero-credentials"><span><ShieldCheck size={14}/> Microsoft Cybersecurity</span><span><Globe2 size={14}/> Oracle Cloud Infrastructure</span><span><Network size={14}/> Network Security</span></div>
         </div>
         <aside className="hero-aside">
