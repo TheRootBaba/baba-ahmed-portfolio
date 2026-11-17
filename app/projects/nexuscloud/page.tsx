@@ -67,6 +67,16 @@ export default function Page(){
       "Monitoring and alert tests demonstrate the documented lab configuration; they do not establish production-grade availability or security.",
       "The lab requires Windows with WSL2, Ubuntu and Docker Desktop for the documented workflow."
     ]}
+    evidenceNotice="These are genuine screenshots and validation artifacts from the documented local lab run on November 13, 2026. They show the recorded test environment, not a live hosted service or current telemetry." 
+    images={[
+      {src:"https://raw.githubusercontent.com/TheRootBaba/nexuscloud-hybrid-infrastructure/main/evidence/2026-11-13_08-grafana-dashboard.png",alt:"NexusCloud Grafana overview showing both sites and monitoring targets",caption:"Grafana overview — both test sites reported UP in the recorded lab run"},
+      {src:"https://raw.githubusercontent.com/TheRootBaba/nexuscloud-hybrid-infrastructure/main/evidence/2026-11-13_03-prometheus-targets.png",alt:"NexusCloud Prometheus targets page showing four targets",caption:"Prometheus targets — four expected scrape targets"},
+      {src:"https://raw.githubusercontent.com/TheRootBaba/nexuscloud-hybrid-infrastructure/main/evidence/2026-11-13_07-prometheus-alert-firing.png",alt:"NexusCloud Prometheus alert firing during a controlled Site A outage",caption:"Controlled failure — Site A availability alert firing"},
+      {src:"https://raw.githubusercontent.com/TheRootBaba/nexuscloud-hybrid-infrastructure/main/evidence/2026-11-13_11-wireguard-acceptance.png",alt:"NexusCloud WireGuard acceptance test showing bidirectional client traffic and denied prefix",caption:"WireGuard acceptance — bidirectional client test and denied unapproved prefix"},
+      {src:"https://raw.githubusercontent.com/TheRootBaba/nexuscloud-hybrid-infrastructure/main/evidence/2026-11-13_09-docker-compose-health.png",alt:"NexusCloud Docker Compose health and validation output",caption:"Container health — services and local validation output"}
+    ]}
+    video="https://raw.githubusercontent.com/TheRootBaba/nexuscloud-hybrid-infrastructure/main/demo/nexuscloud-2.0-demo.mp4"
+    videoLabel="NexusCloud 2.0 recorded local-lab walkthrough — repository-hosted demonstration."
     documentation={[
       {label:"Repository README & setup",href:"https://github.com/TheRootBaba/nexuscloud-hybrid-infrastructure#readme"},
       {label:"System architecture",href:"https://github.com/TheRootBaba/nexuscloud-hybrid-infrastructure/blob/main/docs/architecture.md"},
