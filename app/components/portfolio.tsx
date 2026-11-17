@@ -78,7 +78,7 @@ export default function Portfolio() {
       <div className="hero-topline"><p className="eyebrow"><span className="availability-dot"/> OPEN TO REMOTE ROLES & INTERNSHIPS</p><span className="hero-location"><MapPin size={13}/> NOUAKCHOTT, MAURITANIA</span></div>
       <div className="hero-grid">
         <div className="hero-copy">
-          <p className="hero-name-type" aria-label={displayName}><span className="hero-name-text">{displayName}</span><span className="type-cursor" aria-hidden="true"/></p>
+          <p className="hero-name-type"><span className="hero-name-text">{displayName}</span><span className="type-cursor" aria-hidden="true"/></p>
           <p className="hero-overline">NETWORK SECURITY / CLOUD / AUTOMATION</p>
           <h1>Network security<br/><em>student & builder.</em></h1>
           <p className="hero-intro">I’m <strong>Baba Ahmed El Bekay</strong>. I study Network Security at MIFITT Institute and build projects with Python, Linux, GNS3 and Oracle Cloud Infrastructure.</p>
@@ -102,7 +102,7 @@ export default function Portfolio() {
         <h3>{project.name}<span>.</span></h3><p>{project.description}</p>
         <div className="project-card-bottom"><div className="tag-list">{project.stack.map(tag=><span key={tag}>{tag}</span>)}</div><a href={project.href}>Explore case study <ArrowUpRight size={16}/></a></div>
       </article>)}</div>
-      <div className="work-footnote"><span>01—04</span><p>Project details and available evidence are on their individual pages.</p><a href="https://github.com/TheRootBaba" target="_blank" rel="noreferrer">More on GitHub <ArrowUpRight size={14}/></a></div>
+      <div className="work-footnote"><span>01—05</span><p>Project details and available evidence are on their individual pages.</p><a href="https://github.com/TheRootBaba" target="_blank" rel="noreferrer">More on GitHub <ArrowUpRight size={14}/></a></div>
     </div></section>
 
     <section className="about-section section-space" id="about"><div className="shell">
