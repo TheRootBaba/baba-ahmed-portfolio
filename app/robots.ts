@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const siteUrl = "https://baba-ahmed-portfolio.vercel.app";
+const siteUrl = "https://www.babaahmed.me";
 
 export default function robots(): MetadataRoute.Robots {
   const isProduction = process.env.VERCEL_ENV === "production";
@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       ...(isProduction ? { allow: "/" } : { disallow: "/" })
     },
-    ...(isProduction ? { sitemap: siteUrl + "/sitemap.xml" } : {})
+    ...(isProduction ? { sitemap: siteUrl + "/sitemap.xml", host: siteUrl } : {})
   };
 }

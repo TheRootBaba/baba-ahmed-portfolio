@@ -25,8 +25,8 @@ export default function ProjectDetail(p: ProjectDetailProps) {
         "@type": "CreativeWork",
         name: p.title,
         description: p.summary,
-        url: "https://baba-ahmed-portfolio.vercel.app/projects/" + p.slug,
-        author: { "@type": "Person", name: "Baba Ahmed El Bekay", url: "https://baba-ahmed-portfolio.vercel.app" },
+        url: "https://www.babaahmed.me/projects/" + p.slug,
+        author: { "@type": "Person", name: "Baba Ahmed El Bekay", url: "https://www.babaahmed.me" },
         keywords: p.stack,
         ...(p.repository ? { sameAs: p.repository } : {})
       }).replace(/</g, "\\u003c") }} />

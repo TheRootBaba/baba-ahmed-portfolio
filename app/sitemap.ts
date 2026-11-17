@@ -1,9 +1,17 @@
 import type { MetadataRoute } from "next";
 
-const siteUrl = "https://baba-ahmed-portfolio.vercel.app";
+const siteUrl = "https://www.babaahmed.me";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["", "/projects/aegissoc", "/projects/netsec-agent", "/projects/netops-sentinel", "/projects/secure-enterprise-network"];
+  const routes = [
+    "",
+    "/projects/aegissoc",
+    "/projects/netsec-agent",
+    "/projects/netops-sentinel",
+    "/projects/secure-enterprise-network",
+    "/projects/nexuscloud"
+  ];
+
   return routes.map((route, index) => ({
     url: siteUrl + route,
     changeFrequency: index === 0 ? "weekly" : "monthly",
