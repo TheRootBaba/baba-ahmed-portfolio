@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const siteUrl = "https://www.babaahmed.me";
@@ -35,6 +36,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
     </head>
-    <body>{children}<Analytics /></body>
+    <body>{children}<Analytics /><SpeedInsights /></body>
   </html>;
 }
