@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import ScrollExperience from "@/app/components/scroll-experience";
+import MotionEnhancements, { TypedName } from "@/app/components/motion-enhancements";
 import CommandTerminal from "@/app/components/command-terminal";
 import { ArrowRight, ArrowUpRight, BookOpen, FileDown, Github, Globe2, GraduationCap, Linkedin, Mail, MapPin, Menu, Network, ShieldCheck, Terminal, X } from "lucide-react";
 
@@ -45,8 +46,6 @@ function CredentialMark({brands}:{brands:string[]}) {
   })}</span>;
 }
 
-const displayName = "Baba Ahmed El Bekay";
-
 export default function Portfolio() {
   const [menuOpen,setMenuOpen]=useState(false);
   const [commandOpen,setCommandOpen]=useState(false);
@@ -63,7 +62,7 @@ export default function Portfolio() {
     return ()=>window.removeEventListener("keydown",onKeyDown);
   },[]);
   return <main id="top" className="portfolio">
-    <ScrollExperience />    <a className="skip-link" href="#work">Skip to selected projects</a>
+    <ScrollExperience /><MotionEnhancements /><a className="skip-link" href="#work">Skip to selected projects</a>
     <header className="site-header">
       <a className="brand" href="#top" onClick={close}><span className="brand-mark">BA<span>.</span></span><span>BABA AHMED EL BEKAY</span></a>
       <button className="command-trigger" type="button" onClick={()=>setCommandOpen(true)} aria-label="Open personal command line"><Terminal size={14}/><span>Command line</span><kbd>⌘ K</kbd></button>
@@ -78,7 +77,7 @@ export default function Portfolio() {
       <div className="hero-topline"><p className="eyebrow"><span className="availability-dot"/> OPEN TO REMOTE ROLES & INTERNSHIPS</p><span className="hero-location"><MapPin size={13}/> NOUAKCHOTT, MAURITANIA</span></div>
       <div className="hero-grid">
         <div className="hero-copy">
-          <p className="hero-name-type"><span className="hero-name-text">{displayName}</span><span className="type-cursor" aria-hidden="true"/></p>
+          <p className="hero-name-type"><TypedName /></p>
           <p className="hero-overline">NETWORK SECURITY / CLOUD / AUTOMATION</p>
           <h1>Network security<br/><em>student & builder.</em></h1>
           <p className="hero-intro">I’m <strong>Baba Ahmed El Bekay</strong>. I study Network Security at MIFITT Institute and build projects with Python, Linux, GNS3 and Oracle Cloud Infrastructure.</p>
