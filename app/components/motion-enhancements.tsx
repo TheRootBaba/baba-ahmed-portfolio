@@ -8,7 +8,8 @@ export function TypedName() {
   const [typed, setTyped] = useState(fullName);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // This portfolio has an explicit motion-forward design; the visitor can still
+    // use the browser preference to reduce motion in other sites.
     let index = 0;
     let timer: ReturnType<typeof setTimeout>;
     setTyped("");
@@ -34,13 +35,13 @@ export default function MotionEnhancements() {
     const targets = Array.from(document.querySelectorAll<HTMLElement>(
       ".hero-copy, .hero-aside, .hero-foot, .section-heading, .project-card, .about-story, .skills-grid article, .education-card, .cert-card, .language-row, .contact-grid, .contact-methods a, .work-footnote"
     ));
+    document.documentElement.classList.add("portfolio-motion-opt-in");
     const revealAll = () => {
       document.documentElement.classList.remove("motion-enabled");
       targets.forEach(target => target.classList.add("motion-visible"));
     };
 
     if (
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
       !("IntersectionObserver" in window)
     ) {
       revealAll();
@@ -72,6 +73,7 @@ export default function MotionEnhancements() {
     return () => {
       observer.disconnect();
       document.documentElement.classList.remove("motion-enabled");
+      document.documentElement.classList.remove("portfolio-motion-opt-in");
     };
   }, []);
 
