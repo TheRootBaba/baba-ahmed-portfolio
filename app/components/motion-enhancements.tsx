@@ -33,7 +33,7 @@ export function TypedName() {
 export default function MotionEnhancements() {
   useEffect(() => {
     const targets = Array.from(document.querySelectorAll<HTMLElement>(
-      ".hero-copy, .hero-aside, .hero-foot, .section-heading, .project-card, .about-story, .skills-grid article, .education-card, .cert-card, .language-row, .contact-grid, .contact-methods a, .work-footnote"
+      ".hero-copy, .hero-aside, .hero-foot, .section-heading, .project-card, .about-story, .skills-grid article, .education-card, .cert-card, .language-row, .contact-grid, .contact-methods a, .work-footnote, .arabic-page .motion-reveal"
     ));
     document.documentElement.classList.add("portfolio-motion-opt-in");
     const revealAll = () => {
