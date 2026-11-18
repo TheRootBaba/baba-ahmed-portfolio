@@ -730,3 +730,29 @@ html.motion-enabled .projects-grid .project-card.motion-reveal:nth-child(5) { tr
   .project-card, .skills-grid article, .cert-card, .contact-methods a, .workbench-list a, .button { transition: none !important; }
   .project-card:hover, .skills-grid article:hover, .cert-card:hover, .contact-methods a:hover { transform: none !important; }
 }
+
+/* Motion pass 2: make scroll movement visible and remove transform-animation conflicts.
+   The ambient keyframes were overriding the scroll-driven transform above. */
+.hero:before, .hero:after { animation: none !important; }
+.hero:before { transform: translate3d(0, calc(var(--hero-scroll, 0px) * -.72), 0); }
+.hero:after { transform: translate3d(0, calc(var(--hero-scroll, 0px) * -.42), 0); }
+.hero-aside { translate: 0 calc(var(--hero-scroll, 0px) * .22); }
+html.motion-enabled .motion-reveal {
+  opacity: 0;
+  transform: translate3d(0, 56px, 0) scale(.985);
+  transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1);
+}
+html.motion-enabled .motion-reveal.motion-visible {
+  opacity: 1;
+  transform: translate3d(0,0,0) scale(1);
+}
+.hero-copy { animation-duration: 1.15s !important; }
+.hero-aside { animation-duration: 1.35s !important; }
+@media (max-width: 800px) {
+  .hero-aside { translate: 0 calc(var(--hero-scroll, 0px) * .10); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero:before, .hero:after { transform: none !important; animation: none !important; }
+  .hero-aside { translate: none !important; }
+  html.motion-enabled .motion-reveal { opacity: 1; transform: none; }
+}
