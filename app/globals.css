@@ -683,3 +683,50 @@ html:not(.motion-enabled) .motion-reveal{opacity:1;transform:none;}
  .motion-reveal{opacity:1;transform:none;transition:none!important;}
  .button-primary:after,.button-dark:after{display:none;}
 }
+
+
+/* Scroll-led portfolio motion: measured, responsive, and content-first. */
+html { scroll-behavior: smooth; }
+.hero:before { transform: translate3d(0, calc(var(--hero-scroll, 0px) * -.28), 0); }
+.hero:after { transform: translate3d(0, calc(var(--hero-scroll, 0px) * -.16), 0); }
+.reading-progress-landing { height: 3px; }
+.reading-progress-landing span { transform-origin: left center; will-change: transform; }
+.hero-copy, .hero-aside { will-change: transform, opacity; }
+.hero-aside { transform-origin: 50% 50%; }
+.hero-aside:hover { box-shadow: 0 24px 55px rgba(24, 67, 39, .08); }
+.section-heading, .about-story, .skills-grid article, .education-card, .cert-card, .language-row, .contact-grid, .contact-methods a, .work-footnote {
+  transition: opacity .8s cubic-bezier(.2,.75,.25,1), transform .8s cubic-bezier(.2,.75,.25,1);
+}
+html.motion-enabled .motion-reveal { opacity: 0; transform: translate3d(0, 34px, 0); }
+html.motion-enabled .motion-reveal.motion-visible { opacity: 1; transform: translate3d(0, 0, 0); }
+html.motion-enabled .projects-grid .project-card.motion-reveal:nth-child(2) { transition-delay: 90ms; }
+html.motion-enabled .projects-grid .project-card.motion-reveal:nth-child(3) { transition-delay: 160ms; }
+html.motion-enabled .projects-grid .project-card.motion-reveal:nth-child(4) { transition-delay: 230ms; }
+html.motion-enabled .projects-grid .project-card.motion-reveal:nth-child(5) { transition-delay: 300ms; }
+.project-card { position: relative; overflow: hidden; transition: transform .55s cubic-bezier(.2,.75,.25,1), border-color .35s ease, box-shadow .45s ease; }
+.project-card:before { content: ""; position: absolute; inset: 0 auto 0 0; width: 2px; background: var(--green); transform: scaleY(0); transform-origin: bottom; transition: transform .55s cubic-bezier(.2,.75,.25,1); }
+.project-card:hover:before, .project-card:focus-within:before { transform: scaleY(1); }
+.project-card:hover { transform: translateY(-7px); box-shadow: 0 22px 48px rgba(31,68,45,.09); }
+.project-card h3, .skills-grid h3, .cert-card h3 { transition: color .3s ease, transform .45s cubic-bezier(.2,.75,.25,1); }
+.project-card:hover h3 { transform: translateX(4px); }
+.workbench-list a { transition: transform .35s cubic-bezier(.2,.75,.25,1), background .3s ease, border-color .3s ease; }
+.workbench-list a:hover { transform: translateX(7px); }
+.main-nav a, .button, .text-link, .contact-methods a { transition: color .25s ease, background-color .25s ease, border-color .25s ease, transform .35s cubic-bezier(.2,.75,.25,1); }
+.button-primary:hover, .button-dark:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(25,70,42,.16); }
+.skills-grid article { position: relative; overflow: hidden; transition: transform .4s cubic-bezier(.2,.75,.25,1), border-color .3s ease, background .3s ease; }
+.skills-grid article:hover { transform: translateY(-5px); border-color: #b8d0bf; background: #fbfefb; }
+.cert-card { transition: transform .4s cubic-bezier(.2,.75,.25,1), box-shadow .4s ease, border-color .3s ease; }
+.cert-card:hover { transform: translateY(-5px); box-shadow: 0 16px 36px rgba(31,68,45,.07); }
+.contact-methods a:hover { transform: translateX(5px); }
+.back-to-top { transition: opacity .3s ease, transform .35s cubic-bezier(.2,.75,.25,1), background .25s ease; }
+@media (max-width: 800px) {
+  .hero:before { width: min(70vw, 340px); height: min(70vw, 340px); right: -14%; top: 100px; }
+  .hero:after { width: min(58vw, 280px); height: min(58vw, 280px); right: -5%; top: 125px; }
+  .project-card:hover, .skills-grid article:hover, .cert-card:hover { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero:before, .hero:after { transform: none !important; }
+  .project-card, .skills-grid article, .cert-card, .contact-methods a, .workbench-list a, .button { transition: none !important; }
+  .project-card:hover, .skills-grid article:hover, .cert-card:hover, .contact-methods a:hover { transform: none !important; }
+}
