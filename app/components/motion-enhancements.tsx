@@ -6,57 +6,74 @@ const fullName = "Baba Ahmed El Bekay";
 
 export function TypedName() {
   const [typed, setTyped] = useState(fullName);
+
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let index = 0;
-    setTyped("");
     let timer: ReturnType<typeof setTimeout>;
+    setTyped("");
     const tick = () => {
       index += 1;
       setTyped(fullName.slice(0, index));
-      if (index < fullName.length) timer = setTimeout(tick, 85);
+      if (index < fullName.length) timer = setTimeout(tick, 105);
     };
-    timer = setTimeout(tick, 250);
+    timer = setTimeout(tick, 450);
     return () => clearTimeout(timer);
   }, []);
-  return <span className="typed-name" aria-label={fullName}>
-    <span aria-hidden="true">{typed}</span><span className="typed-cursor" aria-hidden="true" />
-  </span>;
+
+  return (
+    <span className="typed-name" aria-label={fullName}>
+      <span aria-hidden="true">{typed}</span>
+      <span className="typed-cursor" aria-hidden="true" />
+    </span>
+  );
 }
 
 export default function MotionEnhancements() {
   useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const targets = Array.from(document.querySelectorAll<HTMLElement>(
       ".hero-copy, .hero-aside, .hero-foot, .section-heading, .project-card, .about-story, .skills-grid article, .education-card, .cert-card, .language-row, .contact-grid, .contact-methods a, .work-footnote"
     ));
-    // Fail open: content stays visible unless an observer is successfully initialized.
-    if (reduce || !("IntersectionObserver" in window)) {
+    const revealAll = () => {
+      document.documentElement.classList.remove("motion-enabled");
       targets.forEach(target => target.classList.add("motion-visible"));
+    };
+
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      !("IntersectionObserver" in window)
+    ) {
+      revealAll();
       return;
     }
+
+    // Enable the hidden/reveal state before observing, so below-the-fold
+    // content never flashes in and then disappears.
+    document.documentElement.classList.add("motion-enabled");
+    targets.forEach(target => target.classList.add("motion-reveal"));
+
+    let observer: IntersectionObserver;
     try {
-      const observer = new IntersectionObserver(entries => {
+      observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add("motion-visible");
             observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.08, rootMargin: "0px 0px -24px 0px" });
-      targets.forEach(target => {
-        target.classList.add("motion-reveal");
-        observer.observe(target);
-      });
-      document.documentElement.classList.add("motion-enabled");
-      return () => {
-        document.documentElement.classList.remove("motion-enabled");
-        observer.disconnect();
-      };
+      }, { threshold: 0.12, rootMargin: "0px 0px -7% 0px" });
+
+      targets.forEach(target => observer.observe(target));
     } catch {
-      targets.forEach(target => target.classList.add("motion-visible"));
-      document.documentElement.classList.remove("motion-enabled");
+      revealAll();
+      return;
     }
+
+    return () => {
+      observer.disconnect();
+      document.documentElement.classList.remove("motion-enabled");
+    };
   }, []);
+
   return null;
 }
