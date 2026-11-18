@@ -79,7 +79,7 @@ export default function Portfolio() {
         <div className="hero-copy">
           <p className="hero-name-type"><TypedName /></p>
           <p className="hero-overline">NETWORK SECURITY / CLOUD / AUTOMATION</p>
-          <h1>Network security<br/><em>student & builder.</em></h1>
+          <h1><span className="hero-title-mask"><span className="hero-title-line">Network security</span></span><span className="hero-title-mask"><span className="hero-title-line"><em>student &amp; builder.</em></span></span></h1>
           <p className="hero-intro">I’m <strong>Baba Ahmed El Bekay</strong>. I study Network Security at MIFITT Institute and build projects with Python, Linux, GNS3 and Oracle Cloud Infrastructure.</p>
           <div className="hero-actions"><a className="button button-primary" href="#work">View projects <ArrowRight size={16}/></a><a className="text-link" href="mailto:babaahmed3409@gmail.com">Contact me <ArrowUpRight size={15}/></a><a className="button button-resume" href="/resume" download="Baba-Ahmed-El-Bekay-Resume.pdf"><FileDown size={15}/> Download résumé</a></div>
           <div className="hero-credentials"><span><ShieldCheck size={14}/> Microsoft Cybersecurity</span><span><Globe2 size={14}/> Oracle Cloud Infrastructure</span><span><Network size={14}/> Network Security</span></div>
