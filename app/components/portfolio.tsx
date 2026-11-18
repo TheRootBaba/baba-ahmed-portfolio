@@ -5,6 +5,7 @@ import Image from "next/image";
 import ScrollExperience from "@/app/components/scroll-experience";
 import MotionEnhancements, { TypedName } from "@/app/components/motion-enhancements";
 import CommandTerminal from "@/app/components/command-terminal";
+import LanguageSwitch from "@/app/components/language-switch";
 import { ArrowRight, ArrowUpRight, BookOpen, FileDown, Github, Globe2, GraduationCap, Linkedin, Mail, MapPin, Menu, Network, ShieldCheck, Terminal, X } from "lucide-react";
 
 const projects = [
@@ -68,7 +69,7 @@ export default function Portfolio() {
       <button className="command-trigger" type="button" onClick={()=>setCommandOpen(true)} aria-label="Open personal command line"><Terminal size={14}/><span>Command line</span><kbd>⌘ K</kbd></button>
       <button className="menu-toggle" onClick={()=>setMenuOpen(!menuOpen)} aria-label={menuOpen?"Close menu":"Open menu"} aria-expanded={menuOpen}>{menuOpen?<X/>:<Menu/>}</button>
       <nav className={menuOpen?"main-nav nav-open":"main-nav"} aria-label="Main navigation">
-        <a href="#work" onClick={close}>Work</a><a href="#about" onClick={close}>About</a><a href="#journey" onClick={close}>Journey</a><a href="#credentials" onClick={close}>Credentials</a><a className="nav-cta" href="#contact" onClick={close}>Let’s talk <ArrowUpRight size={15}/></a>
+        <a href="#work" onClick={close}>Work</a><a href="#about" onClick={close}>About</a><a href="#journey" onClick={close}>Journey</a><a href="#credentials" onClick={close}>Credentials</a><a className="nav-cta" href="#contact" onClick={close}>Let’s talk <ArrowUpRight size={15}/></a><LanguageSwitch/>
       </nav>
     </header>
     {commandOpen&&<CommandTerminal onClose={()=>setCommandOpen(false)}/>}
