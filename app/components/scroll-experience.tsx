@@ -14,10 +14,15 @@ export default function ScrollExperience() {
       frame = requestAnimationFrame(() => {
         const root = document.documentElement;
         const max = root.scrollHeight - window.innerHeight;
-        setProgress(max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0);
-        setShowTop(window.scrollY > 560);
+        const y = window.scrollY;
+        const nextProgress = max > 0 ? Math.min(100, Math.max(0, (y / max) * 100)) : 0;
+        root.style.setProperty("--page-progress", `${nextProgress / 100}`);
+        root.style.setProperty("--hero-scroll", `${Math.min(y * 0.16, 90)}px`);
+        setProgress(nextProgress);
+        setShowTop(y > 560);
       });
     };
+
     update();
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
@@ -25,6 +30,8 @@ export default function ScrollExperience() {
       cancelAnimationFrame(frame);
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
+      document.documentElement.style.removeProperty("--page-progress");
+      document.documentElement.style.removeProperty("--hero-scroll");
     };
   }, []);
 
