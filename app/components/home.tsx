@@ -3,8 +3,9 @@
 import { Fragment, useEffect, useRef, useState, type ReactNode, type MouseEvent } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { motion, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import SmoothScroll from "@/app/components/smooth-scroll";
+import ScrollExperience from "@/app/components/scroll-experience";
 import LanguageSwitch from "@/app/components/language-switch";
 import { PROJECTS } from "@/app/lib/projects";
 import { C, CERT_META, EMAIL, PHONE, LINKEDIN, GITHUB, TOOLS, type Lang } from "@/app/lib/content";
@@ -137,8 +138,6 @@ export default function Portfolio({ lang = "en" }: { lang?: Lang }) {
   const [cmd, setCmd] = useState(false);
   const [active, setActive] = useState("");
   const [time, setTime] = useState("");
-  const { scrollYProgress } = useScroll();
-  const prog = useSpring(scrollYProgress, { stiffness: 120, damping: 28 });
   const n1 = Array.from(c.name[0]), n2 = Array.from(c.name[1]), total = n1.length + 1 + n2.length;
 
   useEffect(() => {
@@ -161,7 +160,7 @@ export default function Portfolio({ lang = "en" }: { lang?: Lang }) {
     let i = 0, t: ReturnType<typeof setTimeout>, t2: ReturnType<typeof setTimeout>;
     const tick = () => {
       i++; setTyped(i);
-      if (i < total) t = setTimeout(tick, (i === n1.length ? 380 : 85) + Math.random() * 85);
+      if (i < total) t = setTimeout(tick, i === n1.length ? 420 : 95);
       else t2 = setTimeout(() => setTd(true), 400);
     };
     t = setTimeout(tick, 750);
@@ -188,9 +187,9 @@ export default function Portfolio({ lang = "en" }: { lang?: Lang }) {
 
   return <main id="top" dir={c.dir} lang={lang} className={cls}>
     <SmoothScroll />
+    <ScrollExperience />
     {!gone && <Preloader words={c.pre.words} label={c.pre.label} onExit={onExit} onGone={onGone} />}
     <Cursor />
-    <motion.div className="prog" style={{ scaleX: prog }} />
 
     <header className="nav">
       <a className="logo" href="#top" onClick={close}>BA<span>.</span></a>

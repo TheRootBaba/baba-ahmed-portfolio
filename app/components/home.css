@@ -31,7 +31,7 @@
 .pill i{flex:none;width:7px;height:7px;border-radius:50%;background:var(--g);animation:pulse 2s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(10,140,95,.5)}70%,100%{box-shadow:0 0 0 10px transparent}}
 .nm{font:400 clamp(56px,min(13.5vw,21vh),200px)/.92 var(--serif);letter-spacing:-.05em;margin:clamp(18px,3vh,32px) 0 clamp(10px,2vh,20px)}
-.nm .ln{display:block;position:relative;white-space:nowrap}.nm .gh{visibility:hidden}.nm .ty{position:absolute;inset-inline-start:0;top:0}
+.nm .ln{display:block;position:relative;white-space:nowrap}.nm .gh{visibility:visible}.js .nm .gh{visibility:hidden}.nm .ty{position:absolute;inset-inline-start:0;top:0}
 .caret{display:inline-block;width:.055em;height:.78em;margin-left:.05em;background:var(--g);vertical-align:-.04em;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 .lx .role{font:400 clamp(24px,3.6vw,54px)/1.08 var(--serif);letter-spacing:-.03em;margin-bottom:clamp(22px,4vh,40px)}
@@ -109,3 +109,13 @@ a.cr:hover{padding-inline-start:22px;padding-inline-end:10px}a.cr:hover h3{color
 .rtl .nm{font-size:clamp(48px,min(10.5vw,17vh),170px)}.rtl .tx h3{text-align:right}.rtl .tags{justify-content:flex-end}.rtl .chrome{direction:ltr}
 @media (max-width:640px){.rtl .nm{font-size:min(15vw,17vh)}}
 @media (prefers-reduced-motion: reduce){.hx canvas{display:none}.pre,.pre *{animation:none!important;transition:none!important}.lx .rise{opacity:1!important;transform:none!important}.lx .pill i{animation:none!important}}
+
+/* Restored percentage-based reading progress and return-to-top control. */
+.scroll-progress{position:fixed;inset:0 0 auto;z-index:140;height:3px;background:rgba(10,140,95,.12);pointer-events:none}
+.scroll-progress span{display:block;width:100%;height:100%;background:linear-gradient(90deg,#087c50 0%,#19a56e 55%,#79dcae 100%);transform-origin:left center;will-change:transform}
+.scroll-top{position:fixed;inset-inline-end:24px;bottom:24px;z-index:130;width:56px;height:56px;padding:0;border:1px solid #b8d7c5;border-radius:50%;background:rgba(255,255,255,.94);color:#087c50;box-shadow:0 8px 28px rgba(20,58,37,.14);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font:600 10px var(--mono);cursor:pointer;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .25s ease,transform .35s var(--ease),visibility .25s,background .2s,color .2s}
+.scroll-top.is-visible{opacity:1;visibility:visible;transform:translateY(0)}
+.scroll-top:hover{background:#087c50;color:#fff;transform:translateY(-3px)}
+.scroll-top svg{width:15px;height:15px}
+@media(max-width:640px){.scroll-top{inset-inline-end:14px;bottom:14px;width:48px;height:48px;font-size:9px}.scroll-progress{height:2px}}
+@media(prefers-reduced-motion:reduce){.scroll-top{transition:none}.scroll-top:hover{transform:none}.scroll-progress span{will-change:auto}}
