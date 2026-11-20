@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { ChevronLeft, ChevronRight, Expand, Terminal as TermIcon, X } from "lucide-react";
 import SmoothScroll from "@/app/components/smooth-scroll";
@@ -41,8 +42,9 @@ export function Gallery({ images }: { images: Img[] }) {
     <div className="pd-gallery">{images.map((img, i) => <figure key={img.src} className={i === 0 ? "feat" : ""}>
       <button type="button" onClick={() => setOpen(i)} aria-label={`Open full size: ${img.alt}`}>
         <span className="pd-chrome"><i /><i /><i /></span>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={img.src} alt={img.alt} loading={i < 2 ? "eager" : "lazy"} decoding="async" />
+        <span className="pd-image-frame">
+          <Image src={img.src} alt={img.alt} fill sizes="(max-width: 760px) 92vw, 820px" />
+        </span>
         <span className="pd-zoom"><Expand size={14} /> Full size</span>
       </button>
       <figcaption><span className="mono">Figure {String(i + 1).padStart(2, "0")}</span>{img.caption}</figcaption>

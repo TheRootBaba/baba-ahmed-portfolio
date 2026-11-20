@@ -51,9 +51,28 @@ function Cursor() {
     if (window.matchMedia("(hover:none),(pointer:coarse)").matches) return;
     let x = -100, y = -100, cx = -100, cy = -100, raf = 0;
     const mv = (e: globalThis.MouseEvent) => { x = e.clientX; y = e.clientY; ref.current?.classList.toggle("big", !!(e.target as HTMLElement).closest?.("a,button")); };
-    const tick = () => { cx += (x - cx) * 0.16; cy += (y - cy) * 0.16; if (ref.current) ref.current.style.transform = `translate(${cx}px,${cy}px)`; raf = requestAnimationFrame(tick); };
-    window.addEventListener("mousemove", mv); raf = requestAnimationFrame(tick);
-    return () => { window.removeEventListener("mousemove", mv); cancelAnimationFrame(raf); };
+    const tick = () => {
+      raf = 0;
+      if (document.hidden) return;
+      cx += (x - cx) * 0.16;
+      cy += (y - cy) * 0.16;
+      if (ref.current) ref.current.style.transform = `translate(${cx}px,${cy}px)`;
+      raf = requestAnimationFrame(tick);
+    };
+    const visibility = () => {
+      if (document.hidden) {
+        if (raf) cancelAnimationFrame(raf);
+        raf = 0;
+      } else if (!raf) raf = requestAnimationFrame(tick);
+    };
+    window.addEventListener("mousemove", mv, { passive: true });
+    document.addEventListener("visibilitychange", visibility);
+    raf = requestAnimationFrame(tick);
+    return () => {
+      window.removeEventListener("mousemove", mv);
+      document.removeEventListener("visibilitychange", visibility);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
   return <div ref={ref} className="cur" aria-hidden />;
 }
@@ -61,35 +80,120 @@ function Cursor() {
 function NetCanvas() {
   const ref = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
-    const c = ref.current; const ctx = c?.getContext("2d"); if (!c || !ctx) return;
-    let raf = 0, w = 0, h = 0, vis = true;
-    const m = { x: -999, y: -999 }; const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const resize = () => { w = c.offsetWidth; h = c.offsetHeight; c.width = w * dpr; c.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
-    resize();
-    const N = w < 760 ? 34 : 80;
-    const nodes = Array.from({ length: N }, () => ({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35, hub: Math.random() < 0.12 }));
-    const io = new IntersectionObserver(([e]) => { vis = e.isIntersecting; }); io.observe(c);
-    const draw = () => {
-      raf = requestAnimationFrame(draw);
-      if (!vis) return;
-      ctx.clearRect(0, 0, w, h);
-      for (const n of nodes) {
-        const dx = n.x - m.x, dy = n.y - m.y, d = Math.hypot(dx, dy) || 1;
-        if (d < 160) { n.vx += (dx / d) * 0.035; n.vy += (dy / d) * 0.035; }
-        n.vx *= 0.995; n.vy *= 0.995; n.x += n.vx; n.y += n.vy;
-        if (n.x < 0 || n.x > w) n.vx *= -1;
-        if (n.y < 0 || n.y > h) n.vy *= -1;
-      }
-      for (let i = 0; i < N; i++) for (let j = i + 1; j < N; j++) {
-        const a = nodes[i], b = nodes[j], d = Math.hypot(a.x - b.x, a.y - b.y);
-        if (d < 150) { ctx.strokeStyle = `rgba(10,140,95,${(1 - d / 150) * 0.32})`; ctx.lineWidth = 0.8; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
-      }
-      for (const n of nodes) { ctx.fillStyle = n.hub ? "#0a8c5f" : "rgba(12,19,15,.35)"; ctx.beginPath(); ctx.arc(n.x, n.y, n.hub ? 3 : 1.5, 0, 7); ctx.fill(); }
+    const canvas = ref.current;
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx) return;
+
+    type Node = { x: number; y: number; vx: number; vy: number; hub: boolean };
+    let raf = 0, width = 0, height = 0, visible = false, pageVisible = !document.hidden;
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const pointer = { x: -999, y: -999 };
+    const nodes: Node[] = [];
+
+    const syncNodes = () => {
+      const target = width < 760 ? 28 : 58;
+      while (nodes.length < target) nodes.push({
+        x: Math.random() * width, y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
+        hub: Math.random() < 0.12
+      });
+      if (nodes.length > target) nodes.length = target;
+      nodes.forEach(n => { n.x = Math.min(n.x, width); n.y = Math.min(n.y, height); });
     };
-    draw();
-    const mv = (e: globalThis.MouseEvent) => { const r = c.getBoundingClientRect(); m.x = e.clientX - r.left; m.y = e.clientY - r.top; };
-    window.addEventListener("mousemove", mv); window.addEventListener("resize", resize);
-    return () => { cancelAnimationFrame(raf); io.disconnect(); window.removeEventListener("mousemove", mv); window.removeEventListener("resize", resize); };
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      syncNodes();
+    };
+
+    const stop = () => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+    };
+
+    const draw = () => {
+      raf = 0;
+      if (!visible || !pageVisible) return;
+
+      ctx.clearRect(0, 0, width, height);
+      for (const node of nodes) {
+        const dx = node.x - pointer.x, dy = node.y - pointer.y;
+        const distance = Math.hypot(dx, dy) || 1;
+        if (distance < 160) {
+          node.vx += (dx / distance) * 0.035;
+          node.vy += (dy / distance) * 0.035;
+        }
+        node.vx *= 0.995;
+        node.vy *= 0.995;
+        node.x += node.vx;
+        node.y += node.vy;
+        if (node.x < 0 || node.x > width) node.vx *= -1;
+        if (node.y < 0 || node.y > height) node.vy *= -1;
+      }
+
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i], b = nodes[j];
+          const distance = Math.hypot(a.x - b.x, a.y - b.y);
+          if (distance < 150) {
+            ctx.strokeStyle = `rgba(10,140,95,${(1 - distance / 150) * 0.32})`;
+            ctx.lineWidth = 0.8;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      for (const node of nodes) {
+        ctx.fillStyle = node.hub ? "#0a8c5f" : "rgba(12,19,15,.35)";
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.hub ? 3 : 1.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(draw);
+    };
+
+    const start = () => {
+      if (!raf && visible && pageVisible) raf = requestAnimationFrame(draw);
+    };
+    const onVisibility = () => {
+      pageVisible = !document.hidden;
+      if (pageVisible) start();
+      else stop();
+    };
+    const onPointer = (event: globalThis.MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      pointer.x = event.clientX - rect.left;
+      pointer.y = event.clientY - rect.top;
+    };
+
+    resize();
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = Boolean(entry?.isIntersecting);
+      if (visible) start();
+      else stop();
+    });
+    observer.observe(canvas);
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(canvas);
+    document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("mousemove", onPointer, { passive: true });
+
+    return () => {
+      stop();
+      observer.disconnect();
+      resizeObserver.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("mousemove", onPointer);
+    };
   }, []);
   return <canvas ref={ref} aria-hidden />;
 }
@@ -140,6 +244,15 @@ export default function Portfolio({ lang = "en" }: { lang?: Lang }) {
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = ""; };
   }, [total]);
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = c.dir;
+    return () => {
+      document.documentElement.lang = "en";
+      document.documentElement.dir = "ltr";
+    };
+  }, [lang, c.dir]);
   const onExit = useRef(() => { setExit(true); document.body.style.overflow = ""; }).current;
   const onGone = useRef(() => setGone(true)).current;
 
@@ -175,7 +288,7 @@ export default function Portfolio({ lang = "en" }: { lang?: Lang }) {
 
   return <main id="top" dir={c.dir} lang={lang} className={cls}>
     <SmoothScroll />
-    <ScrollExperience />
+    <ScrollExperience rtl={rtl} />
     {!gone && <Preloader words={c.pre.words} label={c.pre.label} onExit={onExit} onGone={onGone} />}
     <Cursor />
 

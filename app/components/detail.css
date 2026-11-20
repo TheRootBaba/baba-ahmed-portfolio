@@ -66,3 +66,6 @@
 .pd-bar{animation:pdBar .9s var(--ease) both}@keyframes pdBar{from{transform:translateY(-100%)}}
 .pd-sec,.pd-foot{animation:none}
 @media (max-width:760px){.pd-kbd{display:none}}
+
+.pd-image-frame{position:relative;display:block;width:100%;aspect-ratio:16/10;overflow:hidden;background:#f2f5f2}
+.pd-image-frame img{object-fit:contain}

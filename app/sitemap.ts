@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/ar",
     "/projects/aegissoc",
+    "/projects/cloudshield",
     "/projects/netsec-agent",
     "/projects/netops-sentinel",
     "/projects/secure-enterprise-network",
