@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, ArrowUpRight, Github, ExternalLink, FileText } from "lucide-react";
-import ProjectScrollUI from "@/app/components/project-scroll-ui";
-import ProjectVisual from "@/app/components/project-visual";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Github, FileText } from "lucide-react";
+import { ProjectNav, Gallery, TermButton } from "@/app/components/project-client";
+import { PROJECTS, bySlug } from "@/app/lib/projects";
+import "@/app/components/detail.css";
 
 type ProjectDetailProps = {
   slug: string; number: string; category: string; title: string; summary: string; repository?: string;
@@ -18,109 +19,84 @@ type ProjectDetailProps = {
 };
 
 export default function ProjectDetail(p: ProjectDetailProps) {
+  const idx = Math.max(0, bySlug(p.slug));
+  const meta = PROJECTS[idx], next = PROJECTS[(idx + 1) % PROJECTS.length], prev = PROJECTS[(idx - 1 + PROJECTS.length) % PROJECTS.length];
   const hasEvidence = Boolean(p.images?.length || p.video);
-  return (
-    <main className="detail-page">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "CreativeWork",
-        name: p.title,
-        description: p.summary,
-        url: "https://www.babaahmed.me/projects/" + p.slug,
-        author: { "@type": "Person", name: "Baba Ahmed El Bekay", url: "https://www.babaahmed.me" },
-        keywords: p.stack,
-        ...(p.repository ? { sameAs: p.repository } : {})
-      }).replace(/</g, "\\u003c") }} />
-      <ProjectScrollUI hasEvidence={hasEvidence} hasArchitecture={Boolean(p.architecture?.length)} hasValidation={Boolean(p.validation?.length)} />
-      <header className="detail-header">
-        <Link href="/" className="detail-back"><ArrowLeft size={16} /> Back to portfolio</Link>
-        <span>PROJECT CASE STUDY / {p.number}</span>
-      </header>
+  const secs = [
+    { id: "context", label: "The challenge", on: true },
+    { id: "architecture", label: "System design", on: Boolean(p.architecture?.length) },
+    { id: "engineering-log", label: "Build log", on: Boolean(p.milestones?.length) },
+    { id: "decisions", label: "Decisions", on: Boolean(p.decisions?.length) },
+    { id: "next-experiment", label: "Next test", on: Boolean(p.nextExperiment) },
+    { id: "approach", label: "Implementation", on: true },
+    { id: "validation", label: "Validation", on: Boolean(p.validation?.length) },
+    { id: "outcomes", label: "Results", on: true },
+    { id: "evidence", label: "Evidence", on: hasEvidence },
+    { id: "scope", label: "Scope & limits", on: true },
+  ].filter(s => s.on);
+  const num = (id: string) => String(secs.findIndex(s => s.id === id) + 1).padStart(2, "0");
+  const Head = ({ id, title, lede }: { id: string; title: string; lede?: string }) => <header className="pd-head"><span className="mono">{num(id)} / {secs.find(s => s.id === id)?.label}</span><h2>{title}</h2>{lede && <p className="lede">{lede}</p>}</header>;
 
-      <section className="detail-hero" id="overview">
-        <div className="detail-kicker"><span className="availability-dot" /> {p.category}</div>
-        <div className="detail-title-row"><div><p className="section-index">ENGINEERING PROJECT / {p.number}</p><h1>{p.title}<span>.</span></h1></div><span className="detail-edition">CASE STUDY<br />2026</span></div>
-        <p className="detail-summary">{p.summary}</p>
-        <div className="detail-actions">
-          {p.repository && <a className="button button-primary" href={p.repository} target="_blank" rel="noreferrer"><Github size={16} /> Explore repository <ArrowUpRight size={15} /></a>}
-          <Link href="/#work" className="text-link">All projects <ArrowLeft size={14} /></Link>
-        </div>
-        <div className="detail-overview-strip"><div><span>PROJECT</span><b>{p.title}</b></div><div><span>TYPE</span><b>{p.category.split(" · ")[0]}</b></div><div><span>TECHNOLOGIES</span><b>{p.stack.length} core tools</b></div></div>
-        <div className="detail-stack" aria-label="Technology stack">{p.stack.map(item => <span key={item}>{item}</span>)}</div>
-        {p.documentation?.length ? <div className="detail-doc-links">{p.documentation.map(doc => <a key={doc.href} href={doc.href} target="_blank" rel="noreferrer"><FileText size={14}/>{doc.label}<ArrowUpRight size={13}/></a>)}</div> : null}
-        <ProjectVisual slug={p.slug} title={p.title} />
-      </section>
+  return <main className="pd">
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "CreativeWork", name: p.title, description: p.summary, url: "https://www.babaahmed.me/projects/" + p.slug, author: { "@type": "Person", name: "Baba Ahmed El Bekay", url: "https://www.babaahmed.me" }, keywords: p.stack, ...(p.repository ? { sameAs: p.repository } : {}) }).replace(/</g, "\\u003c") }} />
+    <header className="pd-bar">
+      <Link href="/" className="pd-back"><ArrowLeft size={15} /> Portfolio</Link>
+      <Link href="/" className="pd-brand" aria-label="Home">BA<span>.</span></Link>
+      <div className="pd-pager"><TermButton /><span className="mono">{p.number} / {String(PROJECTS.length).padStart(2, "0")}</span><Link href={`/projects/${prev.slug}`} aria-label={`Previous: ${prev.name}`}><ArrowLeft size={15} /></Link><Link href={`/projects/${next.slug}`} aria-label={`Next: ${next.name}`}><ArrowRight size={15} /></Link></div>
+    </header>
 
-      <div className="detail-content">
-        <section className="detail-block detail-problem">
-          <div className="detail-section-heading"><p className="section-index">01 / CONTEXT</p><span>THE WHY</span></div>
-          <h2>The challenge</h2><p>{p.problem}</p>
-        </section>
-
-        {p.architecture?.length ? <section className="detail-block" id="architecture">
-          <div className="detail-section-heading"><p className="section-index">02 / SYSTEM DESIGN</p><span>THE STRUCTURE</span></div>
-          <h2>How the pieces fit together</h2>
-          <p className="detail-lede">A high-level view of the documented workflow and component boundaries.</p>
-          <div className="architecture-flow">{p.architecture.map((node,index)=><div className="architecture-node" key={node.name}><span className="architecture-index">{String(index+1).padStart(2,"0")}</span><div><h3>{node.name}</h3><p>{node.detail}</p></div>{index < p.architecture!.length-1 ? <span className="architecture-connector" aria-hidden="true">→</span> : null}</div>)}</div>
-        </section> : null}
-
-        {p.milestones?.length ? <section className="detail-block engineering-log" id="engineering-log">
-          <div className="detail-section-heading"><p className="section-index">03 / ENGINEERING LOG</p><span>THE BUILD SEQUENCE</span></div>
-          <h2>How the work took shape</h2>
-          <p className="detail-lede">A transparent sequence of engineering milestones. Status labels describe documented work—not a live completion percentage.</p>
-          <ol className="milestone-timeline">{p.milestones.map((item,index)=><li key={item.phase}>
-            <span className="milestone-index">{String(index+1).padStart(2,"0")}</span>
-            <div className="milestone-copy"><div className="milestone-meta"><span>{item.phase}</span><span className={"milestone-status status-" + item.status.toLowerCase().replace(/[^a-z]+/g,"-")}>{item.status}</span></div><h3>{item.title}</h3><p>{item.detail}</p></div>
-          </li>)}</ol>
-        </section> : null}
-
-        {p.decisions?.length ? <section className="detail-block" id="decisions">
-          <div className="detail-section-heading"><p className="section-index">04 / DESIGN JUDGMENT</p><span>TRADE-OFFS &amp; REASONS</span></div>
-          <h2>Decisions behind the design</h2>
-          <p className="detail-lede">The engineering choices that shape the system—and the reason each boundary exists.</p>
-          <div className="decision-list">{p.decisions.map((item,index)=><article key={item.choice}><span>{String(index+1).padStart(2,"0")}</span><div><h3>{item.choice}</h3><p>{item.rationale}</p></div></article>)}</div>
-        </section> : null}
-        {p.nextExperiment ? <section className="detail-block next-experiment" id="next-experiment">
-          <div className="detail-section-heading"><p className="section-index">05 / NEXT INVESTIGATION</p><span>THE NEXT USEFUL TEST</span></div>
-          <h2>What I would test next</h2><p>{p.nextExperiment}</p>
-        </section> : null}
-
-        <section className="detail-block" id="approach">
-          <div className="detail-section-heading"><p className="section-index">06 / IMPLEMENTATION</p><span>THE HOW</span></div>
-          <h2>Engineering approach</h2>
-          <p className="detail-lede">The work is broken into practical building blocks, from initial design through to validation.</p>
-          <ol className="approach-list">{p.approach.map((item,index)=><li key={item}><span className="approach-number">{String(index+1).padStart(2,"0")}</span><p>{item}</p></li>)}</ol>
-        </section>
-
-        {p.validation?.length ? <section className="detail-block" id="validation">
-          <div className="detail-section-heading"><p className="section-index">07 / VERIFICATION</p><span>THE CHECKS</span></div>
-          <h2>Validation & evidence</h2>
-          <p className="detail-lede">Specific checks documented for this project. Results are scoped to the recorded lab or test run.</p>
-          <div className="validation-grid">{p.validation.map(item=><article key={item.label}><span>{item.label}</span><b>{item.result}</b><p>{item.detail}</p></article>)}</div>
-        </section> : null}
-
-        <section className="detail-block" id="outcomes">
-          <div className="detail-section-heading"><p className="section-index">08 / RESULTS</p><span>THE VALUE</span></div>
-          <h2>What this project demonstrates</h2>
-          <div className="outcome-grid">{p.outcomes.map((item,index)=><article key={item}><span>0{index+1}</span><p>{item}</p></article>)}</div>
-        </section>
-
-        {hasEvidence ? <section className="detail-evidence" id="evidence">
-          <div className="detail-section-heading"><p className="section-index">09 / EVIDENCE</p><span>THE BUILD</span></div>
-          <h2>Project in practice</h2>
-          <p className="detail-lede">Original project captures and walkthrough media. Each item is labelled to explain what it demonstrates.</p>{p.evidenceNotice ? <p className="evidence-notice">{p.evidenceNotice}</p> : null}
-          {p.video ? <div className="detail-video"><video controls playsInline preload="none" aria-label={p.videoLabel || "Project walkthrough"}><source src={p.video} type="video/mp4"/>Your browser does not support embedded video.</video><p>{p.videoLabel || "Project walkthrough"}</p></div> : null}
-          {p.images?.length ? <div className="detail-gallery">{p.images.map((img,index)=><figure key={img.src} className={index===0?"gallery-feature":""}><a href={img.src} target="_blank" rel="noreferrer" aria-label={`Open full-size image: ${img.alt}`}><span className="gallery-image-frame"><Image src={img.src} alt={img.alt} fill sizes="(max-width: 650px) 100vw, 900px" /></span><span className="gallery-open"><ExternalLink size={14}/> Open full size</span></a><figcaption><span>FIGURE {String(index+1).padStart(2,"0")}</span>{img.caption}</figcaption></figure>)}</div> : null}
-        </section> : null}
-
-        <section className="detail-block detail-boundaries" id="scope">
-          <div className="detail-section-heading"><p className="section-index">10 / ENGINEERING NOTES</p><span>TRANSPARENCY</span></div>
-          <h2>Scope, assumptions &amp; limitations</h2>
-          <p className="detail-lede">Clear boundaries matter. These notes describe what the current project does—and what it does not claim to do.</p>
-          <ul>{p.boundaries.map(item=><li key={item}>{item}</li>)}</ul>
-        </section>
+    <section className="pd-hero" id="overview"><div className="pd-wrap">
+      <span className="pd-pill mono"><i />{p.category}</span>
+      <h1>{p.title}<em>.</em></h1>
+      <p className="pd-sum">{p.summary}</p>
+      <div className="pd-acts">
+        {p.repository && <a className="pd-btn p" href={p.repository} target="_blank" rel="noreferrer"><Github size={16} /> Explore repository <ArrowUpRight size={15} /></a>}
+        <Link href="/#work" className="pd-btn">All projects</Link>
       </div>
-      <footer className="detail-footer"><Link href="/#work"><ArrowLeft size={15}/> Back to all projects</Link><span>BABA AHMED EL BEKAY · {p.number}</span></footer>
-    </main>
-  );
+      <div className="pd-cover"><div className="pd-chrome"><i /><i /><i /><span>{meta.host}</span></div><div className={`pd-shot${meta.art ? " art" : ""}`}><Image src={meta.cover} alt={meta.coverAlt} fill priority sizes="(max-width:1100px) 94vw, 1200px" unoptimized={meta.art} /></div></div>
+      <div className="pd-meta"><div><span className="mono">Project</span><b>{p.title}</b></div><div><span className="mono">Type</span><b>{p.category.split(" · ").slice(-1)[0]}</b></div><div><span className="mono">Core tools</span><b>{p.stack.length} technologies</b></div><div><span className="mono">Edition</span><b>Case study 2026</b></div></div>
+      <div className="pd-stack" aria-label="Technology stack">{p.stack.map(s => <span key={s}>{s}</span>)}</div>
+      {p.documentation?.length ? <div className="pd-docs">{p.documentation.map(d => <a key={d.href} href={d.href} target="_blank" rel="noreferrer"><FileText size={14} />{d.label}<ArrowUpRight size={13} /></a>)}</div> : null}
+    </div></section>
+
+    <div className="pd-wrap pd-layout">
+      <ProjectNav toc={secs.map(({ id, label }) => ({ id, label }))} />
+      <div className="pd-main">
+        <section className="pd-sec" id="context"><Head id="context" title="The challenge" /><p className="pd-p">{p.problem}</p></section>
+
+        {p.architecture?.length ? <section className="pd-sec" id="architecture"><Head id="architecture" title="How the pieces fit together" lede="A high-level view of the documented workflow and component boundaries." />
+          <div className="pd-arch">{p.architecture.map((n, i) => <article key={n.name}><span className="mono">{String(i + 1).padStart(2, "0")}</span><h3>{n.name}</h3><p>{n.detail}</p></article>)}</div></section> : null}
+
+        {p.milestones?.length ? <section className="pd-sec" id="engineering-log"><Head id="engineering-log" title="How the work took shape" lede="A transparent sequence of engineering milestones. Status labels describe documented work, not a live completion percentage." />
+          <ol className="pd-log">{p.milestones.map((m, i) => <li key={m.phase}><span className="dot">{String(i + 1).padStart(2, "0")}</span><div><div className="row"><span className="mono">{m.phase}</span><span className={`st st-${m.status.toLowerCase().replace(/[^a-z]+/g, "-")}`}>{m.status}</span></div><h3>{m.title}</h3><p>{m.detail}</p></div></li>)}</ol></section> : null}
+
+        {p.decisions?.length ? <section className="pd-sec" id="decisions"><Head id="decisions" title="Decisions behind the design" lede="The engineering choices that shape the system, and the reason each boundary exists." />
+          <div className="pd-dec">{p.decisions.map((d, i) => <article key={d.choice}><span className="mono">{String(i + 1).padStart(2, "0")}</span><div><h3>{d.choice}</h3><p>{d.rationale}</p></div></article>)}</div></section> : null}
+
+        {p.nextExperiment ? <section className="pd-sec" id="next-experiment"><Head id="next-experiment" title="What I would test next" /><p className="pd-p callout">{p.nextExperiment}</p></section> : null}
+
+        <section className="pd-sec" id="approach"><Head id="approach" title="Engineering approach" lede="The work is broken into practical building blocks, from initial design through to validation." />
+          <ol className="pd-steps">{p.approach.map((a, i) => <li key={a}><span>{String(i + 1).padStart(2, "0")}</span><p>{a}</p></li>)}</ol></section>
+
+        {p.validation?.length ? <section className="pd-sec" id="validation"><Head id="validation" title="Validation & evidence" lede="Specific checks documented for this project. Results are scoped to the recorded lab or test run." />
+          <div className="pd-val">{p.validation.map(v => <article key={v.label}><span className="mono">{v.label}</span><b>{v.result}</b><p>{v.detail}</p></article>)}</div></section> : null}
+
+        <section className="pd-sec" id="outcomes"><Head id="outcomes" title="What this project demonstrates" />
+          <div className="pd-out">{p.outcomes.map((o, i) => <article key={o}><span className="mono">0{i + 1}</span><p>{o}</p></article>)}</div></section>
+
+        {hasEvidence ? <section className="pd-sec" id="evidence"><Head id="evidence" title="Project in practice" lede="Original project captures. Select any image to view it full size." />
+          {p.evidenceNotice ? <p className="pd-note">{p.evidenceNotice}</p> : null}
+          {p.video ? <div className="pd-video"><video controls playsInline preload="none" aria-label={p.videoLabel || "Project walkthrough"}><source src={p.video} type="video/mp4" /></video><p>{p.videoLabel || "Project walkthrough"}</p></div> : null}
+          {p.images?.length ? <Gallery images={p.images} /> : null}</section> : null}
+
+        <section className="pd-sec" id="scope"><Head id="scope" title="Scope, assumptions & limitations" lede="Clear boundaries matter. These notes describe what the current project does, and what it does not claim to do." />
+          <ul className="pd-bound">{p.boundaries.map(b => <li key={b}>{b}</li>)}</ul></section>
+      </div>
+    </div>
+
+    <footer className="pd-wrap pd-foot">
+      <Link href={`/projects/${next.slug}`} className="pd-next"><span className="mono">Next project — {next.n} / {String(PROJECTS.length).padStart(2, "0")}</span><b>{next.name}<em>.</em></b><i><ArrowUpRight size={26} /></i></Link>
+      <div className="pd-fl"><Link href="/#work"><ArrowLeft size={14} /> Back to all projects</Link><span className="mono">© 2026 Baba Ahmed El Bekay</span></div>
+    </footer>
+  </main>;
 }
