@@ -5,6 +5,7 @@ const siteUrl = "https://www.babaahmed.me";
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
+    "/ar",
     "/projects/aegissoc",
     "/projects/netsec-agent",
     "/projects/netops-sentinel",

@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import Portfolio from "@/app/components/portfolio";
+import Portfolio from "@/app/components/home";
 
 const siteUrl = "https://www.babaahmed.me";
 
 export const metadata: Metadata = {
   title: "Baba Ahmed El Bekay | Network Security & Cybersecurity Portfolio",
   description: "Explore the cybersecurity and network engineering work of Baba Ahmed El Bekay: AegisSOC, Python security automation, network operations labs, cloud infrastructure and documented technical case studies. Based in Mauritania and open to remote opportunities.",
-  alternates: { canonical: "/" },
+  alternates: { canonical: "/", languages: { en: "/", ar: "/ar" } },
   openGraph: {
     type: "website",
     url: siteUrl,
@@ -69,7 +69,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
       />
-      <Portfolio />
+      <Portfolio lang="en" />
     </>
   );
 }
