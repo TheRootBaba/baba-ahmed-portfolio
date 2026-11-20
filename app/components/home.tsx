@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useRef, useState, type ReactNode, type MouseEvent } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import SmoothScroll from "@/app/components/smooth-scroll";
 import ScrollExperience from "@/app/components/scroll-experience";
 import LanguageSwitch from "@/app/components/language-switch";
@@ -16,9 +16,8 @@ const Terminal = dynamic(() => import("@/app/components/terminal"), { ssr: false
 
 function Magnetic({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
-  const reduceMotion = useReducedMotion();
   const move = (e: MouseEvent) => {
-    const el = ref.current; if (!el || reduceMotion) return;
+    const el = ref.current; if (!el) return;
     const r = el.getBoundingClientRect();
     el.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.25}px,${(e.clientY - r.top - r.height / 2) * 0.25}px)`;
   };
@@ -32,13 +31,11 @@ function spotMove(e: MouseEvent<HTMLElement>) {
 }
 
 function Reveal({ children, delay = 0, y = 36 }: { children: ReactNode; delay?: number; y?: number }) {
-  const reduceMotion = useReducedMotion();
-  return <motion.div initial={reduceMotion ? false : { opacity: 0, y }} whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }} viewport={{ once: true, margin: "0px 0px -60px 0px" }} transition={reduceMotion ? { duration: 0 } : { duration: 1.1, delay, ease: [0.22, 1, 0.36, 1] }}>{children}</motion.div>;
+  return <motion.div initial={{ opacity: 0, y }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "0px 0px -60px 0px" }} transition={{ duration: 1.1, delay, ease: [0.22, 1, 0.36, 1] }}>{children}</motion.div>;
 }
 
 function Word({ w, p, a, b }: { w: string; p: MotionValue<number>; a: number; b: number }) {
-  const reduceMotion = useReducedMotion();
-  const o = useTransform(p, [a, b], reduceMotion ? [1, 1] : [0.16, 1]);
+  const o = useTransform(p, [a, b], [0.16, 1]);
   return <motion.span className="w" style={{ opacity: o }}>{w}</motion.span>;
 }
 function ScrollText({ text }: { text: string }) {
@@ -51,7 +48,7 @@ function ScrollText({ text }: { text: string }) {
 function Cursor() {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (window.matchMedia("(hover:none),(pointer:coarse),(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(hover:none),(pointer:coarse)").matches) return;
     let x = -100, y = -100, cx = -100, cy = -100, raf = 0;
     const mv = (e: globalThis.MouseEvent) => { x = e.clientX; y = e.clientY; ref.current?.classList.toggle("big", !!(e.target as HTMLElement).closest?.("a,button")); };
     const tick = () => { cx += (x - cx) * 0.16; cy += (y - cy) * 0.16; if (ref.current) ref.current.style.transform = `translate(${cx}px,${cy}px)`; raf = requestAnimationFrame(tick); };
@@ -66,7 +63,6 @@ function NetCanvas() {
   useEffect(() => {
     const c = ref.current; const ctx = c?.getContext("2d"); if (!c || !ctx) return;
     let raf = 0, w = 0, h = 0, vis = true;
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const m = { x: -999, y: -999 }; const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const resize = () => { w = c.offsetWidth; h = c.offsetHeight; c.width = w * dpr; c.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
     resize();
@@ -74,7 +70,7 @@ function NetCanvas() {
     const nodes = Array.from({ length: N }, () => ({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35, hub: Math.random() < 0.12 }));
     const io = new IntersectionObserver(([e]) => { vis = e.isIntersecting; }); io.observe(c);
     const draw = () => {
-      if (!reduceMotion) raf = requestAnimationFrame(draw);
+      raf = requestAnimationFrame(draw);
       if (!vis) return;
       ctx.clearRect(0, 0, w, h);
       for (const n of nodes) {
@@ -98,12 +94,11 @@ function NetCanvas() {
   return <canvas ref={ref} aria-hidden />;
 }
 
-/* Short, deliberately paced preloader, skipped for reduced-motion preferences. */
+/* Percentage preloader with timed language transitions and a controlled exit. */
 function Preloader({ words, label, onExit, onGone }: { words: string[]; label: string; onExit: () => void; onGone: () => void }) {
   const num = useRef<HTMLSpanElement>(null), bar = useRef<HTMLElement>(null);
   const [w, setW] = useState(0); const [out, setOut] = useState(false);
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const D = 2400, t0 = performance.now(); let raf = 0, wi = 0; const timers: ReturnType<typeof setTimeout>[] = [];
     const ease = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
     const tick = (now: number) => {
@@ -142,13 +137,6 @@ export default function Portfolio({ lang = "en" }: { lang?: Lang }) {
 
   useEffect(() => {
     setMounted(true);
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setExit(true);
-      setTyped(total);
-      setTd(true);
-      setGone(true);
-      return;
-    }
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = ""; };
   }, [total]);
@@ -156,7 +144,7 @@ export default function Portfolio({ lang = "en" }: { lang?: Lang }) {
   const onGone = useRef(() => setGone(true)).current;
 
   useEffect(() => {
-    if (!exit || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!exit) return;
     let i = 0, t: ReturnType<typeof setTimeout>, t2: ReturnType<typeof setTimeout>;
     const tick = () => {
       i++; setTyped(i);
@@ -246,12 +234,19 @@ export default function Portfolio({ lang = "en" }: { lang?: Lang }) {
 
     <section className="sec" id="credentials" style={{ paddingTop: 0 }}><div className="wrap">
       <div className="sh"><Reveal><span className="mono">{c.creds.idx}</span><h2>{c.creds.title[0]}<em>{c.creds.title[1]}</em></h2></Reveal><Reveal delay={0.12}><p className="d">{c.creds.desc}</p></Reveal></div>
-      <div>{c.creds.items.map(([name, issuer, kind], i) => {
+      <div className="cert-grid">{c.creds.items.map(([name, issuer, kind], i) => {
         const { url, brands } = CERT_META[i];
-        const n = String(i + 1).padStart(2, "0");
-        const inner = <><span className="mono">{rtl ? n.replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[+d]) : n}</span><div><h3>{name}</h3><span className="mono iss">{issuer} · {kind}</span></div><span className="mono hide brand-i" dir="ltr">{brands.map(b => <Image key={b} src={`/issuer-logos/${b}.svg`} alt="" width={78} height={20} unoptimized />)}{issuer}</span><span className="mono hide">{kind}</span>{url ? <ArrowUpRight size={20} className="ai" /> : <span />}</>;
-        const k = `cr${i === c.creds.items.length - 1 ? " last" : ""}`;
-        return <Reveal key={name} y={16}>{url ? <a className={k} href={url} target="_blank" rel="noreferrer">{inner}</a> : <div className={k}>{inner}</div>}</Reveal>;
+        return <Reveal key={name} delay={(i % 4) * 0.06} y={24}>
+          <article className="cert-card">
+            <div className="cert-card-top" dir="ltr">
+              {brands.length ? brands.map(b => <Image key={b} src={`/issuer-logos/${b}.svg`} alt="" width={78} height={24} unoptimized />) : <span className="cert-mark-fallback">{issuer.split(" ")[0]}</span>}
+            </div>
+            <span className="mono cert-type">{kind}</span>
+            <h3>{name}</h3>
+            <p className="cert-issuer">{issuer}</p>
+            {url ? <a className="cert-view" href={url} target="_blank" rel="noreferrer">View credential <ArrowUpRight size={14} /></a> : <span className="cert-unlinked">Credential link not provided</span>}
+          </article>
+        </Reveal>;
       })}</div>
     </div></section>
 
