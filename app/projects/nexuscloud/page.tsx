@@ -11,7 +11,7 @@ export const metadata:Metadata=projectMetadata({
 export default function Page(){
   return <ProjectDetail
     slug="nexuscloud"
-    number="05"
+    number="06"
     category="INFRASTRUCTURE & OBSERVABILITY LAB"
     title="NexusCloud"
     summary="A local-first infrastructure engineering lab focused on service isolation, observability, controlled failure testing and secure site-to-site routing. The current implementation is a reproducible local lab, not a deployed hybrid-cloud environment."
