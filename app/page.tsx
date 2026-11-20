@@ -4,7 +4,7 @@ import Portfolio from "@/app/components/home";
 const siteUrl = "https://www.babaahmed.me";
 
 export const metadata: Metadata = {
-  title: "Network Security & Cybersecurity Portfolio",
+  title: { absolute: "Baba Ahmed El Bekay — Network Security & Cybersecurity" },
   description: "Explore Baba Ahmed El Bekay’s network security portfolio: cloud security, AegisSOC, Python security automation, network engineering labs and evidence-led case studies.",
   alternates: { canonical: "/", languages: { en: "/", ar: "/ar" } },
   openGraph: {
